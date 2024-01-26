@@ -50,6 +50,7 @@
     @yield('style')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+@include('admins.layouts.message')
 <div class="wrapper">
     <!-- Navbar header -->
     @include('admins.layouts.header')
