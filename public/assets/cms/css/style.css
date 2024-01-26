@@ -1,0 +1,175 @@
+.main-header.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.card-body {
+    padding-bottom: 10px;
+}
+.content-header {
+    padding-top: 100px;
+}
+#table {
+    text-align: center;
+    align-items: center;
+}
+.main-sidebar.elevation-4.sidebar-light-lightblue {
+    /*background-color: #0974A0 !important;*/
+    background-color: #514e4ff0;
+}
+.nav .nav-link p {
+    color: #ffffff !important;
+}
+.nav .nav-link i {
+    color: #ffffff !important;
+}
+#table thead tr {
+    background-color: #0974A0;
+    color: #fff;
+}
+.btn-action {
+    border-radius: 24px;
+    padding: 0 13px;
+}
+table td img {
+    width: 150px;
+    height: 150px;
+}
+form img {
+    width: 250px;
+    height: 250px;
+    padding-bottom: 20px;
+}
+#table tbody tr td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle
+}
+
+.nav-right-info {
+    padding: 20px 0 0 12px;
+    margin: 0;
+}
+.nav-right-info li {
+    display: block;
+    list-style: none;
+}
+.nav-right-info li:hover {
+    background-color: #d4d6d8;
+}
+.nav-right-info a {
+    display: flex;
+    align-items: center;
+}
+.nav-right-info i {
+    margin-right: 10px;
+}
+a.nav-link {
+    padding: 11px 6px 11px 0;
+}
+.nav-sidebar .nav-item>.nav-link .right {
+    right: 4px;
+}
+.nav-link-item {
+    padding-left: 20px;
+}
+
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.dataTables_info {
+    padding-bottom: 60px;
+}
+.swal2-popup {
+    width: 468px;
+    font-size: 18px;
+    padding: 0 0 16px;
+}
+.swal2-title {
+    padding: 0;
+}
+.swal2-icon {
+    margin-top: 20px;
+    /*width: 80px;*/
+    /*height: 80px;*/
+}
+.swal2-actions {
+    margin-top: 15px;
+}
+.swal2-html-container {
+    margin-top: 12px;
+}
+.swal2-confirm {
+    height: 42px;
+    display: block;
+    font-size: 14px !important;
+}
+.swal2-cancel {
+    height: 42px;
+    display: block;
+    font-size: 14px !important;
+}
+.btn-success {
+    background-color: #0974A0;
+    border-color: #0974A0;
+}
+form .card-footer .btn-info,
+.btn-success:hover {
+    background-color: #0974A0;
+    border-color: #0974A0;
+}
+.btn-success:focus {
+    background-color: #0974A0;
+    border-color: #0974A0;
+}
+form .card-footer .btn-info {
+    background-color: #0974A0;
+    border-color: #0974A0;
+}
+.btn-primary.btn-action {
+    background-color: #0974A0;
+}
+.status-complaint {
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 3px;
+    outline: none;
+    max-width: 110px;
+}
+
+.bg-complaint-0 {
+    background-color: #db1616;
+}
+.bg-complaint-1 {
+    background-color: #e9ca08;
+}
+.bg-complaint-2 {
+    background-color: #1068c7;
+}
+.status-get-coin {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #495057;
+    padding: 3px;
+    outline: none;
+}
+.status-get-coin:focus {
+    border: 1px solid #007bff;
+}
+.color-red {
+    color: red;
+}
+a.btn {
+    font-size: 13px;
+}
+ul.pagination li {
+    font-size: 13px;
+    line-height: 1.2;
+}
