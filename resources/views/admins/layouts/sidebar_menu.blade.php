@@ -18,6 +18,12 @@
                     <p>Product</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.banners.index') }}" class="nav-link">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>Banner</p>
+                </a>
+            </li>
 {{--            <li class="nav-item">--}}
 {{--                <a href="#" class="nav-link">--}}
 {{--                    <i class="fa-solid fa-list nav-icon"></i>--}}

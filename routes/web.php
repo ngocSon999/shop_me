@@ -4,6 +4,7 @@
  * Route admin
  */
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -35,6 +36,16 @@ Route::prefix('/admin')->middleware('sentinel.auth')->name('admin.')->group(func
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('/banners')->name('banners.')->group(function () {
+        Route::get('/create', [BannerController::class, 'createForm'])->name('form');
+        Route::post('/store', [BannerController::class, 'store'])->name('store');
+        Route::get('/index', [BannerController::class, 'index'])->name('index');
+        Route::get('/list', [BannerController::class, 'getList'])->name('list');
+        Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [BannerController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [BannerController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('/categories')->name('categories.')->group(function () {
