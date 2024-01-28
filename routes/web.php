@@ -76,5 +76,8 @@ Route::middleware('auth:customers')->group(function () {
     Route::prefix('movies')->group(function () {
         Route::get('{id}', [FrontendMovieController::class, 'show'])->name('web.movie.show');
     });
+
+    Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])->name('web.getDataAjax');
+    Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])->name('web.product_category');
 });
 

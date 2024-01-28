@@ -14,23 +14,26 @@
     </style>
 @endsection
 @section('content')
-    <div class="col-12 col-md-6">
-        <form action="{{ route('web.login.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label class="d-flex" for="">Email<p class="ms-2 text-danger">*</p></label>
-                <input class="form-control" name="email" type="text">
+    <div class="container-fluid py-5 mb-5 hero-header">
+        <div class="container py-2">
+            <div class="row g-5 align-items-center">
+                <div class="col-md-6 col-12">
+                    <form action="{{ route('web.login.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label class="d-flex" for="">Email<p class="ms-2 text-danger">*</p></label>
+                            <input class="form-control" name="email" type="text">
+                        </div>
+                        <div id="password" class="form-group">
+                            <label class="d-flex" for="">Mật khẩu<p class="ms-2 text-danger">*</p></label>
+                            <input class="form-control" name="password" type="password" id="password-input">
+                            <i id="show-password" class="fas fa-eye"></i>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm mt-4">Đăng nhập</button>
+                    </form>
+                </div>
             </div>
-            <div id="password" class="form-group">
-                <label class="d-flex" for="">Mật khẩu<p class="ms-2 text-danger">*</p></label>
-                <input class="form-control" name="password" type="password" id="password-input">
-                <i id="show-password" class="fas fa-eye"></i>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm mt-4">Đăng nhập</button>
-        </form>
-    </div>
-    <div class="d-none d-md-block col-6">
-        <div class="text-center">Làm đẹp</div>
+        </div>
     </div>
 @endsection
 @section('js')

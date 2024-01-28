@@ -15,4 +15,8 @@ interface ProductServiceInterface extends BaseServiceInterface
     public function update(Request $request, int $id);
 
     public function delete(int $id);
+    public function getAll();
+
+    public function getDataAjaxByCategory($categoryId);
+    public function getProductBySlugCategory($slug);
 }

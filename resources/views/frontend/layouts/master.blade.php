@@ -1,87 +1,81 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">--}}
-    <link href="{{ asset('library/bootstrap/bootstrap5.0.2.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
-{{--    <link rel="stylesheet" href="{{ asset('asset/css/jquery-ui-timepicker-addon.min.css') }}">--}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="utf-8">
+    <title>Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
-    <!--jquery-->
-    <script src="{{ asset('asset/js/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ asset('asset/js/jquery_ui_1.12.1.min.js') }}"></script>
-    <!--bootstrap-->
-    <script src="{{ asset('library/bootstrap/bootstrap5.0.2.bundle.min.js') }}"></script>
-    <!-- timepicker-->
-    <script src="{{ asset('library/timepicker/jquery-ui-timepicker-addon.min.js') }}"></script>
-    <script src="{{ asset('library/timepicker/i18n_jquery-ui-timepicker-vi.js') }}"></script>
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- slick-carousel-->
-{{--    <link rel="stylesheet" href="{{ asset('library/slick_slides/style.css') }}"/>--}}
-    <script src="{{ asset('library/slick_slides/slick-slider_1.8.1_slick.min.js') }}"></script>
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('shopAcc/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('shopAcc/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('shopAcc/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
 
     <title>@yield('title')</title>
-    <style>
-        /*#menu-category::before {*/
-        /*    content: "";*/
-        /*    position: absolute;*/
-        /*    top: -20px;*/
-        /*    left: 0;*/
-        /*    width: 100%;*/
-        /*    height: 20px;*/
-        /*    background-color: red;*/
-        /*}*/
-    </style>
     @yield('style')
 </head>
 <body>
-    <div id="main">
-        <div class="container">
-            <div class="row">
-                <x-header />
+<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+@include('frontend.layouts.header')
+@include('frontend.layouts.message')
+<!-- Modal Search Start -->
+<div style="height: unset" class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <form action="" class="input-group w-75 mx-auto d-flex">
+                    <input type="text" class="form-control p-3" name="keyword" placeholder="Nhập từ tìm kiếm..." aria-describedby="search-icon-1">
+                    <button class="input-group-text p-3" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="row">
-                @include('frontend.layouts.message')
-            </div>
-            <div class="row mt-4">
-                @yield('content')
-            </div>
-            <div class="row">
-                @include('frontend.layouts.footer')
+            <div class="modal-body d-flex align-items-center">
+{{--                <form action="" class="input-group w-75 mx-auto d-flex">--}}
+{{--                    <input type="text" class="form-control p-3" placeholder="Nhập từ tìm kiếm..." aria-describedby="search-icon-1">--}}
+{{--                    <button class="input-group-text p-3" type="submit"><i class="fa fa-search"></i></button>--}}
+{{--                </form>--}}
             </div>
         </div>
     </div>
+</div>
+<!-- Modal Search End -->
 
-    <script>
-        $(document).ready(function () {
-            $('.nav-item.dropdown').on('mouseenter', function () {
-                $(this).find('ul').show()
-            })
-            $('.nav-item.dropdown').find('ul').on('mouseleave', function () {
-                $(this).hide();
-            });
+<div class="container-fluid">
+    @yield('content')
+</div>
 
-            setInterval(function () {
-                $('#header').toggleClass('active')
-            }, 300);
+@include('frontend.layouts.footer')
 
-            $('.mobile-button').on('click', function () {
-                $('.collapse:not(.show)').toggle()
-            })
-        });
-    </script>
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('shopAcc/lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('shopAcc/lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ asset('shopAcc/lib/lightbox/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('shopAcc/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+<!-- Template Javascript -->
+<script src="{{ asset('shopAcc/js/main.js') }}"></script>
 @yield('js')
 </body>
 </html>

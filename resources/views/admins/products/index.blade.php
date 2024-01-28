@@ -21,11 +21,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-6 col-md-2">
+                <div class="form-group col-6 col-md-4">
                     <label>Tên sản phẩm</label>
                     <input type="text" class="form-control" name="product_name" id="product-name">
                 </div>
-                <div class="form-group col-6 col-md-2">
+                <div class="form-group col-6 col-md-4">
                     <label>Danh mục</label>
                     <select name="category_id" id="category_id" class="form-control">
                         <option value="">Tất cả</option>
@@ -34,15 +34,15 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-6 col-md-2">
+                <div class="form-group col-6 col-md-4">
                     <label>Từ ngày</label>
                     <input type="date" class="form-control" name="start_date" id="start-date">
                 </div>
-                <div class="form-group col-6 col-md-2">
+                <div class="form-group col-6 col-md-4">
                     <label>Đến ngày</label>
                     <input type="date" class="form-control" name="end_date" id="end-date">
                 </div>
-                <div class="form-group col-6 col-md-2">
+                <div class="form-group col-6 col-md-4">
                     <label>Trạng thái</label>
                     <select class="form-control" name="status" id="product-status">
                         <option value="">Tất cả</option>

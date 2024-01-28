@@ -113,4 +113,19 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
         $this->productRepository->delete($id, Product::class);
     }
+
+    public function getAll()
+    {
+        return $this->productRepository->getAll();
+    }
+
+    public function getDataAjaxByCategory($categoryId)
+    {
+        return $this->productRepository->getDataByCategory($categoryId);
+    }
+
+    public function getProductBySlugCategory($slug)
+    {
+        return $this->productRepository->getDataBySlugCategory($slug);
+    }
 }

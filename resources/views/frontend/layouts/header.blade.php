@@ -1,40 +1,41 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<div class="container-fluid fixed-top">
+    <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+            <a href="index.html" class="navbar-brand"><h3 class="text-primary display-6">Shop</h3></a>
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('web.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Services
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <li><a class="dropdown-item" href="#">Service 1</a></li>
-                            <li><a class="dropdown-item" href="#">Service 2</a></li>
-                            <li><a class="dropdown-item" href="#">Service 3</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('web.login.index') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
-                    </li>
-                </ul>
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="{{ route('web.index') }}" class="nav-item nav-link active">Trang chủ</a>
+                    <a href="#" class="nav-item nav-link">Nạp thẻ cào</a>
+                    <a href="#" class="nav-item nav-link">Nạp Momo/ATM</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                            <a href="#" class="dropdown-item">Cart</a>
+                            <a href="#" class="dropdown-item">Chackout</a>
+                            <a href="#" class="dropdown-item">Testimonial</a>
+                            <a href="#" class="dropdown-item">404 Page</a>
+                        </div>
+                    </div>
+                    <a href="#" class="nav-item nav-link">Liên hệ</a>
+                    <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>
+                    <a href="{{ route('web.login') }}" class="nav-item nav-link">Đăng nhập</a>
+                </div>
+                <div class="d-flex m-3 me-0">
+                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                    @if(Auth::check())
+                    <a href="#" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                    </a>
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
+                    @endif
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-
+        </nav>
+    </div>
+</div>

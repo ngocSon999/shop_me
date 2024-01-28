@@ -1,8 +1,9 @@
 <style>
 .flash-message {
-    position: relative;
+    position: absolute;
     margin-top: 14px;
     padding: 14px;
+    right: 0;
 }
 .flash-message button {
     position: absolute;

@@ -17,7 +17,7 @@ class Header extends Component
         CategoryRepoInterface $categoryRepository,
     )
     {
-        $this->categoryRepository =$categoryRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
