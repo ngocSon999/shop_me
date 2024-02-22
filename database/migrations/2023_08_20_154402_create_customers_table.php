@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('avatar', 255)->nullable();
             $table->string('address', 255)->nullable();
             $table->string('password', 150);
+            $table->integer('coin')->nullable()->default(0);
             $table->string('token', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();

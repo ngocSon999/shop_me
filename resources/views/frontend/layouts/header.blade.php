@@ -2,7 +2,7 @@
 <div class="container-fluid fixed-top">
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand"><h3 class="text-primary display-6">Shop</h3></a>
+            <a href="{{ route('web.index') }}" class="navbar-brand"><h3 class="text-primary display-6">Shop</h3></a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
@@ -28,8 +28,9 @@
                         <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>
                         <a href="{{ route('web.login') }}" class="nav-item nav-link">Đăng nhập</a>
                     @endif
+
                 </div>
-                <div class="d-flex m-3 me-0">
+                <div class="d-flex m-3 me-0 align-items-center">
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
                             class="fas fa-search text-primary"></i></button>
@@ -42,6 +43,10 @@
                         </a>
                         <a href="#" class="my-auto">
                             <i class="fas fa-user fa-2x"></i>
+                        </a>
+                        <a href="" class="ms-4 my-auto d-flex flex-column">
+                            <span>{{ Auth::user()->name }}</span>
+                            <span>{{ Auth::user()->coin }}</span>
                         </a>
                     @endif
                 </div>

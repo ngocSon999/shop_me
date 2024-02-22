@@ -128,4 +128,9 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
         return $this->productRepository->getDataBySlugCategory($slug);
     }
+
+    public function sellProduct($id)
+    {
+        $this->productRepository->sellProduct($id);
+    }
 }

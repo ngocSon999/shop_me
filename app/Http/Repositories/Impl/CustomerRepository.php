@@ -4,6 +4,7 @@ namespace App\Http\Repositories\Impl;
 use App\Http\Repositories\CustomerRepoInterface;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -50,6 +51,23 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
             DB::rollBack();
 
             throw $e;
+        }
+    }
+
+    public function exchangeCoin($coin): bool
+    {
+        try {
+            $customer = Auth::user();
+            $customer->coin = $customer->coin - $coin;
+
+            $customer->save();
+
+
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Error exchange coin: '.$e->getMessage());
+
+            return false;
         }
     }
 }

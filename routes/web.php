@@ -89,6 +89,8 @@ Route::middleware('auth:customers')->group(function () {
     });
 
     Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])->name('web.getDataAjax');
-    Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])->name('web.product_category');
+    Route::get('/product-detail/{id}', [WebController::class, 'showProduct'])->name('web.product.show');
+    Route::post('/product-purchase', [WebController::class, 'purchaseProduct'])->name('web.purchase_product');
 });
+Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])->name('web.product_category');
 

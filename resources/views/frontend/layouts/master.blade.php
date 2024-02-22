@@ -76,6 +76,21 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('shopAcc/js/main.js') }}"></script>
+<script>
+    $(document).on('click', '.btn-by-product', function () {
+        let productId = $(this).data('product_id');
+        let userLogin = @json(auth()->user());
+        {{--let userLogin = '{{ auth()->user() }}';--}}
+        if (!userLogin) {
+        alert('Vui lòng đăng nhập để sử dụng dịch vụ vủa chúng tôi!')
+        } else {
+            let pathProductDetail = '{{ route('web.product.show', ':id') }}';
+            pathProductDetail = pathProductDetail.replace(':id', productId);
+
+            window.location.href = pathProductDetail;
+        }
+    })
+</script>
 @yield('js')
 </body>
 </html>

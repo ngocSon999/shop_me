@@ -11,4 +11,6 @@ interface CustomerRepoInterface extends BaseRepoInterface
      * @throws \Exception
      */
     public function register($inputs): mixed;
+
+    public function exchangeCoin($coin): bool;
 }

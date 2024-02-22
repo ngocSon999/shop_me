@@ -13,4 +13,7 @@ interface ProductRepoInterface extends BaseRepoInterface
     public function getDataByCategory($categoryId);
 
     public function getDataBySlugCategory($slug);
+    public function sellProduct($id);
+
+    public function getByIdActive($id);
 }
