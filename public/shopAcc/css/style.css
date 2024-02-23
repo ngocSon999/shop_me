@@ -330,7 +330,7 @@
 }
 
 .vesitable .vesitable-item:hover {
-    box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(132, 231, 131, 0.8);
 }
 
 .vesitable .vesitable-item .vesitable-img {

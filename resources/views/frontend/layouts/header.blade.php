@@ -10,8 +10,8 @@
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <a href="{{ route('web.index') }}" class="nav-item nav-link active">Trang chủ</a>
-                    <a href="#" class="nav-item nav-link">Nạp thẻ cào</a>
-                    <a href="#" class="nav-item nav-link">Nạp Momo/ATM</a>
+                    <a href="{{ route('web.recharge', ['slug' => 'nap-the-cao']) }}" class="nav-item nav-link">Nạp thẻ cào</a>
+                    <a href="{{ route('web.recharge', ['slug' => 'nap-momo-atm']) }}" class="nav-item nav-link">Nạp Momo/ATM</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">

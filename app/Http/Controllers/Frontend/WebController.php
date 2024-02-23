@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WebController extends Controller
 {
@@ -72,5 +73,16 @@ class WebController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');
         }
+    }
+
+    public function getRecharge($slug): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $rechargeName = 'Nạp Atm/Momo';
+        if ($slug === 'nap-the-cao') {
+            $rechargeName = 'Nạp thẻ cào';
+        }
+        $code = Auth::user()->email;
+
+        return view('frontend.page.recharge', compact('slug', 'rechargeName', 'code'));
     }
 }

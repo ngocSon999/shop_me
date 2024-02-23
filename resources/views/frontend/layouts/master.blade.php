@@ -46,10 +46,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center">
-{{--                <form action="" class="input-group w-75 mx-auto d-flex">--}}
-{{--                    <input type="text" class="form-control p-3" placeholder="Nhập từ tìm kiếm..." aria-describedby="search-icon-1">--}}
-{{--                    <button class="input-group-text p-3" type="submit"><i class="fa fa-search"></i></button>--}}
-{{--                </form>--}}
             </div>
         </div>
     </div>
@@ -60,7 +56,9 @@
     @yield('content')
 </div>
 
-@include('frontend.layouts.footer')
+@section('footer')
+    @include('frontend.layouts.footer')
+@show
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>

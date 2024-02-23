@@ -72,7 +72,7 @@
                             <div class="col-lg-12">
                                 <div class="row g-4" id="product-list">
                                     @foreach($products as $product)
-                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="col-md-6 col-xl-4">
                                             <div class="rounded position-relative fruite-item">
                                                 <div class="fruite-img border-bottom-0">
                                                     <img src="{{ asset($product->image) }}"
@@ -81,9 +81,8 @@
                                                 <div class="p-4 border-top-0 rounded-bottom">
                                                     <h4>{{ $product->name }}</h4>
                                                     <p class="product-description">{{ $product->description }}</p>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">{{ $product->price }}
-                                                            đ</p>
+                                                    <div class="d-flex justify-content-between flex-md-wrap">
+                                                        <p class="text-dark fs-5 fw-bold mb-0">{{ $product->price }} đ</p>
                                                         <button class="btn border border-secondary rounded-pill px-3 text-primary btn-by-product"
                                                         data-product_id="{{ $product->id }}">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i>Mua
@@ -94,7 +93,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-
                             </div>
                         </div>
                         <div>{{ $products->links() }}</div>
@@ -356,6 +354,9 @@
     <!-- Tastimonial End -->
 @endsection
 
+@section('footer')
+@parent
+@endsection
 @section('js')
 
 @endsection

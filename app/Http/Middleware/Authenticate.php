@@ -30,7 +30,7 @@ class Authenticate extends Middleware
     {
         Session::flash(
             'warning',
-            'Vui lòng đăng ký tài khoản để sử dụng dịch vụ'
+            'Vui lòng đăng nhập hoặc đăng ký tài khoản để sử dụng dịch vụ'
         );
 
         throw new AuthenticationException(
