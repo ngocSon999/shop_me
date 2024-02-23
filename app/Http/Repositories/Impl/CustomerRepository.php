@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class CustomerRepository extends BaseRepository implements CustomerRepoInterface
 {
@@ -34,6 +35,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
         }
         $data = [
           'name' => $inputs['name'],
+          'code' => $uniqueId = Str::uuid(),
           'email' => $inputs['email'],
           'phone' => $inputs['phone'],
           'gender' => $inputs['gender'],

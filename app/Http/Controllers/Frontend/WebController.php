@@ -81,7 +81,7 @@ class WebController extends Controller
         if ($slug === 'nap-the-cao') {
             $rechargeName = 'Nạp thẻ cào';
         }
-        $code = Auth::user()->email;
+        $code = Auth::user()->code;
 
         return view('frontend.page.recharge', compact('slug', 'rechargeName', 'code'));
     }
