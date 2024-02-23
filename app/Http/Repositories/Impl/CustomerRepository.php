@@ -61,13 +61,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
         try {
             $customer = Auth::user();
             $customer->coin = $customer->coin - $coin;
-
             $customer->save();
-
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error exchange coin: '.$e->getMessage());
+            Log::error('Error exchange coin customer: '.$customer->email .' message: '.$e->getMessage());
 
             return false;
         }

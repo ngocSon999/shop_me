@@ -13,6 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
@@ -62,13 +63,13 @@ class WebController extends Controller
     public function purchaseProduct(Request $request): RedirectResponse
     {
         try {
-            $result = $this->orderService->sellProduct($request->product_id);
+            $result = $this->orderService->sellProduct($request->input('product_id'));
 
             if ($result) {
                 return redirect()->route('web.index')->with('success', 'Mua sản phẩm thành công. Vui lòng kiểm tra trong lịch sửa mua hàng của bạn');
             }
 
-            return redirect()->route('web.index')->with('success', 'Bạn không đủ tiền mua sản phẩm này');
+            return redirect()->back()->with('success', 'Bạn không đủ tiền mua sản phẩm này');
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');

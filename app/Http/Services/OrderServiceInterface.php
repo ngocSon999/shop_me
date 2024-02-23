@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface OrderServiceInterface
 {
-    public function sellProduct($id);
+    public function sellProduct($id): bool;
 }

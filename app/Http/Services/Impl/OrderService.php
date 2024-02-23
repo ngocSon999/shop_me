@@ -24,7 +24,7 @@ class OrderService implements OrderServiceInterface
         $this->productRepository = $productRepository;
         $this->customerRepository = $customerRepository;
     }
-    public function sellProduct($id)
+    public function sellProduct($id): bool
     {
         $product = $this->productRepository->getByIdActive($id);
         $user = Auth::user();
