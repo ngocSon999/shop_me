@@ -51,6 +51,13 @@
                     <p>Account</p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{ route('admin.roles.index') }}" class="nav-link">
+                    <i class="fas fa-user nav-icon"></i>
+                    <p>Role</p>
+                </a>
+            </li>
             <li class="nav-item mt-3">
                 <a href="{{ route('admin.user.logout') }}" class="nav-link">
                     <i class="fa-solid fa-right-from-bracket nav-icon"></i>

@@ -65,7 +65,7 @@ return [
     */
 
     'roles' => [
-        'model' => 'Cartalyst\Sentinel\Roles\EloquentRole',
+        'model' => 'App\Models\Role',
     ],
 
     /*
@@ -227,13 +227,13 @@ return [
         ],
 
         'ip' => [
-            'interval' => 30,
+            'interval' => 900,
 
             'thresholds' => 5,
         ],
 
         'user' => [
-            'interval' => 30,
+            'interval' => 900,
 
             'thresholds' => 5,
         ],

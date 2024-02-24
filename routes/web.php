@@ -6,6 +6,7 @@
 
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
@@ -25,27 +26,61 @@ Route::get('/admin/login', [LoginController::class, 'login'])->name('admin.user.
 Route::get('/admin/logout', [LoginController::class, 'logout'])->name('admin.user.logout');
 Route::post('/admin/user/postLogin', [LoginController::class, 'postLogin'])->name('admin.user.post-login');
 
-Route::prefix('/admin')->middleware('sentinel.auth')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware('checkPermission:dashboard.index')->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('checkPermission:dashboard.index')->name('dashboard');
 
-    Route::prefix('/user')->name('users.')->middleware('sentinel.auth')->group(function () {
-        Route::get('/create', [UserController::class, 'createForm'])->name('form');
-        Route::post('/store', [UserController::class, 'create'])->name('create');
-        Route::get('/index', [UserController::class, 'index'])->name('index');
-        Route::get('/list', [UserController::class, 'getList'])->name('list');
-        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+    Route::prefix('/user')->name('users.')->group(function () {
+        Route::get('/create', [UserController::class, 'createForm'])
+            ->middleware('checkPermission:users.create')
+            ->name('form');
+
+        Route::post('/store', [UserController::class, 'create'])
+            ->middleware('checkPermission:users.create')
+            ->name('create');
+
+        Route::get('/index', [UserController::class, 'index'])
+            ->middleware('checkPermission:users.list')
+            ->name('index');
+
+        Route::get('/list', [UserController::class, 'getList'])
+            ->middleware('checkPermission:users.list')
+            ->name('list');
+
+        Route::get('/edit/{id}', [UserController::class, 'edit'])
+            ->middleware('checkPermission:users.show')
+            ->name('edit');
+
+        Route::put('/update/{id}', [UserController::class, 'update'])
+            ->middleware('checkPermission:users.edit')
+            ->name('update');
+
+        Route::get('/delete/{id}', [UserController::class, 'delete'])
+            ->middleware('checkPermission:users.delete')
+            ->name('delete');
     });
 
     Route::prefix('/banners')->name('banners.')->group(function () {
-        Route::get('/create', [BannerController::class, 'createForm'])->name('form');
-        Route::post('/store', [BannerController::class, 'store'])->name('store');
-        Route::get('/index', [BannerController::class, 'index'])->name('index');
-        Route::get('/list', [BannerController::class, 'getList'])->name('list');
-        Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [BannerController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [BannerController::class, 'delete'])->name('delete');
+        Route::get('/create', [BannerController::class, 'createForm'])
+            ->name('form');
+
+        Route::post('/store', [BannerController::class, 'store'])
+            ->name('store');
+
+        Route::get('/index', [BannerController::class, 'index'])
+            ->middleware('checkPermission:users.list')
+            ->name('index');
+
+        Route::get('/list', [BannerController::class, 'getList'])
+            ->name('list');
+
+        Route::get('/edit/{id}', [BannerController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/update/{id}', [BannerController::class, 'update'])
+            ->name('update');
+
+        Route::get('/delete/{id}', [BannerController::class, 'delete'])
+            ->name('delete');
     });
 
     Route::prefix('/categories')->name('categories.')->group(function () {
@@ -66,6 +101,30 @@ Route::prefix('/admin')->middleware('sentinel.auth')->name('admin.')->group(func
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [ProductController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('/roles')->name('roles.')->group(function () {
+        Route::get('/create', [RoleController::class, 'createForm'])
+            ->name('form');
+
+        Route::post('/store', [RoleController::class, 'store'])
+            ->name('store');
+
+        Route::get('/index', [RoleController::class, 'index'])
+            ->middleware('checkPermission:users.list')
+            ->name('index');
+
+        Route::get('/list', [RoleController::class, 'getList'])
+            ->name('list');
+
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/update/{id}', [RoleController::class, 'update'])
+            ->name('update');
+
+        Route::get('/delete/{id}', [RoleController::class, 'delete'])
+            ->name('delete');
     });
 });
 

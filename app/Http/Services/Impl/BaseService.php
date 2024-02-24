@@ -20,6 +20,16 @@ class BaseService implements BaseServiceInterface
             $withRelation = $request->withRelation;
             $dataQuery->with($withRelation);
         }
+
+        //Loại trừ cột khác với giá trị truyền vào
+        if (isset($request->whereExcept)) {
+            foreach ($request->whereExcept as $k => $v) {
+                if (!empty($v)) {
+                    $dataQuery->where($k, '!=', $v);
+                }
+            }
+        }
+
         foreach ($sorts as $orderSort) {
             $orderSortColumn = $orderSort['column'];
             $dir = $orderSort['dir'];
