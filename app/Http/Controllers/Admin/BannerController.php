@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BannerRequest;
 use App\Http\Services\BannerServiceInterface;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -26,12 +27,14 @@ class BannerController extends Controller
         return view('admins.banners.index');
     }
 
-    public function createForm(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function createForm($bannerId = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admins.banners.form_create');
+        $banner = $bannerId ? $this->bannerService->getById($bannerId) : null;
+
+        return view('admins.banners.form_create', compact('banner'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(BannerRequest $request): RedirectResponse
     {
         try {
             $this->bannerService->store($request);
@@ -58,7 +61,7 @@ class BannerController extends Controller
         return view('admins.banners.form_create', compact('banner'));
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(BannerRequest $request, $id): RedirectResponse
     {
         try {
             $this->bannerService->update($request, $id);

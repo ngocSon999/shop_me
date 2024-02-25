@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('name', 255)->nullable();
             $table->string('description', 255)->nullable();
             $table->string('image', 255);
+            $table->string('link', 255)->nullable();
             $table->boolean('active')->nullable()->default(1);
+            $table->tinyInteger('position')->unsigned()->nullable()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

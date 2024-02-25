@@ -1,5 +1,13 @@
 @extends('admins.layouts.master')
 @section('style')
+    <style>
+        .banner-position {
+            min-width: 120px;
+            outline: none;
+            border: 1px solid #b3d3f4;
+            border-radius: 4px;
+        }
+    </style>
 @endsection
 @section('content')
     <section class="content-header">
@@ -40,19 +48,50 @@
                                 @endif
                                 @csrf
                                 <div class="row">
-                                    <div class="form-group mb-3 col-md-6 col-12">
+                                    <div class="form-group mb-3 col-12">
                                         <label>Tên Banner<span class="color-red">*</span></label>
                                         <input type="text" maxlength="100" class="form-control" name="name"
-                                               value="{{ old('name') ?? !empty($banner->name) ? $banner->name : '' }}">
+                                               value="{{ old('name') ?? $banner?->name }}">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group mb-3 col-12">
-                                        <label>Mô tả<span class="color-red">*</span></label>
+                                        <label>Mô tả<span class="color-red"></span></label>
                                         <textarea class="form-control" name="description" id="" cols="10" rows="3">
-                                        {{ old('description') ?? !empty($banner->description) ? $banner->description : '' }}
+                                        {{ old('description') ?? $banner?->description }}
                                     </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12">
+                                        <label>Link<span class="color-red"></span></label>
+                                        <textarea class="form-control" name="link" id="" cols="10" rows="3">
+                                        {{ old('link') ?? $banner?->link }}
+                                    </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12">
+                                        <label>Trạng thái hiển thị<span class="color-red"></span></label>
+                                        <select name="active" class="banner-position">
+                                            <option value="1" @if($banner?->active == 1) selected @endif>Hiển thị</option>
+                                            <option value="0" @if($banner?->active == 0) selected @endif>Không hiển thị</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12">
+                                        <label>Vị trí hiển thị<span class="color-red"></span></label>
+                                        <select name="position" class="banner-position">
+                                            <option value="0" @if($banner?->position == 0) selected @endif>Trên</option>
+                                            <option value="1" @if($banner?->position == 1) selected @endif>Dưới</option>
+                                            <option value="2" @if($banner?->position == 2) selected @endif>Trái</option>
+                                            <option value="3" @if($banner?->position == 3) selected @endif>Phải</option>
+                                        </select>
                                     </div>
                                 </div>
 

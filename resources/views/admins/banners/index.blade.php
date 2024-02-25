@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh mục</h1>
+                    <h1>Banner</h1>
                     <a class="btn btn-success btn-sm" href="{{ route('admin.banners.form') }}">Thêm Banner</a>
                 </div>
                 <div class="col-sm-6">
@@ -21,21 +21,22 @@
                 </div>
             </div>
             <form class="row" action="" method="POST">
-                <input type="hidden" name="export_excel" value="true">
-                <div class="form-group col-6 col-md-2">
-                    <label>Từ ngày</label>
-                    <input type="date" class="form-control" name="start_date" id="start-date">
-                </div>
-                <div class="form-group col-6 col-md-2">
-                    <label>Đến ngày</label>
-                    <input type="date" class="form-control" name="end_date" id="end-date">
-                </div>
                 <div class="form-group col-6 col-md-2">
                     <label>Trạng thái</label>
-                    <select class="form-control" name="status" id="complaint-status">
+                    <select class="form-control" name="status" id="banner-status">
                         <option value="">Tất cả</option>
-                        <option value="1">Hiển thị</option>
-                        <option value="0">Ẩn</option>
+                        @foreach(__('banners/title.STATUS') as $key => $label)
+                            <option value="{{ $key }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-6 col-md-2">
+                    <label>Vị trí</label>
+                    <select class="form-control" name="status" id="banner-position">
+                        <option value="">Tất cả</option>
+                        @foreach(__('banners/title.POSITION') as $key => $label)
+                            <option value="{{ $key }}">{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -60,6 +61,9 @@
                                     <th>Name</th>
                                     <th>Mô tả</th>
                                     <th>Hình ảnh</th>
+                                    <th>Trạng thái</th>
+                                    <th>Vị trí hiển thị</th>
+                                    <th>Link</th>
                                     <th>Ngày tạo</th>
                                     <th>Action</th>
                                 </tr>
@@ -97,6 +101,10 @@
 
             ajax: {
                 url: '{{ route('admin.banners.list') }}',
+                data: function (d) {
+                    d.status = $('#banner-status').find('option:selected').val();
+                    d.position = $('#banner-position').find('option:selected').val();
+                }
             },
             columns: [
                 {
@@ -116,6 +124,36 @@
                         return `<img src="${imgPath}" alt="" style="width: 130px; height: 130px">`;
                     }
                 },
+                {
+                    data: 'active',
+                    render: function (colValue) {
+                        return colValue === 1 ? 'Hiển thị' : 'Ẩn';
+                    }
+
+                },
+                {
+                    data: 'position',
+                    render: function (colValue) {
+                        let position = '';
+                        switch (colValue) {
+                            case 0:
+                                position = 'Trên';
+                                break;
+                            case 1:
+                                position = 'Dưới';
+                                break;
+                            case 2:
+                                position = 'Trái';
+                                break;
+                            case 3:
+                                position = 'Phải';
+                                break;
+                            default:
+                        }
+                        return position;
+                    }
+                },
+                {data: 'link'},
                 {
                     data: 'created_at',
                     render: function (colValue) {
@@ -150,5 +188,9 @@
                 },
             ],
         });
+
+        $('#btn-search').on('click', function () {
+            table.draw();
+        })
     </script>
 @endsection

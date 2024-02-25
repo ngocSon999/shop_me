@@ -20,18 +20,7 @@ class BannerService extends BaseService implements BannerServiceInterface
 
     public function store($request)
     {
-        if (!empty($request->image)) {
-            $resultPath = $this->storageTraitUpload($request, 'image','banners');
-        }
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'active' => $request->active,
-        ];
-
-        if (!empty($resultPath)) {
-            $data['image'] = $resultPath['file_path'];
-        }
+        $data = $this->formatDataCreateAndUpdateBanner($request);
 
         return $this->bannerRepository->store($data, Banner::class);
     }
@@ -42,17 +31,12 @@ class BannerService extends BaseService implements BannerServiceInterface
             'filter' => [
                 'searchColumns' => [
                     'name',
-                    'description'
+                    'description',
+                    'link',
                 ],
                 'inputFields' => [
-                    'name' => $request->name,
+                    'position' => $request->position,
                     'active' => $request->status,
-                ],
-                'start_date' => [
-                    'created_at' => $request->start_date,
-                ],
-                'end_date' => [
-                    'created_at' => $request->end_date,
                 ],
             ]
         ];
@@ -69,18 +53,7 @@ class BannerService extends BaseService implements BannerServiceInterface
 
     public function update($request, $id)
     {
-        if (!empty($request->image)) {
-            $resultPath = $this->storageTraitUpload($request, 'image','banners');
-        }
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'active' => $request->active,
-        ];
-
-        if (!empty($resultPath)) {
-            $data['image'] = $resultPath['file_path'];
-        }
+        $data = $this->formatDataCreateAndUpdateBanner($request);
 
         return $this->bannerRepository->update($data, $id, Banner::class);
     }
@@ -93,5 +66,25 @@ class BannerService extends BaseService implements BannerServiceInterface
     public function getAll()
     {
         return $this->bannerRepository->getAll();
+    }
+
+    public function formatDataCreateAndUpdateBanner($request): array
+    {
+        if (!empty($request->image)) {
+            $resultPath = $this->storageTraitUpload($request, 'image','banners');
+        }
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'active' => $request->active,
+            'link' => $request->link,
+            'position' => $request->position,
+        ];
+
+        if (!empty($resultPath)) {
+            $data['image'] = $resultPath['file_path'];
+        }
+
+        return $data;
     }
 }

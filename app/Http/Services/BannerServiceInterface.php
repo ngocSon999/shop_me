@@ -16,4 +16,6 @@ interface BannerServiceInterface extends BaseServiceInterface
 
     public function delete(int $id);
     public function getAll();
+
+    public function formatDataCreateAndUpdateBanner($request): array;
 }
