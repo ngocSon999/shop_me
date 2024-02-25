@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->text('description');
             $table->string('image', 255);
-            $table->decimal('price', 14, 2);
-            $table->integer('quantity');
+            $table->bigInteger('price')->unsigned();
+            $table->integer('quantity')->unsigned()->nullable()->default(0);
             $table->boolean('active')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();

@@ -44,6 +44,9 @@
         .form-message {
             color: red;
         }
+        .content-wrapper .content {
+            padding-bottom: 80px;
+        }
     </style>
 
     <link rel="stylesheet" href="{{ asset('assets/cms/css/style.css') }}">
@@ -64,7 +67,9 @@
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
-    @include('admins.layouts.footer')
+    <div style="margin-top: 40px">
+        @include('admins.layouts.footer')
+    </div>
 
     <aside class="control-sidebar control-sidebar-light">
         <ul class="nav-right-info">

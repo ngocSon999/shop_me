@@ -160,5 +160,8 @@ return [
         'contact.social_media' => 'Social Media',
         'avt'       => 'Ảnh đại diện',
         'detail'       => 'Nội dung',
+        'image' => 'Hình ảnh',
+        'category_id' => 'Danh mục',
+        'account' => 'Tài khoản',
     ],
 ];

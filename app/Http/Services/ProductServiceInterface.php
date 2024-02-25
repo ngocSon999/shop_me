@@ -20,4 +20,6 @@ interface ProductServiceInterface extends BaseServiceInterface
     public function getDataAjaxByCategory($categoryId);
     public function getProductBySlugCategory($slug);
     public function sellProduct($id);
+
+    public function formatDataCreateAndUpdateProduct($request): array;
 }

@@ -16,7 +16,7 @@
 </style>
 @if ($errors->any())
     <div class="text-center alert alert-danger alert-dismissible fade show flash-message" role="alert">
-        <ul style="list-style: none">
+        <ul style="list-style: none; margin: 0; text-align: left; padding: 0 10px">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach

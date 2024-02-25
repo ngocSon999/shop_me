@@ -54,49 +54,58 @@
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <label>Tên sản phẩm<span class="color-red">*</span></label>
                                         <input type="text" maxlength="100" class="form-control" name="name"
-                                               value="{{ old('name') ?? !empty($product->name) ? $product->name : '' }}">
+                                               value="{{ old('name') ?? $product?->name }}">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group mb-3 col-12">
-                                        <label>Mô tả<span class="color-red">*</span></label>
+                                        <label>Mô tả<span class="color-red"></span></label>
                                         <textarea class="form-control" name="description" id="" cols="10" rows="3">
-                                        {{ old('description') ?? !empty($product->description) ? $product->description : '' }}
+                                        {{ old('description') ?? $product?->description }}
                                     </textarea>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="form-group mb-3 col-md-6 col-12">
+                                        <label>Tài khoản<span class="color-red">*</span></label>
+                                        <input type="text" maxlength="100" class="form-control" name="account"
+                                               value="{{ old('account') ?? $product?->account }}">
+                                    </div>
+                                    <div class="form-group mb-3 col-md-6 col-12">
+                                        <label>Mật khẩu<span class="color-red">*</span></label>
+                                        <input type="text" maxlength="15" class="form-control" name="password"
+                                               value="{{ old('password') ?? $product?->password }}">
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <label>Giá<span class="color-red">*</span></label>
-                                        <input type="text" maxlength="100" class="form-control" name="price"
-                                               value="{{ old('price') ?? !empty($product->price) ? $product->price : '' }}">
+                                        <input type="number" maxlength="100" class="form-control" name="price"
+                                               value="{{ old('price') ?? $product?->price }}">
                                     </div>
                                     <div class="form-group mb-3 col-md-6 col-12">
-                                        <label>Số lượng<span class="color-red">*</span></label>
-                                        <input type="number" maxlength="15" class="form-control" name="quantity"
-                                               value="{{ old('quantity') ?? !empty($product->quantity) ? $product->quantity : '' }}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group mb-3 col-md-3 col-12">
-                                        <label>Hình ảnh<span class="color-red">*</span></label>
-                                        <input type="file" maxlength="100" class="form-control" id="image" name="image">
-                                        <span id="status-image" style="color: red"></span>
-                                    </div>
-                                    <div class="form-group mb-3 col-md-6 col-12">
-                                        @if(!empty($product))
-                                            <img id="imgPreview" src="{{ asset($product->image) }}" alt="">
-                                        @else
-                                            <img style="display: none" id="imgPreview" src="" alt="">
-                                        @endif
+                                        <div class="form-group mb-3 col-12">
+                                            <label>Hình ảnh<span class="color-red">*</span></label>
+                                            <input type="file" maxlength="100" class="form-control" id="image" name="image">
+                                            <span id="status-image" style="color: red"></span>
+                                        </div>
+                                        <div class="form-group mb-3 col-12">
+                                            @if(!empty($product))
+                                                <img id="imgPreview" src="{{ asset($product->image) }}" alt="">
+                                            @else
+                                                <img style="display: none" id="imgPreview" src="" alt="">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 
                                 @if(!empty($product))
-                                    <button type="submit" id="submit-edit" class="btn btn-success mt-2">Save</button>
+                                    <button type="submit" id="submit-edit" class="btn btn-success mt-1">Save</button>
                                 @else
-                                    <button type="submit" id="submit-add" class="btn btn-success mt-2">Save</button>
+                                    <button type="submit" id="submit-add" class="btn btn-success mt-1">Save</button>
                                 @endif
                             </form>
                     @endsection

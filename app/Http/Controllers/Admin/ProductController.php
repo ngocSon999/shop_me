@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Http\Services\CategoryServiceInterface;
 use App\Http\Services\ProductServiceInterface;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
 {
@@ -27,21 +28,22 @@ class ProductController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index(): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $categories = $this->categoryService->getAll();
 
         return view('admins.products.index', compact('categories'));
     }
 
-    public function createForm(): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function createForm($productId = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $product = $productId ? $this->productService->getById($productId) : null;
         $categories = $this->categoryService->getAll();
 
-        return view('admins.products.form_create', compact('categories'));
+        return view('admins.products.form_create', compact('categories', 'product'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ProductRequest $request): RedirectResponse
     {
         try {
             $this->productService->store($request);
@@ -61,7 +63,7 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
-    public function edit($id): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $product = $this->productService->getById($id);
         $categories = $this->categoryService->getAll();
@@ -69,7 +71,7 @@ class ProductController extends Controller
         return view('admins.products.form_create', compact('product', 'categories'));
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(ProductRequest $request, $id): RedirectResponse
     {
         try {
             $this->productService->update($request, $id);

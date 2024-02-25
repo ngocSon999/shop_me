@@ -50,7 +50,7 @@ class OrderService implements OrderServiceInterface
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error sell product '.$e->getMessage());
+            Log::error('Error sell product customer = '.$user->email .' message error'.$e->getMessage());
 
             return false;
         }

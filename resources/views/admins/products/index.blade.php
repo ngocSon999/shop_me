@@ -74,8 +74,9 @@
                                     <th style="max-width: 30%;">Mô tả</th>
                                     <th>Ảnh</th>
                                     <th>Giá</th>
-                                    <th>Số lượng</th>
-                                    <th>Active</th>
+                                    <th>Tài khoản</th>
+                                    <th>Mật khẩu</th>
+                                    <th>Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th>Hành động</th>
                                 </tr>
@@ -92,7 +93,7 @@
 @endsection
 @section('js')
     <script>
-        // $.fn.dataTable.ext.errMode = 'throw';
+        // $.fn.dataTable.ext.errMode = 'throw';//khong hien thi alert khi co loi voi datatable
         let table = $('#table').DataTable({
             processing: true,
             serverSide: true,
@@ -144,12 +145,20 @@
                         return `<img src="${pathImg}" alt="" style="width:130px; height: 130px">`;
                     }
                 },
-                {data: 'price'},
-                {data: 'quantity'},
+                {
+                    data: 'price',
+                    render: function (colValue) {
+                        let price = parseFloat(colValue).toLocaleString('en-US');
+
+                        return price.replace(',', '.');
+                    }
+                },
+                {data: 'account'},
+                {data: 'password'},
                 {
                     data: 'active',
                     render: function (colValue) {
-                        return colValue === 1 ? 'Hiển thị' : 'Không hiển thị';
+                        return colValue === 1 ? 'Chưa bán' : 'Đã bán';
                     }
                 },
                 {

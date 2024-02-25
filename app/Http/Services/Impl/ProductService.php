@@ -20,21 +20,7 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     public function store($request)
     {
-        if (!empty($request->image)) {
-            $resultPath = $this->storageTraitUpload($request, 'image','products');
-        }
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'active' => $request->active ? 1 : 0,
-        ];
-
-        if (!empty($resultPath)) {
-            $data['image'] = $resultPath['file_path'];
-        }
-
+        $data = $this->formatDataCreateAndUpdateProduct($request);
         $product = $this->productRepository->store($data, Product::class);
 
         $product->categories()->attach($request->category_id);
@@ -86,20 +72,7 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     public function update($request, $id)
     {
-        if (!empty($request->image)) {
-            $resultPath = $this->storageTraitUpload($request, 'image','products');
-        }
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'active' => $request->active ? 1 : 0,
-        ];
-
-        if (!empty($resultPath)) {
-            $data['image'] = $resultPath['file_path'];
-        }
+        $data = $this->formatDataCreateAndUpdateProduct($request);
 
         $product = $this->productRepository->update($data, $id, Product::class);
         if (!empty($request->category_id)) {
@@ -132,5 +105,25 @@ class ProductService extends BaseService implements ProductServiceInterface
     public function sellProduct($id)
     {
         $this->productRepository->sellProduct($id);
+    }
+
+    public function formatDataCreateAndUpdateProduct($request): array
+    {
+        if (!empty($request->image)) {
+            $resultPath = $this->storageTraitUpload($request, 'image','products');
+        }
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'account' => $request->account,
+            'password' => $request->password,
+        ];
+
+        if (!empty($resultPath)) {
+            $data['image'] = $resultPath['file_path'];
+        }
+
+        return $data;
     }
 }
