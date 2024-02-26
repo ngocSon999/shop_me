@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\CustomerRepoInterface;
 use App\Http\Services\BaseServiceInterface;
 use App\Models\Customer;
+use App\Models\CustomerHistory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -91,24 +92,35 @@ class CustomerController extends Controller
 
     public function addCoin($id, Request $request): RedirectResponse
     {
+        $request->validate([
+            'add_coin' => 'required|integer|min:1|max:99999999',
+        ]);
+
+        $customer = $this->customerRepository->getById($id, Customer::class);
+        if (empty($customer)) {
+            return redirect()->back()->with('danger', 'Customer not found');
+        }
+
+        $currentCoin = $customer->coin;
+        $coin = $request->input('add_coin');
+        $totalCoin = $currentCoin + $coin;
         try {
             DB::beginTransaction();
-            $customer = $this->customerRepository->getById($id, Customer::class);
-            if (empty($customer)) {
-                return redirect()->back()->with('danger', 'Customer not found');
-            }
-            $request->validate([
-                'add_coin' => 'required|integer|max:99999999',
-            ]);
-            $coin = $request->input('add_coin');
-            $customer->coin = $coin;
+            $customer->coin = $totalCoin;
             $customer->save();
+
+            CustomerHistory::create([
+                'customer_id' => $customer->id,
+                'note' => 'Nạp tiền vào tài khoản bởi admin',
+                'coin_spent' => $coin,
+                'total_coin' => $totalCoin,
+            ]);
             DB::commit();
 
             return redirect()->route('admin.customers.index')->with('success', 'Nạp tiền thành công');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('lỗi nạp tiền cho khách hàng '. $customer->email);
+            Log::error('lỗi nạp tiền cho khách hàng '. $customer->email. 'mesageError: '.$e->getMessage());
 
             return redirect()->back()->with('warning', 'Có lỗi xảy ra trong quá trình giao dịch. Vui lòng thử lại');
         }
@@ -124,9 +136,15 @@ class CustomerController extends Controller
         return view('admins.customers.show', compact('customer'));
     }
 
-    public function transactionHistory($id, Request $request)
+    public function transactionHistory($id, Request $request): Factory|View|Application|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
+        $customer = $this->customerRepository->getById($id, Customer::class);
+        if (empty($customer)) {
+            return redirect()->back()->with('danger', 'Customer not found');
+        }
+        $histories = $customer->customerHistory;
 
+        return view('admins.customers.history', compact('customer', 'histories'));
     }
 
     public function updatePassword(Request $request): JsonResponse

@@ -9,7 +9,7 @@
             color: deepskyblue;
         }
         table tbody a i {
-            font-size: 36px;
+            font-size: 37px;
             color: deepskyblue;
         }
         a.action {
@@ -125,7 +125,7 @@
                 {
                     data: 'name',
                     render: function (colValue, type, row, meta) {
-                        let url = '{{ route('admin.customers.transaction_history', ':id') }}';
+                        let url = '{{ route('admin.customers.show', ':id') }}';
                         url = url.replace(':id', row.id);
 
                         return `<a href="${url}" title="Chi tiết">${colValue}</a>`;
@@ -154,7 +154,7 @@
                         let urlShow = '{{ route('admin.customers.show', ':id') }}';
                         urlShow = urlShow.replace(':id', colValue);
 
-                        return `<div class="d-flex align-items-center">
+                        return `<div class="d-flex">
                                     <a class="action mr-1" href="${urlAddCoin}" title="Nạp xu">+ Xu</a>
                                     <a title="Chi tiết" href="${urlShow}"><i class="fas fa-info-circle"></i></a>
                                 </div>`;
