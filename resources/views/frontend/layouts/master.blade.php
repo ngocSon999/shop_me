@@ -40,12 +40,10 @@
         <div class="modal-content rounded-0">
             <div class="modal-header">
                 <form action="" class="input-group w-75 mx-auto d-flex">
-                    <input type="text" class="form-control p-3" name="keyword" placeholder="Nhập từ tìm kiếm..." aria-describedby="search-icon-1">
-                    <button class="input-group-text p-3" type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control p-1" name="keyword" placeholder="Nhập từ tìm kiếm..." aria-describedby="search-icon-1">
+                    <button class="input-group-text p-1" type="submit"><i class="fa fa-search"></i></button>
                 </form>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex align-items-center">
             </div>
         </div>
     </div>

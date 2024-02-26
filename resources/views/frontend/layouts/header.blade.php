@@ -3,7 +3,7 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a href="{{ route('web.index') }}" class="navbar-brand"><h3 class="text-primary display-6">Shop</h3></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
@@ -57,7 +57,6 @@
                                 <a href="{{ route('web.logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
                             </div>
                         </div>
-
                     @endif
                 </div>
             </div>
