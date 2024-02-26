@@ -30,6 +30,12 @@
                     <p>Customer</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.banks.index') }}" class="nav-link">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>Bank</p>
+                </a>
+            </li>
 {{--            <li class="nav-item">--}}
 {{--                <a href="#" class="nav-link">--}}
 {{--                    <i class="fa-solid fa-list nav-icon"></i>--}}

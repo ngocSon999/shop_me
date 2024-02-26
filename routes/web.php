@@ -4,6 +4,7 @@
  * Route admin
  */
 
+use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
@@ -159,6 +160,29 @@ Route::middleware('checkPermission:dashboard.index')->prefix('/admin')->name('ad
 
         Route::post('/change-password', [CustomerController::class, 'updatePassword'])
             ->name('change_password');
+    });
+
+    Route::prefix('/banks')->name('banks.')->group(function () {
+        Route::get('/create', [BankController::class, 'createForm'])
+            ->name('form');
+
+        Route::post('/store', [BankController::class, 'store'])
+            ->name('store');
+
+        Route::get('/index', [BankController::class, 'index'])
+            ->name('index');
+
+        Route::get('/list', [BankController::class, 'getList'])
+            ->name('list');
+
+        Route::get('/edit/{id}', [BankController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/update/{id}', [BankController::class, 'update'])
+            ->name('update');
+
+        Route::get('/delete/{id}', [BankController::class, 'delete'])
+            ->name('delete');
     });
 });
 
