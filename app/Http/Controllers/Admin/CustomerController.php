@@ -7,6 +7,7 @@ use App\Http\Repositories\CustomerRepoInterface;
 use App\Http\Services\BaseServiceInterface;
 use App\Models\Customer;
 use App\Models\CustomerHistory;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -74,15 +75,7 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id): RedirectResponse
     {
-        try {
-            $this->bannerService->update($request, $id);
-
-            return redirect()->route('admin.customers.index')->with('success', 'update customer thành công!');
-        } catch (\Exception $e) {
-            Log::error('Error update customers: '. $e->getMessage());
-
-            return redirect()->route('admin.customers.index')->with('error', 'Có lỗi xảy ra vui lòng thử lại sau');
-        }
+        //TODO
     }
 
     public function delete($id): RedirectResponse
@@ -95,6 +88,8 @@ class CustomerController extends Controller
         $request->validate([
             'add_coin' => 'required|integer|min:1|max:99999999',
         ]);
+
+        $user = Sentinel::getUser();
 
         $customer = $this->customerRepository->getById($id, Customer::class);
         if (empty($customer)) {
@@ -111,7 +106,7 @@ class CustomerController extends Controller
 
             CustomerHistory::create([
                 'customer_id' => $customer->id,
-                'note' => 'Nạp tiền vào tài khoản bởi admin',
+                'note' => 'Nạp tiền vào tài khoản bởi admin'.$user->id,
                 'coin_spent' => $coin,
                 'total_coin' => $totalCoin,
             ]);
