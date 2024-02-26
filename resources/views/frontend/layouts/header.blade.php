@@ -23,6 +23,7 @@
                     </div>
                     <a href="#" class="nav-item nav-link">Liên hệ</a>
                     @if(Auth::check())
+                        <a href="{{ route('web.customers.history') }}" class="nav-item nav-link">Lịch sử</a>
                         <a href="{{ route('web.logout') }}" class="nav-item nav-link">Đăng xuất</a>
                     @else
                         <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>

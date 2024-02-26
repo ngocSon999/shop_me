@@ -3,6 +3,7 @@ namespace App\Http\Repositories\Impl;
 
 use App\Http\Repositories\CustomerRepoInterface;
 use App\Models\Customer;
+use App\Models\CustomerHistory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,29 +20,32 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
      */
     public function register($inputs): mixed
     {
+        $data = [
+            'name' => $inputs['name'],
+            'code' => $uniqueId = Str::uuid(),
+            'email' => $inputs['email'],
+            'phone' => $inputs['phone'],
+            'gender' => $inputs['gender'],
+            'address' => $inputs['address'],
+            'password' => Hash::make($inputs['password']),
+        ];
+
         if (!empty($inputs['avatar'])) {
             $file = $inputs['avatar'];
-            $fileName = $file->getClientOriginalName();
             $ext = $file->extension();
             $filesize = $file->getSize();
+            $imageName = 'customer-'.time().'.'.$ext;
+
             if (strcasecmp($ext, 'jpg') == 0 || strcasecmp($ext, 'jpeg') == 0
                 || strcasecmp($ext, 'png') == 0) {
+
                 if ($filesize < 7000000) {
-                    $file->move('upload/customers/', $fileName);
-                    $path = 'upload/customers/'.$fileName;
+                    $file->move('upload/customers/', $imageName);
+                    $path = 'upload/customers/'.$imageName;
                     $data['avatar'] = $path;
                 }
             }
         }
-        $data = [
-          'name' => $inputs['name'],
-          'code' => $uniqueId = Str::uuid(),
-          'email' => $inputs['email'],
-          'phone' => $inputs['phone'],
-          'gender' => $inputs['gender'],
-          'address' => $inputs['address'],
-          'password' => Hash::make($inputs['password']),
-        ];
 
         DB::beginTransaction();
         try {
@@ -51,6 +55,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
             return $customer;
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Error create customer: '.$e->getMessage());
 
             throw $e;
         }
@@ -60,7 +65,14 @@ class CustomerRepository extends BaseRepository implements CustomerRepoInterface
     {
         try {
             $customer = Auth::user();
-            $customer->coin = $customer->coin - $coin;
+            $currentCoin = $customer->coin - $coin;
+            CustomerHistory::create([
+                'customer_id' => $customer->id,
+                'note' => 'Trừ xu mua tài khoản game',
+                'coin_spent' => $coin,
+                'total_coin' => $currentCoin,
+            ]);
+            $customer->coin = $currentCoin;
             $customer->save();
 
             return true;

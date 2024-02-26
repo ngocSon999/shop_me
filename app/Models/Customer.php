@@ -20,6 +20,16 @@ class Customer extends Authenticatable
 
     public function customerHistory(): HasMany
     {
-        return $this->hasMany(CustomerHistory::class, 'customer_id', 'id');
+        return $this
+            ->hasMany(CustomerHistory::class, 'customer_id', 'id')
+            ->orderBy('created_at', 'desc');
+    }
+
+
+    public function products(): HasMany
+    {
+        return $this
+            ->hasMany(Product::class, 'customer_id', 'id')
+            ->orderBy('updated_at', 'desc');
     }
 }

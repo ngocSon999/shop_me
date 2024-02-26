@@ -9,6 +9,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
@@ -41,5 +43,14 @@ class CustomerController extends Controller
 
             return redirect()->route('web.index')->with('warning', 'Có lỗi xảy ra vui  lòng thử lại');
         }
+    }
+
+    public function history(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $customer = Auth::user();
+        $transactionHistories = $customer->customerHistory;
+        $products = $customer->products;
+
+        return view('frontend.page.customer_history', compact('transactionHistories', 'products'));
     }
 }

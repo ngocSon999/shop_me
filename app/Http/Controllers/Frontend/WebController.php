@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class WebController extends Controller
 {
@@ -72,6 +73,7 @@ class WebController extends Controller
             return redirect()->back()->with('success', 'Bạn không đủ tiền mua sản phẩm này');
 
         } catch (\Exception $e) {
+            Log::error('Error purchase product id: ');
             return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');
         }
     }

@@ -172,6 +172,7 @@ Route::post('/login', [FrontendLoginController::class, 'login'])->name('web.logi
 
 Route::prefix('customers')->group(function () {
     Route::get('/create', [FrontendCustomerController::class, 'createForm'])->name('web.customers.form');
+    Route::get('/history', [FrontendCustomerController::class, 'history'])->name('web.customers.history');
     Route::post('/register', [FrontendCustomerController::class, 'store'])->name('web.customers.register');
 });
 

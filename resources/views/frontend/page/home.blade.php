@@ -59,7 +59,7 @@
                                 <li class="nav-item">
                                     <a class="d-flex py-2 m-2 bg-light rounded-pill product-category"
                                        href="{{ route('web.product_category', ['slug' => $category->slug]) }}">
-                                        <span class="text-dark" style="width: 130px;">{{ $category->name }}</span>
+                                        <span class="text-dark" style="min-width: 130px; padding: 0 6px">{{ $category->name }}</span>
                                     </a>
                                 </li>
                             @endforeach

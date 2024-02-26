@@ -44,13 +44,12 @@ class OrderService implements OrderServiceInterface
                 Product::class
             );
             $this->customerRepository->exchangeCoin($product->price);
-
             DB::commit();
 
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error sell product customer = '.$user->email .' message error'.$e->getMessage());
+            Log::error('Error purchase product id: '.$product->id.' by customer: '.$user->email .' message error'.$e->getMessage());
 
             return false;
         }
