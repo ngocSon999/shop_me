@@ -24,6 +24,12 @@
                     <p>Banner</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.customers.index') }}" class="nav-link">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>Customer</p>
+                </a>
+            </li>
 {{--            <li class="nav-item">--}}
 {{--                <a href="#" class="nav-link">--}}
 {{--                    <i class="fa-solid fa-list nav-icon"></i>--}}

@@ -5,6 +5,7 @@
  */
 
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -125,6 +126,39 @@ Route::middleware('checkPermission:dashboard.index')->prefix('/admin')->name('ad
 
         Route::get('/delete/{id}', [RoleController::class, 'delete'])
             ->name('delete');
+    });
+
+    Route::prefix('/customers')->name('customers.')->group(function () {
+        Route::get('/create', [CustomerController::class, 'createForm'])
+            ->name('form');
+
+        Route::get('/index', [CustomerController::class, 'index'])
+            ->middleware('checkPermission:users.list')
+            ->name('index');
+
+        Route::get('/list', [CustomerController::class, 'getList'])
+            ->name('list');
+
+        Route::get('/show/{id}', [CustomerController::class, 'show'])
+            ->name('show');
+
+        Route::get('/add-coin/{id}', [CustomerController::class, 'editCoin'])
+            ->name('edit_coin');
+
+        Route::put('/update/{id}', [CustomerController::class, 'update'])
+            ->name('update');
+
+        Route::patch('/update/{id}', [CustomerController::class, 'addCoin'])
+            ->name('add_coin');
+
+        Route::get('/delete/{id}', [CustomerController::class, 'delete'])
+            ->name('delete');
+
+        Route::get('/transaction-history/{id}', [CustomerController::class, 'transactionHistory'])
+            ->name('transaction_history');
+
+        Route::post('/change-password', [CustomerController::class, 'updatePassword'])
+            ->name('change_password');
     });
 });
 

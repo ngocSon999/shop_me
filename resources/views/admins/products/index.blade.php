@@ -148,9 +148,7 @@
                 {
                     data: 'price',
                     render: function (colValue) {
-                        let price = parseFloat(colValue).toLocaleString('en-US');
-
-                        return price.replace(',', '.');
+                        return parseFloat(colValue).toLocaleString('vi-VN');
                     }
                 },
                 {data: 'account'},
