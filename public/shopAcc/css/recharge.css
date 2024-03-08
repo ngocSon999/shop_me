@@ -10,10 +10,12 @@
     color: var(--bs-primary);
 }
 .bank-item {
-    border: 1px solid #f1ec53;
+    border: 1px solid rgb(159 199 18 / 50%);
     border-radius: 10px;
-    padding: 10px;
-    margin: 0 12px 12px;
+    padding: 0 10px;
+}
+.bank-item:hover {
+    border: 1px solid #f1ec53;
 }
 .bank-item p {
     margin: 0;

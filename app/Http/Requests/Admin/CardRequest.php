@@ -29,4 +29,14 @@ class CardRequest extends FormRequest
             'status' => 'nullable|integer|max:1',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'type' => 'loại thẻ',
+            'card_price' => 'mệnh giá thẻ',
+            'serial' => 'số seri',
+            'number' => 'số thẻ',
+        ];
+    }
 }

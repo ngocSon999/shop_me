@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\CardRepoInterface;
+use App\Http\Requests\Admin\CardRequest;
 use App\Models\Card;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class CardController extends Controller
     {
         $this->cardRepository = $cardRepository;
     }
-    public function rechargeCard(Request $request)
+    public function rechargeCard(CardRequest $request)
     {
         $data = $request->all();
         $data['customer_id'] = Auth::id();
