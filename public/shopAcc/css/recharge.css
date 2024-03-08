@@ -1,0 +1,27 @@
+.note-transfer {
+    margin: 20px 0;
+}
+.note-transfer p {
+    margin: 0;
+    text-align: justify;
+}
+.bnt-copy-code:hover {
+    cursor: pointer;
+    color: var(--bs-primary);
+}
+.bank-item {
+    border: 1px solid #f1ec53;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 12px 12px;
+}
+.bank-item p {
+    margin: 0;
+}
+.bank-title {
+    font-weight: 600;
+}
+
+.modal-dialog {
+    margin-top: 20px;
+}

@@ -78,9 +78,9 @@
                                                     <img src="{{ asset($product->image) }}"
                                                          class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
-                                                <div class="p-4 border-top-0 rounded-bottom">
-                                                    <h4>{{ $product->name }}</h4>
-                                                    <p class="product-description">{{ $product->description }}</p>
+                                                <div class="p-2 border-top-0 rounded-bottom">
+                                                    <h3>{{ $product->name }}</h3>
+                                                    <div class="product-description">{!! $product->description !!}</div>
                                                     <div class="d-flex justify-content-between flex-md-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{ $product->price }} đ</p>
                                                         <button class="btn border border-secondary rounded-pill px-3 text-primary btn-by-product"

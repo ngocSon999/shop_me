@@ -12,16 +12,6 @@
     font-size: 20px;
 }
 </style>
-@if ($errors->any())
-    <div class="text-center alert alert-danger alert-dismissible fade show flash-message" role="alert">
-        <ul style="list-style: none">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
 
 @if(session('success'))
     <div class="alert alert-success text-center flash-message">

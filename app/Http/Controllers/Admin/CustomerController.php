@@ -37,13 +37,6 @@ class CustomerController extends Controller
         return view('admins.customers.index');
     }
 
-    public function createForm($bannerId = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $banner = $bannerId ? $this->bannerService->getById($bannerId) : null;
-
-        return view('admins.banners.form_create', compact('banner'));
-    }
-
     public function getList(Request $request): JsonResponse
     {
         $filter = [

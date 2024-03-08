@@ -6,6 +6,7 @@
 
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CardController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -206,10 +207,13 @@ Route::middleware('auth:customers')->group(function () {
         Route::get('{id}', [FrontendMovieController::class, 'show'])->name('web.movie.show');
     });
 
+    Route::post('/recharge-card', [CardController::class, 'rechargeCard'])
+        ->name('web.recharge_card');
     Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])->name('web.getDataAjax');
     Route::get('/product-detail/{id}', [WebController::class, 'showProduct'])->name('web.product.show');
     Route::post('/product-purchase', [WebController::class, 'purchaseProduct'])->name('web.purchase_product');
     Route::get('/nap-tien/{slug}', [WebController::class, 'getRecharge'])->name('web.recharge');
 });
 Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])->name('web.product_category');
+Route::get('/editor', [WebController::class, 'exampleCkeditor'])->name('web.editor');
 

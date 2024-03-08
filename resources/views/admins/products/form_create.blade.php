@@ -1,5 +1,14 @@
 @extends('admins.layouts.master')
 @section('style')
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* Editing area */
+            min-height: 200px;
+        }
+        .ck.ck-powered-by {
+            display: none!important;
+        }
+    </style>
 @endsection
 @section('content')
     <section class="content-header">
@@ -61,9 +70,10 @@
                                 <div class="row">
                                     <div class="form-group mb-3 col-12">
                                         <label>Mô tả<span class="color-red"></span></label>
-                                        <textarea class="form-control" name="description" id="" cols="10" rows="3">
-                                        {{ old('description') ?? $product?->description }}
-                                    </textarea>
+                                        <textarea class="form-control" name="description" id="editor">
+                                            {{ old('description') ?? $product?->description }}
+                                        </textarea>
+                                        <div id="references"></div>
                                     </div>
                                 </div>
 
@@ -88,15 +98,17 @@
                                     </div>
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <div class="form-group mb-3 col-12">
-                                            <label>Hình ảnh<span class="color-red">*</span></label>
+                                            <label>Hình ảnh
+                                                @if(empty($product))
+                                                    <span class="color-red">*</span>
+                                                @endif
+                                            </label>
                                             <input type="file" maxlength="100" class="form-control" id="image" name="image">
                                             <span id="status-image" style="color: red"></span>
                                         </div>
                                         <div class="form-group mb-3 col-12">
                                             @if(!empty($product))
                                                 <img id="imgPreview" src="{{ asset($product->image) }}" alt="">
-                                            @else
-                                                <img style="display: none" id="imgPreview" src="" alt="">
                                             @endif
                                         </div>
                                     </div>
@@ -115,4 +127,6 @@
 
 @section('js')
     <script src="{{ asset('assets/cms/js/preview_upload_image.js') }}"></script>
+    <script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/cms/js/ckeditor_page.js') }}"></script>
 @endsection

@@ -133,6 +133,7 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+{{--<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>--}}
 
 
 <script src="{{ asset('assets/cms/js/validateForm.js') }}"></script>

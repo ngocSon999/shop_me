@@ -9,6 +9,6 @@ class BankRepository extends BaseRepository implements BankRepoInterface
 {
     public function getAll()
     {
-        return Bank::where('active', 1)->get();
+        return Bank::where('status', 1)->get();
     }
 }

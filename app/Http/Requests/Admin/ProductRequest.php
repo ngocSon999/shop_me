@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
         return [
             'category_id' => 'required|integer',
             'name' => 'required|max:255',
-            'description' => 'nullable|max:500',
+            'description' => 'nullable',
             'account' => 'required|max:50',
             'active' => 'nullable|integer|max:1',
             'password' => 'required|min:6|max:32',

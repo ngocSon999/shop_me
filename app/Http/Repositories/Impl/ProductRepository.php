@@ -18,7 +18,7 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 
     public function getAll()
     {
-        return Product::where('active', 1)->paginate(12);
+        return Product::where('active', 1)->paginate(3);
     }
 
     public function getDataByCategory($categoryId)

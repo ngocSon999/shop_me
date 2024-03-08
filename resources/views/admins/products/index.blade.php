@@ -66,12 +66,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="table" style="width: 100%" class="table table-bordered table-hover">
+                            <table id="table" style="width: 100%; overflow: hidden; overflow-x: auto" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th style="max-width: 30%;">Mô tả</th>
+                                    <th style="max-width: 120px;">Mô tả</th>
                                     <th>Ảnh</th>
                                     <th>Giá</th>
                                     <th>Tài khoản</th>

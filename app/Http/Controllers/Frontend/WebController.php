@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\BankRepoInterface;
 use App\Http\Services\BannerServiceInterface;
 use App\Http\Services\CategoryServiceInterface;
 use App\Http\Services\OrderServiceInterface;
@@ -23,17 +24,21 @@ class WebController extends Controller
     protected BannerServiceInterface $bannerService;
     protected OrderServiceInterface $orderService;
 
+    protected BankRepoInterface $bankRepository;
+
     public function __construct(
         CategoryServiceInterface $categoryService,
         ProductServiceInterface $productService,
         BannerServiceInterface $bannerService,
-        OrderServiceInterface $orderService
+        OrderServiceInterface $orderService,
+        BankRepoInterface $bankRepository,
     )
     {
         $this->categoryService = $categoryService;
         $this->productService = $productService;
         $this->bannerService = $bannerService;
         $this->orderService = $orderService;
+        $this->bankRepository = $bankRepository;
     }
 
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -78,14 +83,21 @@ class WebController extends Controller
         }
     }
 
+    /**
+     * @param $slug
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     * page recharge coin
+     */
     public function getRecharge($slug): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $rechargeName = 'Nạp Atm/Momo';
-        if ($slug === 'nap-the-cao') {
-            $rechargeName = 'Nạp thẻ cào';
-        }
         $code = Auth::user()->code;
+        $banks = $this->bankRepository->getAll();
 
-        return view('frontend.page.recharge', compact('slug', 'rechargeName', 'code'));
+        return view('frontend.page.recharge', compact('slug', 'code', 'banks'));
+    }
+
+    public function exampleCkeditor()
+    {
+        return view('frontend.editor');
     }
 }

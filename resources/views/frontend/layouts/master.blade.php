@@ -23,6 +23,7 @@
     <link href="{{ asset('shopAcc/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
+    <link href="{{ asset('shopAcc/css/style_setup.css') }}" rel="stylesheet">
     <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
 
     <title>@yield('title')</title>
