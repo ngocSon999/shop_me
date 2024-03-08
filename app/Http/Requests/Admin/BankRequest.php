@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BankRequest extends FormRequest
 {
@@ -23,10 +24,23 @@ class BankRequest extends FormRequest
     {
         return [
             'bank_account' => 'required|max:150',
-            'bank_name' => 'required|max:255',
-            'bank_number' => 'required|max:20|unique:banks,bank_number,' . $this->id,
+            'bank_name' => [
+                'max:255',
+                Rule::requiredIf(function () {
+                    if ($this->type == 1) {
+                        return true;
+                    }
+                    return false;
+                }),
+            ],
+            'bank_number' => [
+                'required', 'max:20',
+                Rule::unique('banks')->ignore($this->id),
+                Rule::when($this->type == 2, ['regex:/(0[3|5|7|8|9])+([0-9]{8})\b/']),
+            ],
             'bank_address' => 'nullable|max:255',
             'status' => 'required|integer|max:1',
+            'type' => 'required|integer|max:2',
         ];
     }
 
@@ -38,6 +52,14 @@ class BankRequest extends FormRequest
             'bank_number' => 'Số TK/Số thẻ',
             'bank_address' => 'Chi nhánh ngân hàng',
             'status' => 'Trạng thái hoạt động thẻ',
+            'type' => 'Loại thẻ',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'bank_number.regex' => 'Số tài khoản momo  không hợp lệ',
         ];
     }
 }

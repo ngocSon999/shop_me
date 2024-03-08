@@ -2,7 +2,7 @@
 <div class="container-fluid fixed-top">
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="{{ route('web.index') }}" class="navbar-brand"><h3 class="text-primary display-6">Shop</h3></a>
+            <a href="{{ route('web.index') }}" class="navbar-brand"><img src="{{ asset('/shopAcc/img/NRO.png') }}" height="80" width="130" alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>

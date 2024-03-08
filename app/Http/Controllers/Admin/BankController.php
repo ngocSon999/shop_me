@@ -47,7 +47,7 @@ class BankController extends Controller
     public function store(BankRequest $request): RedirectResponse
     {
         try {
-            $bank = $this->bankRepository->store($request->except('_token'), Bank::class);
+            $this->bankRepository->store($request->except('_token'), Bank::class);
 
             return redirect()->route('admin.banks.index')->with('success', 'Tạo thẻ thanh toán thành công');
         } catch (\Exception $e) {
