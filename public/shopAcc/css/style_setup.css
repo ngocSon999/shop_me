@@ -1,3 +1,8 @@
 p {
     margin: 0;
 }
+.testimonial .owl-nav .owl-next,
+.testimonial .owl-nav .owl-prev {
+    padding: 2px 25px !important;
+    top: -46px !important;
+}
