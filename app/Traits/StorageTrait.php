@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 trait StorageTrait
@@ -18,10 +19,12 @@ trait StorageTrait
                 $image = $folderName . '-' . time() .'.'. $ext;
                 $filepath = '';
 
-//                $directory = 'public/'.$folderName;
-//                if (!Storage::exists($directory)) {
-//                    Storage::makeDirectory($directory);
-//                }
+                $directory = 'public/'.$folderName;
+                if (!File::exists($directory)) {
+                    if (!File::makeDirectory($directory, 0777, true, true)) {
+                        throw new \Exception('Có lỗi xảy ra trong quá trình upload file');
+                    }
+                }
 
                 if ($filesize < 7000000) {
                     $filepath = $file->storeAs('public/'.$folderName, $image);

@@ -34,7 +34,7 @@ class CategoryController extends BaseAdminController
     {
         $this->categoryService->store($request);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Tạo danh mục phim thành công');
+        return redirect()->route('admin.categories.index')->with('success', 'Tạo danh mục thành công');
     }
 
     public function getList(Request $request): JsonResponse

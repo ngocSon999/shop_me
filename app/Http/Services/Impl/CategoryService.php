@@ -4,11 +4,13 @@ namespace App\Http\Services\Impl;
 use App\Http\Repositories\CategoryRepoInterface;
 use App\Http\Services\CategoryServiceInterface;
 use App\Models\Category;
+use App\Traits\StorageTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class CategoryService extends BaseService implements CategoryServiceInterface
 {
+    use StorageTrait;
     protected CategoryRepoInterface $categoryRepository;
 
     public function __construct(CategoryRepoInterface $categoryRepository)
@@ -16,12 +18,23 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function store($request)
     {
-        return $this->categoryRepository->store([
+        $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-        ], Category::class);
+        ];
+        if (!empty($request->image)) {
+            $resultPath = $this->storageTraitUpload($request, 'image','categories');
+            if ($resultPath) {
+                $data['image'] =  $resultPath;
+            }
+        }
+
+        return $this->categoryRepository->store($data, Category::class);
     }
 
     public function getList($request): array
@@ -42,12 +55,21 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         return $this->categoryRepository->getById($id, Category::class);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function update($request = null, $id = null): void
     {
         $data = [
             'name' => $request->name,
-            'slug' => str::slug($request->name),
+            'slug' => Str::slug($request->name),
         ];
+        if (!empty($request->image)) {
+            $resultPath = $this->storageTraitUpload($request, 'image','categories');
+            if ($resultPath) {
+                $data['image'] =  $resultPath;
+            }
+        }
         $this->categoryRepository->update($data, $id, Category::class);
     }
 
