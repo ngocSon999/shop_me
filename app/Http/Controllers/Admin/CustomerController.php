@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ChangeCoin;
+use App\Events\SendNotifyRechargeCard;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\CustomerRepoInterface;
 use App\Http\Services\BaseServiceInterface;
 use App\Models\Customer;
 use App\Models\CustomerHistory;
+use App\Notifications\CustomerNotification;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class CustomerController extends Controller
 {
@@ -104,6 +108,10 @@ class CustomerController extends Controller
                 'total_coin' => $totalCoin,
             ]);
             DB::commit();
+//            broadcast(new ChangeCoin($customer));
+//            Notification::send($customer, new CustomerNotification($customer));
+//
+//            broadcast(new SendNotifyRechargeCard($customer));
 
             return redirect()->route('admin.customers.index')->with('success', 'Nạp tiền thành công');
         } catch (\Exception $e) {

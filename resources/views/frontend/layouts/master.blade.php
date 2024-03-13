@@ -71,9 +71,29 @@
 <script src="{{ asset('shopAcc/lib/lightbox/js/lightbox.min.js') }}"></script>
 <script src="{{ asset('shopAcc/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
+<script src="{{ asset('/frontend/js/pusher.min.js') }}"></script>
 <!-- Template Javascript -->
 <script src="{{ asset('shopAcc/js/main.js') }}"></script>
 <script>
+    // Pusher.logToConsole = true;
+    const app_key = '{{ env('VITE_PUSHER_APP_KEY') }}';
+    let pusher = new Pusher(app_key, {
+        cluster: 'ap1',
+        encrypted: true
+    });
+    let channel = pusher.subscribe('NotifyChangeCoin');
+    channel.bind('App\\Events\\ChangeCoin', function(e) {
+        document.getElementById('total-coin').innerText= e.customer.coin;
+    });
+
+    // let notify = pusher.subscribe('Send-Notify-Recharge-Card');
+    // notify.bind('App\\Events\\SendNotifyRechargeCard', function(e) {
+    //     let notifications = e.notifications.data;
+    //     let $element = $('#notify');
+    //     console.log(notifications);
+    // });
+
+
     $(document).on('click', '.btn-by-product', function () {
         let productId = $(this).data('product_id');
         let userLogin = @json(auth()->user());

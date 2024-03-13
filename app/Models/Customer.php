@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Customer extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use Notifiable, HasFactory, SoftDeletes;
 
     protected $table = "customers";
     protected $guarded = [];
@@ -17,6 +18,11 @@ class Customer extends Authenticatable
     protected $hidden = [
       'password'
     ];
+
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'customer.'.$this->id;
+    }
 
     public function customerHistory(): HasMany
     {

@@ -48,8 +48,8 @@
                                     <i class="fas fa-user" style="font-size: 28px"></i>
                                 @endif
                                 <span>{{ Auth::user()->name }}</span>
-                                <span> - </span>
-                                <span>${{ Auth::user()->coin }}</span>
+                                <span> - $</span>
+                                <span id="total-coin">{{ Auth::user()->coin }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                 <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Acount</a>
