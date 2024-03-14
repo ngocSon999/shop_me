@@ -25,9 +25,11 @@ class CategoryController extends BaseAdminController
         return view('admins.categories.index');
     }
 
-    public function createForm(): View|\Illuminate\Foundation\Application|Factory|Application
+    public function createForm($categoryId = null): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('admins.categories.form_create');
+        $category= $categoryId ? $this->categoryService->getById($categoryId) : null;
+
+        return view('admins.categories.form_create', compact('category'));
     }
 
     public function store(CategoryRequest $request): RedirectResponse

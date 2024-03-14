@@ -30,7 +30,7 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         if (!empty($request->image)) {
             $resultPath = $this->storageTraitUpload($request, 'image','categories');
             if ($resultPath) {
-                $data['image'] =  $resultPath;
+                $data['image'] =  $resultPath['file_path'];
             }
         }
 
@@ -58,7 +58,7 @@ class CategoryService extends BaseService implements CategoryServiceInterface
     /**
      * @throws \Exception
      */
-    public function update($request = null, $id = null): void
+    public function update($request, $id): void
     {
         $data = [
             'name' => $request->name,
@@ -67,7 +67,7 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         if (!empty($request->image)) {
             $resultPath = $this->storageTraitUpload($request, 'image','categories');
             if ($resultPath) {
-                $data['image'] =  $resultPath;
+                $data['image'] =  $resultPath['file_path'];
             }
         }
         $this->categoryRepository->update($data, $id, Category::class);

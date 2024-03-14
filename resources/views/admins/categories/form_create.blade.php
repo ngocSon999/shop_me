@@ -33,10 +33,11 @@
             <div class="row">
                 @if(!empty($category))
                     <form class="mt-4" action="{{ route('admin.categories.update', ['id' => $category->id]) }}"
-                          method="POST">
+                          method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @else
-                            <form class="mt-4" action="{{ route('admin.categories.store') }}" method="POST">
+                            <form class="mt-4" action="{{ route('admin.categories.store') }}" method="POST"
+                            enctype="multipart/form-data">
                                 @endif
                                 @csrf
                                 <div class="mb-3">
