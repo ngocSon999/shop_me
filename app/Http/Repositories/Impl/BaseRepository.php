@@ -49,6 +49,7 @@ class BaseRepository implements BaseRepoInterface
      * @param int $id
      * @param $model
      * @return void
+     * @throws \Exception
      */
     public function delete(int $id, $model): void
     {
@@ -65,6 +66,8 @@ class BaseRepository implements BaseRepoInterface
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error delete record on table '. $model. ':'. $e->getMessage());
+
+            throw $e;
         }
     }
 }

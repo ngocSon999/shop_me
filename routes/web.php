@@ -185,6 +185,20 @@ Route::middleware('checkPermission:dashboard.index')->prefix('/admin')->name('ad
         Route::get('/delete/{id}', [BankController::class, 'delete'])
             ->name('delete');
     });
+
+    Route::prefix('/cards')->name('cards.')->group(function () {
+        Route::get('/index', [CardController::class, 'index'])
+            ->name('index');
+
+        Route::get('/list', [CardController::class, 'getList'])
+            ->name('list');
+
+        Route::put('/update/{id}', [CardController::class, 'update'])
+            ->name('update');
+
+        Route::get('/delete/{id}', [CardController::class, 'delete'])
+            ->name('delete');
+    });
 });
 
 /*

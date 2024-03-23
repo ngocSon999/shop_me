@@ -58,6 +58,13 @@
 {{--                </ul>--}}
 {{--            </li>--}}
             <li class="nav-item">
+                <a href="{{ route('admin.cards.index') }}" class="nav-link">
+                    <i class="far fa-credit-card"></i>
+                    <p>Card</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
                     <i class="fas fa-user nav-icon"></i>
                     <p>Account</p>

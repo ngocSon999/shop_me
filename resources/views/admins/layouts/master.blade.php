@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
         .sidebar .nav-item .nav-link:hover {
-            background-color: #3c8dbc !important;
+            background-color: #3da49b !important;
             color: #fff !important;
         }
         .form-message {
