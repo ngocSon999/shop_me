@@ -1,6 +1,11 @@
 @extends('frontend.layouts.master')
 @section('style')
     <link rel="stylesheet" href="{{ asset('shopAcc/css/recharge.css') }}">
+    <style>
+        .card-title-page {
+            font-size: 24px;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid vesitable" style="margin-top: 108px">
