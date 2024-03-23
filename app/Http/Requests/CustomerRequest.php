@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerRequest extends FormRequest
 {
@@ -32,6 +33,13 @@ class CustomerRequest extends FormRequest
             'avatar' => 'nullable|image',
             'address' => 'nullable|max:255',
             'password' => 'required|min:6|max:32',
+            'password_confirmation' => [
+                'same:password',
+                'nullable',
+                Rule::requiredIf(function () {
+                    return $this->password ? true : false;
+                })
+            ],
         ];
     }
 }
