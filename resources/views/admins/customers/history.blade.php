@@ -47,7 +47,7 @@
                             <div class="row mt-3">
                                 <div class="col-md-4 col-12 mb-2">
                                     <i class="fas fa-long-arrow-alt-left"></i>
-                                    <a href="{{ route('admin.customers.transaction_history', ['id' => $customer->id]) }}">Quay lại trang quản lý khách hàng</a>
+                                    <a href="{{ route('admin.customers.index') }}">Quay lại trang quản lý khách hàng</a>
                                 </div>
 
                             </div>

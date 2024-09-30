@@ -119,8 +119,7 @@
                     data: 'image',
                     render: function (colValue) {
                         let imgPath = '{{ asset(':colValue') }}';
-                        imgPath = imgPath.replace(':colValue', colValue);
-
+                        imgPath = imgPath.replace('/:colValue', colValue);
                         return `<img src="${imgPath}" alt="" style="width: 130px; height: 130px">`;
                     }
                 },
