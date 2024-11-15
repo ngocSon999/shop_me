@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -25,11 +26,25 @@ class FrontendLoginController extends Controller
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->only(['email', 'password']);
+        $customer = Customer::where('email', $credentials['email'])->first();
+
+        if ($customer) {
+            if ($customer->status == 0) {
+                return redirect()->back()->with(
+                    'warning',
+                    'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết!'
+                );
+            }
+        }
+
         if (Auth::guard('customers')->attempt($credentials)) {
             return redirect()->route('web.index');
         }
 
-        return redirect()->back()->with('warning','Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!');
+        return redirect()->back()->with(
+            'warning',
+            'Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!'
+        );
     }
 
     public function logout(): RedirectResponse

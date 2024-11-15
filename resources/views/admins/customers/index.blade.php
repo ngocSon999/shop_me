@@ -13,8 +13,8 @@
             color: deepskyblue;
         }
         a.action {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background-color: deepskyblue;
             color: #ffffff !important;
             font-size: 14px;
@@ -30,6 +30,9 @@
         }
         a.action:hover {
             opacity: 0.6;
+        }
+        .btn-lock {
+            cursor: pointer;
         }
     </style>
 @endsection
@@ -154,10 +157,25 @@
                         let urlShow = '{{ route('admin.customers.show', ':id') }}';
                         urlShow = urlShow.replace(':id', colValue);
 
-                        return `<div class="d-flex">
+                        let htm = `<div class="d-flex align-items-center justify-content-center w-100">
                                     <a class="action mr-1" href="${urlAddCoin}" title="Nạp xu">+ Xu</a>
-                                    <a title="Chi tiết" href="${urlShow}"><i class="fas fa-info-circle"></i></a>
-                                </div>`;
+                                    <a title="Chi tiết" href="${urlShow}">
+                                        <i class="font-32 fas fa-info-circle"></i>
+                                    </a>`;
+                        if (row.status === 0) {
+                            htm += `<a class="ml-1" title="Unlock">
+                                        <i class="btn-lock font-32 fas fa-lock color-red"
+                                            data-id="${colValue}" data-status="${row.status}"></i>
+                                    </a>`;
+                        }
+                        if (row.status === 1) {
+                        htm += `<a class="ml-1" title="Lock">
+                                    <i class="btn-lock font-32 fas fa-unlock"
+                                        data-id="${colValue}" data-status="${row.status}"></i>
+                                </a>`;
+                        }
+                        htm += `</div>`;
+                        return htm;
                     }
                 },
             ],
@@ -165,6 +183,53 @@
 
         $('#btn-search').on('click', function () {
             table.draw();
+        })
+
+        $(document).on('click', '.btn-lock', function () {
+            let id = $(this).data('id');
+            let status = $(this).data('status');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                showCancelButton: true,
+                confirmButtonColor: '#007bff',
+                cancelButtonColor: '#fd7e14',
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url : '{{ route('admin.customers.change_status') }}',
+                        type : 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data : {
+                            status : status,
+                            id : id
+                        },
+                        success : function (data)
+                        {
+                            if(data.code === 200){
+                                Swal.fire({
+                                    title: data.title ?? 'Success!',
+                                    text: data.msg,
+                                    willClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: data.title ?? 'Error!',
+                                    text: data.msg,
+                                    willClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
         })
     </script>
 @endsection

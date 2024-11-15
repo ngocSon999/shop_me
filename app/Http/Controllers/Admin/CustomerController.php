@@ -83,7 +83,8 @@ class CustomerController extends Controller
     public function addCoin($id, Request $request): RedirectResponse
     {
         $request->validate([
-            'add_coin' => 'required|integer|min:1|max:99999999',
+            'add_coin' => 'nullable|integer|min:1|max:99999999',
+            'minus_coin' => 'nullable|integer|min:1|max:99999999',
         ]);
 
         $user = Sentinel::getUser();
@@ -95,7 +96,9 @@ class CustomerController extends Controller
 
         $currentCoin = $customer->coin;
         $coin = $request->input('add_coin');
-        $totalCoin = $currentCoin + $coin;
+        $minusCoin = $request->input('minus_coin');
+        $totalCoin = $currentCoin + (int) $coin - (int) $minusCoin;
+
         try {
             DB::beginTransaction();
             $customer->coin = $totalCoin;
@@ -124,7 +127,7 @@ class CustomerController extends Controller
 
     public function show($id): RedirectResponse|view
     {
-        $customer = $this->customerRepository->getById($id, Customer::class);
+        $customer = $this->customerRepository->getById((int) $id, Customer::class);
         if (empty($customer)) {
             return redirect()->back()->with('danger', 'Customer not found');
         }
@@ -134,7 +137,7 @@ class CustomerController extends Controller
 
     public function transactionHistory($id, Request $request): Factory|View|Application|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
-        $customer = $this->customerRepository->getById($id, Customer::class);
+        $customer = $this->customerRepository->getById((int) $id, Customer::class);
         if (empty($customer)) {
             return redirect()->back()->with('danger', 'Customer not found');
         }
@@ -158,7 +161,7 @@ class CustomerController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->customerRepository->update($data, $id, Customer::class);
+            $this->customerRepository->update($data, (int) $id, Customer::class);
             DB::commit();
             Log::info('Change password customer by admin: success fully');
 
@@ -175,5 +178,54 @@ class CustomerController extends Controller
                 'message' => 'Có lỗi xảy ra vui lòng thử lại!'
             ]);
         }
+    }
+
+    public function changeStatus(Request $request): JsonResponse
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'status' => 'required|integer'
+        ]);
+
+        $id = (int) $request->input('id');
+        $status = (int) $request->input('status');
+
+        DB::beginTransaction();
+        try {
+            $customer = $this->customerRepository->getById((int) $id, Customer::class);
+            if ($status === 1) {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            if ($customer) {
+                $customer->update([
+                    'status' => $status
+                ]);
+                DB::commit();
+
+                return response()->json([
+                    'code' => 200,
+                    'title' => 'Success',
+                    'msg' => 'Update successfully'
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error change status customer by admin: '. $e->getMessage());
+
+            return response()->json([
+                'code' => 500,
+                'title' => 'Error',
+                'msg' => 'Error change status customer'
+            ], 500);
+        }
+
+        return response()->json([
+            'code' => 404,
+            'title' => 'Error',
+            'msg' => 'Customer not found'
+        ], 404);
+
     }
 }

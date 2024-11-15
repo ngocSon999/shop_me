@@ -47,6 +47,9 @@
         .content-wrapper .content {
             padding-bottom: 80px;
         }
+        .font-32 {
+            font-size: 32px;
+        }
     </style>
 
     <link rel="stylesheet" href="{{ asset('assets/cms/css/style.css') }}">

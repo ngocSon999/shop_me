@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Trang chủ</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.customers.index') }}">Banner</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('admin.customers.index') }}">Customer</a></li>
                     </ol>
                 </div>
             </div>
@@ -53,9 +53,23 @@
                                    disabled value="{{ $customer->coin }}">
                         </div>
                         <div class="form-group mb-3 col-md-6 col-12">
-                            <label>Số xu nạp<span class="color-red">*</span></label>
-                            <input type="number" class="form-control" name="add_coin"
+                            <label>Trạng thái</label>
+                            <input type="text" min="0" class="form-control" name="add_coin"
+                                   value="{{ $customer->status ===1 ? 'Active' : 'unActive' }}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group mb-3 col-md-6 col-12">
+                            <label>Số xu nạp</label>
+                            <input type="number" min="0" class="form-control" name="add_coin"
                                    value="{{ old('add_coin') }}">
+                        </div>
+
+                        <div class="form-group mb-3 col-md-6 col-12">
+                            <label>Giảm xu(trường hợp nạp thừa)</label>
+                            <input type="number" min="0" class="form-control" name="minus_coin"
+                                   value="{{ old('minus_coin') }}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success mt-2">Save</button>

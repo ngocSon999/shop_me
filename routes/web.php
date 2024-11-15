@@ -167,6 +167,9 @@ Route::middleware('checkPermission:dashboard.index')
 
         Route::post('/change-password', [CustomerController::class, 'updatePassword'])
             ->name('change_password');
+
+        Route::post('/change-status', [CustomerController::class, 'changeStatus'])
+            ->name('change_status');
     });
 
     Route::prefix('/banks')->name('banks.')->group(function () {
