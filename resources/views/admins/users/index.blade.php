@@ -2,6 +2,10 @@
 @section('title', 'Nhân viên')
 @section("style")
     <style>
+        .role-user {
+            list-style: none;
+            padding: 0;
+        }
     </style>
 @endsection
 @section('content')
@@ -132,7 +136,7 @@
                     data: 'roles',
                     orderable: false,
                     render: function (colValue, type, row) {
-                        let resultHTML = '<ul>';
+                        let resultHTML = '<ul class="role-user">';
                         if (row?.roles?.length > 0) {
                             row.roles.map(function (role) {
                                 resultHTML += `<li>${role.name}</li>`

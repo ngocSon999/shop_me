@@ -36,32 +36,27 @@
                     <p>Bank</p>
                 </a>
             </li>
-{{--            <li class="nav-item">--}}
-{{--                <a href="#" class="nav-link">--}}
-{{--                    <i class="fa-solid fa-list nav-icon"></i>--}}
-{{--                    <p>--}}
-{{--                        Product & Benefit--}}
-{{--                        <i class="fas fa-angle-left right"></i>--}}
-{{--                    </p>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-treeview">--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('admin.movies.index') }}" class="nav-link">--}}
-{{--                            <p class="nav-link-item">Product</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link">--}}
-{{--                            <p class="nav-link-item">Benefit</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
             <li class="nav-item">
                 <a href="{{ route('admin.cards.index') }}" class="nav-link">
                     <i class="far fa-credit-card"></i>
                     <p>Card</p>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>
+                        Setting
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <p class="nav-link-item">web setting</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

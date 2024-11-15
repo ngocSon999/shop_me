@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item active">Danh mục</li>
                     </ol>
                 </div>
@@ -39,9 +39,13 @@
                     </select>
                 </div>
 
-                <div class="form-group d-flex col-6 col-md-2 align-items-end">
-                    <button type="button" id="btn-search" class="btn btn-success swalDefaultSuccess mt-2 mr-2">Search</button>
-                    <button type="button" id="export-excel" class="btn btn-success swalDefaultSuccess mt-2">Export Excel</button>
+                <div class="form-group d-flex col-6 col-md-4 align-items-end">
+                    <button type="button" id="btn-search" class="btn btn-success swalDefaultSuccess mt-2 mr-2">
+                        Search
+                    </button>
+                    <button type="button" id="export-excel" class="btn btn-success swalDefaultSuccess mt-2">
+                        Export Excel
+                    </button>
                 </div>
             </form>
         </div><!-- /.container-fluid -->

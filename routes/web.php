@@ -27,10 +27,15 @@ use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerControll
 
 Route::get('/admin/login', [LoginController::class, 'login'])->name('admin.user.login');
 Route::get('/admin/logout', [LoginController::class, 'logout'])->name('admin.user.logout');
-Route::post('/admin/user/postLogin', [LoginController::class, 'postLogin'])->name('admin.user.post-login');
+Route::post('/admin/user/postLogin', [LoginController::class, 'postLogin'])
+    ->name('admin.user.post-login');
 
-Route::middleware('checkPermission:dashboard.index')->prefix('/admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('checkPermission:dashboard.index')->name('dashboard');
+Route::middleware('checkPermission:dashboard.index')
+    ->prefix('/admin')
+    ->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])
+        ->middleware('checkPermission:dashboard.index')
+        ->name('dashboard');
 
     Route::prefix('/user')->name('users.')->group(function () {
         Route::get('/create', [UserController::class, 'createForm'])
@@ -210,9 +215,12 @@ Route::post('/login', [FrontendLoginController::class, 'login'])->name('web.logi
 
 
 Route::prefix('customers')->group(function () {
-    Route::get('/create', [FrontendCustomerController::class, 'createForm'])->name('web.customers.form');
-    Route::get('/history', [FrontendCustomerController::class, 'history'])->name('web.customers.history');
-    Route::post('/register', [FrontendCustomerController::class, 'store'])->name('web.customers.register');
+    Route::get('/create', [FrontendCustomerController::class, 'createForm'])
+        ->name('web.customers.form');
+    Route::get('/history', [FrontendCustomerController::class, 'history'])
+        ->name('web.customers.history');
+    Route::post('/register', [FrontendCustomerController::class, 'store'])
+        ->name('web.customers.register');
 });
 
 Route::middleware('auth:customers')->group(function () {
@@ -223,11 +231,17 @@ Route::middleware('auth:customers')->group(function () {
 
     Route::post('/recharge-card', [CardController::class, 'rechargeCard'])
         ->name('web.recharge_card');
-    Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])->name('web.getDataAjax');
-    Route::get('/product-detail/{id}', [WebController::class, 'showProduct'])->name('web.product.show');
-    Route::post('/product-purchase', [WebController::class, 'purchaseProduct'])->name('web.purchase_product');
-    Route::get('/nap-tien/{slug}', [WebController::class, 'getRecharge'])->name('web.recharge');
+    Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])
+        ->name('web.getDataAjax');
+    Route::get('/product-detail/{id}', [WebController::class, 'showProduct'])
+        ->name('web.product.show');
+    Route::post('/product-purchase', [WebController::class, 'purchaseProduct'])
+        ->name('web.purchase_product');
+    Route::get('/nap-tien/{slug}', [WebController::class, 'getRecharge'])
+        ->name('web.recharge');
 });
-Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])->name('web.product_category');
-Route::get('/editor', [WebController::class, 'exampleCkeditor'])->name('web.editor');
+Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])
+    ->name('web.product_category');
+Route::get('/editor', [WebController::class, 'exampleCkeditor'])
+    ->name('web.editor');
 

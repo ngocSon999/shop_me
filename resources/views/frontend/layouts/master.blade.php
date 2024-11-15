@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Website Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -26,7 +25,8 @@
     <link href="{{ asset('shopAcc/css/style_setup.css') }}" rel="stylesheet">
     <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
 
-    <title>@yield('title')</title>
+    <title>Website | @yield('title')</title>
+    @yield('style')
     @yield('style')
 </head>
 <body>
