@@ -138,6 +138,18 @@
 
 <script src="{{ asset('assets/cms/js/validateForm.js') }}"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(message => {
+                message.style.transition = 'opacity 0.5s ease';
+                message.style.opacity = '0';
+                setTimeout(() => message.remove(), 500);
+            });
+        }, 5000);
+    });
+</script>
+<script>
     // $(document).on('click', '.btn-delete', function () {
     //     let id = $(this).data('id');
     //     let log = $(this).data('log');

@@ -27,7 +27,6 @@
     <link rel="icon" href="{{ asset(getSetting('logo_favicon')) }}" type="image/x-icon">
     <title>Website | @yield('title')</title>
     @yield('style')
-    @yield('style')
 </head>
 <body>
 <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -107,6 +106,18 @@
             window.location.href = pathProductDetail;
         }
     })
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(message => {
+                message.style.transition = 'opacity 0.5s ease';
+                message.style.opacity = '0';
+                setTimeout(() => message.remove(), 500);
+            });
+        }, 5000);
+    });
 </script>
 @yield('js')
 </body>

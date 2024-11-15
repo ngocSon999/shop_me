@@ -41,7 +41,7 @@ class WebController extends Controller
         $this->bankRepository = $bankRepository;
     }
 
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(): View
     {
         $categories = $this->categoryService->getAll();
         $products = $this->productService->getAll();
@@ -50,7 +50,7 @@ class WebController extends Controller
         return view('frontend.page.home', compact('categories', 'products', 'banners'));
     }
 
-    public function getProductBySlugCategory($slug): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function getProductBySlugCategory($slug): View
     {
         $categories = $this->categoryService->getAll();
         $products = $this->productService->getProductBySlugCategory($slug);
@@ -59,7 +59,7 @@ class WebController extends Controller
         return view('frontend.page.product_by_category', compact('categories', 'products', 'slug', 'banners'));
     }
 
-    public function showProduct($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function showProduct($id): View
     {
         $product = $this->productService->getById($id);
 
@@ -85,10 +85,9 @@ class WebController extends Controller
 
     /**
      * @param $slug
-     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      * page recharge coin
      */
-    public function getRecharge($slug): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function getRecharge($slug): View
     {
         $code = Auth::user()->code;
         $banks = $this->bankRepository->getAll();

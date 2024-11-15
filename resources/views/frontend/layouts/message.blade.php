@@ -4,12 +4,13 @@
     margin-top: 14px;
     padding: 14px;
     right: 0;
+    z-index: 999;
 }
 .flash-message button {
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 20px;
+    font-size: 15px;
 }
 </style>
 
@@ -26,7 +27,7 @@
     </div>
 @endif
 @if(session('info'))
-    <div class="alert alert-info text-center flash-message">
+    <div class="alert alert-info text-center flash-message" role="alert">
         {{ session('info') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

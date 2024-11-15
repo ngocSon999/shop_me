@@ -11,6 +11,8 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 {
     /** @var int */
     const ACTIVE = 1;
+    const PerPage = 12;
+
     public function getList(): Collection
     {
         return Product::all();
@@ -18,21 +20,24 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 
     public function getAll()
     {
-        return Product::where('active', 1)->paginate(3);
+        return Product::where('active', self::ACTIVE)->paginate(self::PerPage);
     }
 
     public function getDataByCategory($categoryId)
     {
-        return Product::where('products.active', 1)->whereHas(
+        return Product::
+        where('products.active', self::ACTIVE)
+        ->whereHas(
             'categories', function ($query) use ($categoryId) {
                 $query->where('categories.id', $categoryId);
             }
-        )->get();
+        )
+        ->get();
     }
 
     public function getDataBySlugCategory($slug)
     {
-        return Product::where('products.active', 1)->whereHas(
+        return Product::where('products.active', self::ACTIVE)->whereHas(
             'categories', function ($query) use ($slug) {
                 $query->where('categories.slug', $slug);
             }
@@ -41,7 +46,7 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 
     public function sellProduct($id)
     {
-        $product = Product::where('active', 1)->where('id', $id)->first();
+        $product = Product::where('active', self::ACTIVE)->where('id', $id)->first();
         if (!$product) {
             abort(404);
         }
