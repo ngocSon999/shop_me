@@ -34,12 +34,32 @@
                         <i class="fas fa-search text-primary"></i>
                     </button>
                     @if(Auth::check())
-                        <a href="#" class="position-relative me-4 my-auto d-flex align-items-center">
-                            <i class="fa fa-bell" style="font-size: 28px"></i>
+                        <span class="notification position-relative me-4 my-auto d-flex align-items-center">
+                            <i class="fa fa-bell" style="font-size: 28px; color: var(--bs-primary)"></i>
                             <span
+                                id = "total-notification"
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;"></span>
-                        </a>
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                                {{ Auth::user()->unreadNotifications()->count() ?? 0 }}
+                            </span>
+                            <ul class="header-notification">
+                                @if(Auth::user()->unreadNotifications()->count() > 0)
+                                    @foreach (Auth::user()->unreadNotifications()->get() as $notification)
+                                    <li class="notification-item">
+                                        <a class="notification-link" href="#">
+                                            {{ $notification->data['message_to_information'] }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                @else
+                                    <li class="notification-item">
+                                        <a class="notification-link" href="#">
+                                           No notification
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </span>
                         <div class="nav-item dropdown">
                             <a href="#" class="my-auto d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
                                 @if(!empty(Auth::user()->avatar))

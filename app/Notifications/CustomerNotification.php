@@ -14,13 +14,15 @@ class CustomerNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected  $customer;
+    protected  $coin;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($customer)
+    public function __construct($customer, $coin)
     {
         $this->customer = $customer;
+        $this->coin = $coin;
     }
 
     /**
@@ -44,7 +46,7 @@ class CustomerNotification extends Notification implements ShouldQueue
         $customer = $this->customer;
 
         return [
-            'message_to_information' => $customer->name,
+            'message_to_information' => 'You have successfully recharged ' . $this->coin . ' coins',
             'created_at' => now(),
         ];
     }

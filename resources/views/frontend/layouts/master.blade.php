@@ -24,6 +24,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('shopAcc/css/style_setup.css') }}" rel="stylesheet">
     <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('shopAcc/css/notification.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset(getSetting('logo_favicon')) }}" type="image/x-icon">
     <title>Website | @yield('title')</title>
     @yield('style')
@@ -74,25 +75,40 @@
 <!-- Template Javascript -->
 <script src="{{ asset('shopAcc/js/main.js') }}"></script>
 <script>
+    // Enable Pusher logging for debugging
     // Pusher.logToConsole = true;
-    const app_key = '{{ env('VITE_PUSHER_APP_KEY') }}';
+    const app_key = '{{ config('define.PUSHER_APP_KEY') }}';
+    let customerId = {{ auth()->id() }}; // Truyền ID người dùng từ Laravel
+
+    // Khởi tạo Pusher
     let pusher = new Pusher(app_key, {
         cluster: 'ap1',
         encrypted: true
     });
-    let channel = pusher.subscribe('NotifyChangeCoin');
-    channel.bind('App\\Events\\ChangeCoin', function(e) {
-        document.getElementById('total-coin').innerText= e.customer.coin;
+
+    // Đăng ký kênh
+    let channel = pusher.subscribe(`customer.${customerId}`);
+
+    // Lắng nghe sự kiện ChangeCoin
+    channel.bind('App\\Events\\ChangeCoin', function (e) {
+        document.getElementById('total-coin').innerText = e.coin;
     });
 
-    // let notify = pusher.subscribe('Send-Notify-Recharge-Card');
-    // notify.bind('App\\Events\\SendNotifyRechargeCard', function(e) {
-    //     let notifications = e.notifications.data;
-    //     let $element = $('#notify');
-    //     console.log(notifications);
-    // });
+    // Lắng nghe sự kiện SendNotifyRechargeCard
+    let notify = pusher.subscribe(`Send-Notify-Recharge-Card.${customerId}`);
+    notify.bind('App\\Events\\SendNotifyRechargeCard', function(e) {
+        let notifications = e.notifications.data;
+        const html = `<li class="notification-item">
+                                    <a class="notification-link" href="#">
+                                        ${notifications.message_to_information}
+                                    </a>
+                                </li>`;
+        $('.header-notification').append(html);
+        $('#total-notification').text(e.totalNotifications);
+    });
+</script>
 
-
+<script>
     $(document).on('click', '.btn-by-product', function () {
         let productId = $(this).data('product_id');
         let userLogin = @json(auth()->user());

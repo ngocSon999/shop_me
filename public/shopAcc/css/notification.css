@@ -1,0 +1,52 @@
+:root {
+    --width-notification: 330px;
+}
+.notification {
+    position: relative;
+    cursor: pointer;
+}
+.notification:hover .header-notification {
+    display: block;
+}
+.header-notification {
+    display: none;
+    position: absolute;
+    list-style: none;
+    background-color: #19ec19;
+    top: 35px;
+    min-width: var(--width-notification);
+    margin: 0;
+    right: calc(-1 * var(--width-notification) / 2);
+    padding: 12px;
+    max-width: 450px;
+    color: #ffffff;
+}
+.header-notification::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    right: 0;
+    width: 160px;
+    height: 16px;
+    left: 0;
+    margin: auto;
+}
+.notification-item {
+    width: 100%;
+}
+.notification-link {
+    width: 100%;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 1140px) {
+    .header-notification {
+        top: 20px;
+        height: 200px;
+        overflow: hidden;
+        overflow-y: auto;
+        right: calc(-1 * var(--width-notification) / 2 - 64px);
+    }
+}

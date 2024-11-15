@@ -111,12 +111,12 @@ class CustomerController extends Controller
                 'total_coin' => $totalCoin,
             ]);
             DB::commit();
-//            broadcast(new ChangeCoin($customer));
-//            Notification::send($customer, new CustomerNotification($customer));
-//
-//            broadcast(new SendNotifyRechargeCard($customer));
 
-            return redirect()->route('admin.customers.index')->with('success', 'Nạp tiền thành công');
+            broadcast(new ChangeCoin($customer));
+            Notification::send($customer, new CustomerNotification($customer, $coin));
+            broadcast(new SendNotifyRechargeCard($customer));
+
+            return redirect()->back()->with('success', 'Nạp tiền thành công');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('lỗi nạp tiền cho khách hàng '. $customer->email. 'mesageError: '.$e->getMessage());

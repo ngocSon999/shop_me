@@ -1,7 +1,9 @@
 import './bootstrap';
-import Echo from "laravel-echo";
 
-Echo.private('customer.' + Auth::id())
-    .notification((notification) => {
-        console.log(notification.type);
+window.Echo.private(`customer.${customerId}`)
+    .listen('ChangeCoin');
+
+window.Echo.private(`Send-Notify-Recharge-Card.${customerId}`)
+    .listen('SendNotifyRechargeCard', (e) => {
+        console.log('data', e);
     });

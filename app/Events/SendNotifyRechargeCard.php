@@ -13,6 +13,8 @@ class SendNotifyRechargeCard implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $notifications;
+    public $customer;
+    public $totalNotifications;
 
     /**
      * Create a new event instance.
@@ -21,6 +23,8 @@ class SendNotifyRechargeCard implements ShouldBroadcast
     {
         $notifications = $customer->unreadNotifications()->latest()->first();
         $this->notifications = $notifications;
+        $this->customer = $customer;
+        $this->totalNotifications = $customer->unreadNotifications->count();
     }
 
     /**
@@ -30,6 +34,6 @@ class SendNotifyRechargeCard implements ShouldBroadcast
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('Send-Notify-Recharge-Card');
+        return new Channel('Send-Notify-Recharge-Card.'.$this->customer->id);
     }
 }

@@ -55,6 +55,7 @@
                         <div class="form-group mb-3 col-md-6 col-12">
                             <label>Trạng thái</label>
                             <input type="text" min="0" class="form-control" name="add_coin"
+                                   style="color: {{ $customer->status ===1 ? 'green' : 'red' }}"
                                    value="{{ $customer->status ===1 ? 'Active' : 'unActive' }}">
                         </div>
                     </div>
