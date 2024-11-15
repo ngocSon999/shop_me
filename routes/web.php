@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CardController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
@@ -203,6 +204,13 @@ Route::middleware('checkPermission:dashboard.index')
 
         Route::get('/delete/{id}', [CardController::class, 'delete'])
             ->name('delete');
+    });
+
+    Route::prefix('/setting')->name('setting.')->group(function () {
+        Route::put('/update/{id}', [SettingController::class, 'update'])
+            ->name('update');
+        Route::get('/{slug}', [SettingController::class, 'index'])
+            ->name('index');
     });
 });
 

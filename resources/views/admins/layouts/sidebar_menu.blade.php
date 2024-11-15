@@ -52,8 +52,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <p class="nav-link-item">web setting</p>
+                        <a href="{{ route('admin.setting.index', ['slug' => 'contact']) }}" class="nav-link">
+                            <p class="nav-link-item">contact</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting.index', ['slug' => 'mail']) }}" class="nav-link">
+                            <p class="nav-link-item">Mail</p>
                         </a>
                     </li>
                 </ul>
