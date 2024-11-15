@@ -41,4 +41,19 @@ class SettingController extends Controller
             return redirect()->back()->with('error', $exception->getMessage());
         }
     }
+
+    public function updateLogo($id, Request $request): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $this->settingService->updateLogo((int) $id, $request);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Logo updated successfully');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+    }
 }

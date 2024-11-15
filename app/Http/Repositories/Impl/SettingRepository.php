@@ -20,6 +20,13 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
         'address',
     ];
 
+    public const SETTING_LOGO = [
+        'logo_header',
+        'logo_footer',
+        'logo_favicon',
+        'logo_page_admin',
+    ];
+
     public function getSetting(string $slug): Collection
     {
         $query = Setting::query();
@@ -27,6 +34,9 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
         switch ($slug) {
             case 'mail':
                 $query->whereIn('key', self::SETTING_MAIL);
+                break;
+            case 'logo':
+                $query->whereIn('key', self::SETTING_LOGO);
                 break;
             default:
                 $query->whereIn('key', self::SETTING_CONTACT);

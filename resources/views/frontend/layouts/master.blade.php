@@ -24,7 +24,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('shopAcc/css/style_setup.css') }}" rel="stylesheet">
     <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
-
+    <link rel="icon" href="{{ asset(getSetting('logo_favicon')) }}" type="image/x-icon">
     <title>Website | @yield('title')</title>
     @yield('style')
     @yield('style')

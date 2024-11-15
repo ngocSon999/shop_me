@@ -8,7 +8,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('web.index') }}">Website</a>
+            <a class="nav-link" target="_blank" href="{{ route('web.index') }}">Website</a>
         </li>
         <!--        <li class="nav-item">-->
         <!--            <a class="nav-link" data-widget="navbar-search" href="#" role="button">-->

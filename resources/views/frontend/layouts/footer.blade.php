@@ -4,7 +4,7 @@
         <div class="row g-5">
             <div class="col-lg-4 col-md-6">
                 <div class="footer-item">
-                    <img src="{{ asset('/shopAcc/img/NRO.png') }}" alt="" style="width: 100%; height: 200px; margin-top: -30px">
+                    <img src="{{ asset(getSetting('logo_footer')) }}" alt="" style="width: 100%; height: 200px; margin-top: -30px">
                     <p class="mb-4">Sàn Giao dịch Mua Bán Nick game tự do mà không cần cọc, nạp, rút tiền về ATM/MOMO/CARD tự động</p>
                 </div>
             </div>
@@ -19,8 +19,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-item">
                     <h4 class="text-light mb-3">Hotline</h4>
-                    <p>Email: <a href="mail-to: shopacc@gmail.com">shopacc@gmail.com</a></p>
-                    <p>Phone: <a href="tel: 0989999999">0989 999 999</a></p>
+                    <p>Email: <a href="mail-to: {{ getSetting('email') }}">{{ getSetting('email') }}</a></p>
+                    <p>Phone: <a href="tel: {{ getSetting('phone') }}">{{ getSetting('phone') }}</a></p>
                 </div>
             </div>
         </div>

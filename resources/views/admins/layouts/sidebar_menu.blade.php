@@ -1,6 +1,8 @@
 
 <a href="{{ route('admin.dashboard') }}" class="brand-link d-flex justify-content-center" style="height: 77px; padding: 4px">
-    <img src="{{ asset('dist/img/logo.jpeg') }}" alt="GiftshopBitel Logo" class="" style="display: block; width: 100%; height: 100%;  align-items: center">
+    <img src="{{ asset(getSetting('logo_page_admin')) }}" alt="Logo" class=""
+         style="display: block; width: 100%; height: 100%;  align-items: center"
+    >
 </a>
 
 <div class="sidebar">
@@ -46,7 +48,7 @@
                 <a href="#" class="nav-link">
                     <i class="fa-solid fa-list nav-icon"></i>
                     <p>
-                        Setting
+                        Setting web
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
@@ -61,6 +63,13 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.setting.index', ['slug' => 'mail']) }}" class="nav-link">
                             <p class="nav-link-item">Mail</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting.index', ['slug' => 'logo']) }}" class="nav-link">
+                            <p class="nav-link-item">Logo</p>
                         </a>
                     </li>
                 </ul>

@@ -209,6 +209,8 @@ Route::middleware('checkPermission:dashboard.index')
     Route::prefix('/setting')->name('setting.')->group(function () {
         Route::put('/update/{id}', [SettingController::class, 'update'])
             ->name('update');
+        Route::post('/update-logo/{id}', [SettingController::class, 'updateLogo'])
+            ->name('update-logo');
         Route::get('/{slug}', [SettingController::class, 'index'])
             ->name('index');
     });

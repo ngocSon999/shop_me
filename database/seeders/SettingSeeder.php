@@ -16,6 +16,11 @@ class SettingSeeder extends Seeder
         ['key' => 'smtp_password'],
         ['key' => 'smtp_port'],
         ['key' => 'protocol'],
+
+        ['key' => 'logo_header'],
+        ['key' => 'logo_footer'],
+        ['key' => 'logo_favicon'],
+        ['key' => 'logo_page_admin'],
     ];
 
     /**
@@ -23,7 +28,11 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
-        Setting::truncate();
-        Setting::insert($this->settings);
+        foreach ($this->settings as $setting) {
+            $settingQuery = Setting::where('key', $setting['key'])->first();
+            if (!$settingQuery) {
+                Setting::create($setting);
+            }
+        }
     }
 }
