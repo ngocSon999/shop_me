@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Http\Services\CategoryServiceInterface;
 use App\Http\Services\ProductServiceInterface;
+use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -45,11 +47,14 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
+        DB::beginTransaction();
         try {
             $this->productService->store($request);
+            DB::commit();
 
             return redirect()->route('admin.products.index')->with('success', 'Tạo sản phẩm thành công');
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Error create product: '. $e->getMessage());
 
             return redirect()->route('admin.products.index')->with('error', 'Có lỗi xảy ra vui lòng thử lại sau');
@@ -63,30 +68,32 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
-    public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit(Product $product): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $product = $this->productService->getById($id);
         $categories = $this->categoryService->getAll();
 
         return view('admins.products.form_create', compact('product', 'categories'));
     }
 
-    public function update(ProductRequest $request, $id): RedirectResponse
+    public function update(Product $product, ProductRequest $request): RedirectResponse
     {
+        DB::beginTransaction();
         try {
-            $this->productService->update($request, $id);
+            $this->productService->update($request, $product);
+            DB::commit();
 
             return redirect()->route('admin.products.index')->with('success', 'update sản phẩm thành công!');
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Error update product: '. $e->getMessage());
 
             return redirect()->route('admin.products.index')->with('error', 'Có lỗi xảy ra vui lòng thử lại sau');
         }
     }
 
-    public function delete($id): RedirectResponse
+    public function delete(Product $product): RedirectResponse
     {
-        $this->productService->delete($id);
+        $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Xóa sản phẩm thành công!');
     }

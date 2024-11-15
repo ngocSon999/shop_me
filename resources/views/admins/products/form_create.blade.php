@@ -41,7 +41,7 @@
         <div class="container-fluid">
             <div class="row">
                 @if(!empty($product))
-                    <form class="mt-4 col-12" action="{{ route('admin.products.update', ['id' => $product->id]) }}"
+                    <form class="mt-4 col-12" action="{{ route('admin.products.update', $product->id) }}"
                           method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @else

@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 interface ProductServiceInterface extends BaseServiceInterface
@@ -12,9 +13,8 @@ interface ProductServiceInterface extends BaseServiceInterface
 
     public function getById(int $id);
 
-    public function update(Request $request, int $id);
+    public function update(Request $request, Product $product);
 
-    public function delete(int $id);
     public function getAll();
 
     public function getDataAjaxByCategory($categoryId);

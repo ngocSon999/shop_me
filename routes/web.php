@@ -82,13 +82,13 @@ Route::middleware('checkPermission:dashboard.index')
         Route::get('/list', [BannerController::class, 'getList'])
             ->name('list');
 
-        Route::get('/edit/{id}', [BannerController::class, 'edit'])
+        Route::get('/edit/{banner}', [BannerController::class, 'edit'])
             ->name('edit');
 
-        Route::put('/update/{id}', [BannerController::class, 'update'])
+        Route::put('/update/{banner}', [BannerController::class, 'update'])
             ->name('update');
 
-        Route::get('/delete/{id}', [BannerController::class, 'delete'])
+        Route::get('/delete/{banner}', [BannerController::class, 'delete'])
             ->name('delete');
     });
 
@@ -107,9 +107,9 @@ Route::middleware('checkPermission:dashboard.index')
         Route::post('/store', [ProductController::class, 'store'])->name('store');
         Route::get('/index', [ProductController::class, 'index'])->name('index');
         Route::get('/list', [ProductController::class, 'getList'])->name('list');
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [ProductController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete');
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
+        Route::put('/update/{product}', [ProductController::class, 'update'])->name('update');
+        Route::get('/delete/{product}', [ProductController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('/roles')->name('roles.')->group(function () {

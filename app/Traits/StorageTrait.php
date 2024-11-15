@@ -19,7 +19,7 @@ trait StorageTrait
                 $image = $folderName . '-' . time() .'.'. $ext;
                 $filepath = '';
 
-                $directory = 'public/'.$folderName;
+                $directory = 'public/' . $folderName;
                 if (!File::exists($directory)) {
                     if (!File::makeDirectory($directory, 0777, true, true)) {
                         throw new \Exception('Có lỗi xảy ra trong quá trình upload file');
@@ -27,7 +27,7 @@ trait StorageTrait
                 }
 
                 if ($filesize < 7000000) {
-                    $filepath = $file->storeAs('public/'.$folderName, $image);
+                    $filepath = $file->storeAs($directory, $image);
                 }
 
                 return [

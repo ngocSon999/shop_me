@@ -51,16 +51,28 @@ class BannerService extends BaseService implements BannerServiceInterface
         return $this->bannerRepository->getById($id, Banner::class);
     }
 
-    public function update($request, $id)
+    /**
+     * @throws \Exception
+     */
+    public function update($request, Banner $banner)
     {
+        $oldImage = '';
+        if ($request->hasFile('image')) {
+            if (!empty($banner->image)) {
+                $oldImage = public_path($banner->image);
+            }
+        }
         $data = $this->formatDataCreateAndUpdateBanner($request);
 
-        return $this->bannerRepository->update($data, $id, Banner::class);
-    }
+        $banner = $this->bannerRepository->update($data, $banner->id, Banner::class);
 
-    public function delete($id = null): void
-    {
-        $this->bannerRepository->delete($id, Banner::class);
+        if (!empty($oldImage)) {
+            if (file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+        }
+
+        return $banner;
     }
 
     public function getAll()
@@ -68,6 +80,9 @@ class BannerService extends BaseService implements BannerServiceInterface
         return $this->bannerRepository->getAll();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function formatDataCreateAndUpdateBanner($request): array
     {
         if (!empty($request->image)) {
@@ -86,5 +101,15 @@ class BannerService extends BaseService implements BannerServiceInterface
         }
 
         return $data;
+    }
+
+    public function delete(Banner $banner): void
+    {
+        if (!empty($banner->image)) {
+            $oldImage = public_path($banner->image);
+            if (file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+        }
     }
 }

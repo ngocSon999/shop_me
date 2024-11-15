@@ -69,7 +69,7 @@
                             <table id="table" style="width: 100%; overflow: hidden; overflow-x: auto" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th style="max-width: 120px;">Mô tả</th>
                                     <th>Ảnh</th>
@@ -133,12 +133,20 @@
                 {
                     data: 'description',
                     render: function (colValue) {
-                        return `<span style=" display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; text-align: justify">${colValue}</span>`;
+                        return `<span
+                                    style=" display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
+                                    overflow: hidden; text-align: justify"
+                                >
+                                    ${colValue}
+                                </span>`;
                     }
                 },
                 {
                     data: 'image',
-                    render: function (colValue, type, row, meta) {
+                    render: function (colValue) {
+                        if (colValue.startsWith('/')) {
+                            colValue = colValue.substring(1);
+                        }
                         let pathImg = '{{ asset(':colValue') }}';
                         pathImg = pathImg.replace(':colValue', colValue);
 
@@ -184,11 +192,10 @@
                         let editUrl = '{{ route('admin.products.edit', ':id') }}';
                         editUrl = editUrl.replace(':id', colValue);
 
-                        let resultHtml = `<a class="btn btn-warning btn-sm" href="${editUrl}">Sửa</a>
+                        return `<a class="btn btn-warning btn-sm" href="${editUrl}">Sửa</a>
                                             <a class="btn btn-danger btn-sm" onclick="return confirm('Bạn muốn xóa nội dung này?')"
                                                    href="${deleteUrl}">Xóa
-                                            </a>`
-                        return resultHtml;
+                                            </a>`;
                     }
                 },
             ],

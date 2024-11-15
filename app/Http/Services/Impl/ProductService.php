@@ -18,6 +18,9 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->productRepository = $productRepository;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function store($request)
     {
         $data = $this->formatDataCreateAndUpdateProduct($request);
@@ -70,21 +73,31 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $this->productRepository->getById($id, Product::class);
     }
 
-    public function update($request, $id)
+    /**
+     * @throws \Exception
+     */
+    public function update($request, Product $product)
     {
         $data = $this->formatDataCreateAndUpdateProduct($request);
+        $oldImage = '';
+        if ($request->hasFile('image')) {
+            if (!empty($product->image)) {
+                $oldImage = public_path($product->image);
+            }
+        }
 
-        $product = $this->productRepository->update($data, $id, Product::class);
+        $product = $this->productRepository->update($data, $product->id, Product::class);
+
+        if (!empty($oldImage)) {
+            if (file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+        }
         if (!empty($request->category_id)) {
             $product->categories()->sync($request->category_id);
         }
 
         return $product;
-    }
-
-    public function delete($id = null): void
-    {
-        $this->productRepository->delete($id, Product::class);
     }
 
     public function getAll()
@@ -107,6 +120,9 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->productRepository->sellProduct($id);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function formatDataCreateAndUpdateProduct($request): array
     {
         if (!empty($request->image)) {

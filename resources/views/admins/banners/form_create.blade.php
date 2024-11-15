@@ -40,7 +40,7 @@
         <div class="container-fluid">
             <div class="row">
                 @if(!empty($banner))
-                    <form class="mt-4 col-12" action="{{ route('admin.banners.update', ['id' => $banner->id]) }}"
+                    <form class="mt-4 col-12" action="{{ route('admin.banners.update', $banner->id) }}"
                           method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @else
