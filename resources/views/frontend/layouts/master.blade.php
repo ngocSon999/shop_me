@@ -106,6 +106,28 @@
         $('.header-notification').append(html);
         $('#total-notification').text(e.totalNotifications);
     });
+
+    $('.add-markAsRead').on('click', function () {
+        let $this = $(this);
+        $.ajax({
+            url: '{{ route('web.customers.markAsRead') }}',
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: {
+                notification_id: $(this).data('notification_id')
+            },
+            success: function (response) {
+                if (response.code === 200) {
+                    console.log(response);
+                    $('#total-notification').text(response.totalNotifications);
+                    console.log($(this).parent())
+                    $this.parent().remove();
+                }
+            }
+        });
+    });
 </script>
 
 <script>

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Customer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,8 +14,8 @@ class CustomerNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected  $customer;
-    protected  $coin;
+    protected Customer  $customer;
+    protected int  $coin;
 
     /**
      * Create a new notification instance.

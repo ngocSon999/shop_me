@@ -2,19 +2,21 @@
 
 namespace App\Events;
 
+use App\Models\Customer;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+
 class SendNotifyRechargeCard implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $notifications;
-    public $customer;
-    public $totalNotifications;
+    public Customer $customer;
+    public int $totalNotifications;
 
     /**
      * Create a new event instance.

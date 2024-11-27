@@ -49,6 +49,7 @@
                                         <a class="notification-link" href="#">
                                             {{ $notification->data['message_to_information'] }}
                                         </a>
+                                        <i class="bi bi-x add-markAsRead" data-notification_id="{{ $notification->id }}"></i>
                                     </li>
                                     @endforeach
                                 @else

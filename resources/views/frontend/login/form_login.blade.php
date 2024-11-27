@@ -29,6 +29,9 @@
                             <input class="form-control" name="password" type="password" id="password-input">
                             <i id="show-password" class="fas fa-eye"></i>
                         </div>
+                        <div id="forgot-password" class="form-group d-flex justify-content-end mt-2">
+                            <a href="{{ route('web.forgot_password') }}">Quên mật khẩu?</a>
+                        </div>
                         <button type="submit" class="btn btn-primary btn-sm mt-4">Đăng nhập</button>
                     </form>
                 </div>

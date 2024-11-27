@@ -234,6 +234,8 @@ Route::prefix('customers')->group(function () {
         ->name('web.customers.history');
     Route::post('/register', [FrontendCustomerController::class, 'store'])
         ->name('web.customers.register');
+    Route::post('/markAsRead', [FrontendCustomerController::class, 'markAsRead'])
+        ->name('web.customers.markAsRead');
 });
 
 Route::middleware('auth:customers')->group(function () {
@@ -258,3 +260,14 @@ Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory']
 Route::get('/editor', [WebController::class, 'exampleCkeditor'])
     ->name('web.editor');
 
+// Forgot password
+Route::get('/forgot-password', [FrontendLoginController::class, 'forgotPassword'])
+    ->name('web.forgot_password');
+Route::post('/send-mail/reset-password', [FrontendLoginController::class, 'sendMailResetPassword'])
+    ->name('web.send_mail_reset_password');
+
+Route::get('/reset-password', [FrontendLoginController::class, 'formResetPassword'])
+    ->name('web.form_reset_password');
+
+Route::post('/reset-password', [FrontendLoginController::class, 'storeResetPassword'])
+    ->name('web.post_reset_password');

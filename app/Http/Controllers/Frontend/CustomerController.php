@@ -11,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
@@ -52,5 +53,18 @@ class CustomerController extends Controller
         $products = $customer->products;
 
         return view('frontend.page.customer_history', compact('transactionHistories', 'products'));
+    }
+
+    public function markAsRead(Request $request)
+    {
+        $notificationId = $request->get('notification_id');
+        DB::table('notifications')->where('id', $notificationId)->update(['read_at' => now()]);
+        $customer = Auth::user();
+        $totalNotify = $customer->unreadNotifications->count();
+
+        return response()->json([
+            'code' => 200,
+            'totalNotifications' => $totalNotify,
+        ]);
     }
 }

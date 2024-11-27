@@ -33,12 +33,20 @@
 }
 .notification-item {
     width: 100%;
+    position: relative;
 }
 .notification-link {
     width: 100%;
     font-size: 14px;
     color: white;
     text-decoration: none;
+}
+
+.add-markAsRead {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 18px;
 }
 
 @media (max-width: 1140px) {
