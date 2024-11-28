@@ -25,13 +25,27 @@ class CheckPermission {
         view()->share('userLogin', $userLogin);
 
         #This Is super-admin User?
-        $roles = Sentinel::getRoles()->pluck('slug')->all();
-        if (is_array($roles) && in_array('super-admin', $roles)) {
-            return $next( $request );
+        $roles = Sentinel::getRoles()->all();
+        $roleSlug = array_map(function ($role) {
+            return $role->slug;
+        }, $roles);
+        if (is_array($roleSlug) && in_array('super-admin', $roleSlug)) {
+            return $next($request);
         }
 
         #Check Access When User Is Not super-admin
-        if ($userLogin->hasAccess($permission)) {
+        $permissions = [];
+
+        if ($roles) {
+            foreach ($roles as $role) {
+               foreach ($role->permissions ?? [] as $item) {
+                   foreach ($item as $key => $value) {
+                       $permissions[$key] = $value;
+                   }
+               }
+            }
+        }
+        if (isset($permissions[$permission]) && $permissions[$permission]) {
             return $next($request);
         }
 

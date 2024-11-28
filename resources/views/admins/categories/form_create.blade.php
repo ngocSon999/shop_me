@@ -44,11 +44,11 @@
                                     <label for="exampleInputEmail1" class="form-label">Tên danh mục<span
                                             class="color-red">*</span></label>
                                     <input type="text" maxlength="100" class="form-control" name="name"
-                                           value="{{ old('name') ?? !empty($category->name) ? $category->name : '' }}">
+                                           value="{{ old('name') ?? $category?->name }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Hình ảnh<span
-                                            class="color-red">{{ !empty($category->name) ? '' : '*' }}</span></label>
+                                            class="color-red">{{ !empty($category) ? '' : '*' }}</span></label>
                                     <input type="file" maxlength="100" class="form-control" name="image">
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-2">Xác nhận</button>

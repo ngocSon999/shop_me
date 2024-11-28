@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $this->sentinelService->createUser($request);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Tạo tài khoản thành công');
+        return redirect()->back()->with('success', 'Tạo tài khoản thành công');
     }
 
     public function edit(int $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

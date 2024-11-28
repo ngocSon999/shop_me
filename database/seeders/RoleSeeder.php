@@ -8,39 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
+    protected array $permissions;
+
+    public function __construct()
+    {
+        $this->permissions = config('permission_roles.permissions', []);
+    }
     const ROLES = [
         [
             'slug' => 'super-admin',
             'name' => 'Super Admin',
-            'permissions' => [
-                'dashboard.index' => true,
-                'users.list' => true,
-                'users.create' => true,
-                'users.edit' => true,
-                'users.show' => true,
-                'users.delete' => true,
-                'users.disable' => true
-            ]
         ],
         [
             'slug' => 'admin',
             'name' => 'Admin',
-            'permissions' => [
-                'dashboard.index' => true,
-                'users.list' => true,
-                'users.create' => true,
-                'users.show' => true,
-            ]
         ],
         [
             'slug' => 'nhan-vien',
             'name' => 'Nhân viên',
-            'permissions' => [
-                'dashboard.index' => true,
-                'users.list' => true,
-                'users.create' => true,
-                'users.show' => true,
-            ]
         ],
     ];
 
@@ -51,13 +36,25 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->truncate();
         DB::table('role_users')->truncate();
-
+        $permissionAdmin = [];
+        foreach ($this->permissions as $key => $permission) {
+            foreach ($permission as $key2 => $value) {
+                $permissionAdmin[] = [$key . '.' . $key2 => true];
+            }
+        }
         foreach (self::ROLES as $role) {
-            Sentinel::getRoleRepository()->createModel()->create([
-                'name' => $role['name'],
-                'slug' => $role['slug'],
-                'permissions' => $role['permissions'],
-            ]);
+            if ($role['slug'] === 'super-admin') {
+                Sentinel::getRoleRepository()->createModel()->create([
+                    'name' => $role['name'],
+                    'slug' => $role['slug'],
+                    'permissions' => $permissionAdmin
+                ]);
+            } else {
+                Sentinel::getRoleRepository()->createModel()->create([
+                    'name' => $role['name'],
+                    'slug' => $role['slug'],
+                ]);
+            }
         }
     }
 }

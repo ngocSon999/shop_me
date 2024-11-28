@@ -30,14 +30,17 @@ class BaseService implements BaseServiceInterface
             }
         }
 
-        foreach ($sorts as $orderSort) {
-            $orderSortColumn = $orderSort['column'];
-            $dir = $orderSort['dir'];
-            $field = $Columns[$orderSortColumn]['data'];
-            if (!empty($field) && !empty($dir)) {
-                $dataQuery->orderBy($field, $dir);
+        if (!empty($sorts)) {
+            foreach ($sorts as $orderSort) {
+                $orderSortColumn = $orderSort['column'];
+                $dir = $orderSort['dir'];
+                $field = $Columns[$orderSortColumn]['data'];
+                if (!empty($field) && !empty($dir)) {
+                    $dataQuery->orderBy($field, $dir);
+                }
             }
         }
+
         // Tìm kiếm trên input search mặc định của Table
         $search = $request->input('search');
         if (isset($request->filter['searchColumns'])) {
