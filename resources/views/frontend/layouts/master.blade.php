@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +27,36 @@
     <link href="{{ asset('shopAcc/css/notification.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset(getSetting('logo_favicon')) }}" type="image/x-icon">
     <title>Website | @yield('title')</title>
+    <style>
+        .feedback {
+            position: fixed;
+            bottom: 83px;
+            right: 40px;
+            font-size: 30px;
+            color: #81c408;
+            cursor: pointer;
+            z-index: 9999;
+        }
+        /* Sao chưa chọn */
+        .star_rating i {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.2s ease-in-out;
+        }
+
+        /* Sao được tô màu */
+        .star_rating.hover i,
+        .star_rating.selected i {
+            color: var(--bs-primary);
+        }
+        #star_rating {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
     @yield('style')
 </head>
 <body>
@@ -60,6 +90,7 @@
 @show
 
 <!-- Back to Top -->
+@include('frontend.layouts.star_rating')
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -74,6 +105,7 @@
 <script src="{{ asset('/frontend/js/pusher.min.js') }}"></script>
 <!-- Template Javascript -->
 <script src="{{ asset('shopAcc/js/main.js') }}"></script>
+<script src="{{ asset('frontend/js/star_rating.js') }}"></script>
 <script>
     // Enable Pusher logging for debugging
     // Pusher.logToConsole = true;

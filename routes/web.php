@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
@@ -24,7 +25,7 @@ use App\Http\Controllers\Frontend\WebController;
 use App\Http\Controllers\Frontend\FrontendLoginController;
 use App\Http\Controllers\Frontend\MovieController as FrontendMovieController;
 use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerController;
-
+use App\Http\Controllers\Frontend\FeedbackController as FrontendFeedbackController;
 
 Route::get('/admin/login', [LoginController::class, 'login'])->name('admin.user.login');
 Route::post('/admin/user/postLogin', [LoginController::class, 'postLogin'])
@@ -295,6 +296,21 @@ Route::middleware('sentinel.auth')
             ->middleware('checkPermission:settings.list')
             ->name('index');
     });
+
+    Route::prefix('/feedback')->name('feedback.')->group(function () {
+        Route::get('/index', [FeedbackController::class, 'index'])
+//            ->middleware('checkPermission:feedback.list')
+            ->name('index');
+        Route::get('/list', [FeedbackController::class, 'getList'])
+//            ->middleware('checkPermission:feedback.list')
+            ->name('list');
+        Route::get('/delete/{id}', [FeedbackController::class, 'delete'])
+//            ->middleware('checkPermission:feedback.delete')
+            ->name('delete');
+        Route::post('/update/{feedback}', [FeedbackController::class, 'update'])
+//            ->middleware('checkPermission:feedback.delete')
+            ->name('update');
+    });
 });
 
 /*
@@ -335,6 +351,9 @@ Route::middleware(['auth.customers'])->group(function () {
         Route::post('/markAsRead', [FrontendCustomerController::class, 'markAsRead'])
             ->name('web.customers.markAsRead');
     });
+
+    Route::post('/feedback', [FrontendFeedbackController::class, 'feedback'])
+        ->name('web.feedback');
 });
 Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])
     ->name('web.product_category');

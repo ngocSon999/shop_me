@@ -29,11 +29,11 @@
                     @endif
                 </div>
                 <div class="d-flex m-3 me-0 align-items-center">
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                            data-bs-toggle="modal" data-bs-target="#searchModal">
-                        <i class="fas fa-search text-primary"></i>
-                    </button>
                     @if(Auth::check())
+                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="fas fa-search text-primary"></i>
+                        </button>
                         <span class="notification position-relative me-4 my-auto d-flex align-items-center">
                             <i class="fa fa-bell" style="font-size: 28px; color: var(--bs-primary)"></i>
                             <span

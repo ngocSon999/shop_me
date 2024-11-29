@@ -33,6 +33,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.feedback.index') }}" class="nav-link">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>Feedback</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.banks.index') }}" class="nav-link">
                     <i class="fa-solid fa-list nav-icon"></i>
                     <p>Bank</p>
