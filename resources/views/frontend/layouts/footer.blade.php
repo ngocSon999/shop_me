@@ -19,7 +19,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-item">
                     <h4 class="text-light mb-3">Hotline</h4>
-                    <p>Email: <a href="mail-to: {{ getSetting('email') }}">{{ getSetting('email') }}</a></p>
+                    <p>Email: <a href="mailto: {{ getSetting('email') }}">{{ getSetting('email') }}</a></p>
                     <p>Phone: <a href="tel: {{ getSetting('phone') }}">{{ getSetting('phone') }}</a></p>
                 </div>
             </div>
