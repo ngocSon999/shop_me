@@ -66,8 +66,16 @@ class WebController extends Controller
         $categories = $this->categoryService->getAll();
         $products = $this->productService->getProductBySlugCategory($slug);
         $banners = $this->bannerService->getAll();
+        $feedbacks = $this->feedbackService->show();
 
-        return view('frontend.page.product_by_category', compact('categories', 'products', 'slug', 'banners'));
+        return view('frontend.page.product_by_category', compact(
+            'categories',
+            'products',
+            'slug',
+            'banners',
+            'feedbacks'
+
+        ));
     }
 
     public function showProduct($id): View
