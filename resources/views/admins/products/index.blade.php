@@ -2,7 +2,10 @@
 @section('title', 'Sản phẩm')
 @section("style")
     <style>
-
+        #customer_id {
+            color: #ffffff;
+            background-color: #0974A0;
+        }
     </style>
 @endsection
 @section('content')
@@ -64,6 +67,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <div class="row ml-0 mb-2">
+                        @include('admins.products.modal_add_discount_price')
+                        <div class="col-3">
+                            <select class="form-control" name="customer_id" id="customer_id">
+                                <option value="0">Chưa bán</option>
+                                <option value="1">Đã bán</option>
+                                <option value="2">Tất cả</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <table id="table" style="width: 100%; overflow: hidden; overflow-x: auto" class="table table-bordered table-hover">
@@ -121,6 +136,7 @@
                     d.end_date = $('#end_date').val();
                     d.status = $('#product-status option:selected').val();
                     d.category_id = $('#category_id option:selected').val();
+                    d.customer_id = $('#customer_id option:selected').val();
                 }
             },
             columns: [
@@ -223,5 +239,51 @@
             $('#category_id').val('');
             table.draw();
         });
+        $(document).on('change', '#customer_id', function () {
+            table.draw();
+        });
+
+        $(document).on('click', '#add-discount-price', function () {
+            $.ajax({
+                url: '{{ route('admin.products.add-discount-price') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    discount_price: $('input[name=discount_price]').val()
+                },
+                success: function (response) {
+                    if (response.code === 200) {
+                        $('#modal-add-discount').text(response.message)
+                        table.draw();
+                    } else {
+                        $('#modal-add-discount').text(response.message)
+                    }
+                    $('#modal-add-discount').css('color', 'blue')
+                    $('#add-discount-price').attr('disabled', true);
+                },
+                error: function (xhr) {
+                    let errorMess = `Error: ${xhr.responseJSON?.message || 'Unknown error occurred'}`;
+                    $('#modal-add-discount').text(errorMess);
+                    $('#modal-add-discount').css('color', 'red')
+                    $('#add-discount-price').attr('disabled', true);
+                }
+            });
+            $('#exampleModal').on('hidden.bs.modal', function () {
+                const html = `
+                            <label style="width: 100%">
+                                Discount price:
+                                <input class="form-control" type="number" min="0" name="discount_price">
+                            </label>
+                        `;
+                $('#exampleModal .modal-body').html(html);
+                $('#add-discount-price').attr('disabled', true);
+            });
+            $('#exampleModal').on('show.bs.modal', function () {
+                $('#modal-add-discount').css('color', 'unset')
+                $('#add-discount-price').attr('disabled', false);
+            });
+        })
     </script>
 @endsection

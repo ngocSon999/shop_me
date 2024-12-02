@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             'active' => 'nullable|integer|max:1',
             'password' => 'required|min:6|max:32',
             'price' => 'required|integer|max:99999999999',
+            'discount_price' => 'nullable|integer|min:0|max:100',
             'image' => [
                 Rule::requiredIf(!$this->route('product')),
                 'image', 'mimes:jpg,jpeg,png'

@@ -23,6 +23,10 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
         return Product::where('active', self::ACTIVE)->paginate(self::PerPage);
     }
 
+    public function GetListOfUnsoldProducts()
+    {
+        return Product::where('active', self::ACTIVE)->whereNull('customer_id')->get();
+    }
     public function getDataByCategory($categoryId)
     {
         return Product::where('products.active', self::ACTIVE)

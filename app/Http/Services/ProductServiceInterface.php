@@ -22,4 +22,6 @@ interface ProductServiceInterface extends BaseServiceInterface
     public function sellProduct($id);
 
     public function formatDataCreateAndUpdateProduct($request): array;
+
+    public function addDiscountPrice(int $discountPrice): void;
 }

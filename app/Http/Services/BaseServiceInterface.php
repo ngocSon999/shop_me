@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface BaseServiceInterface
 {
-    public function getDataBuilder(Request $request, $model = null): array;
+    public function getDataBuilder(Request $request, $model): array;
 }

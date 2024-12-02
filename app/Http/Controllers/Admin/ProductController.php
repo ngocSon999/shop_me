@@ -61,6 +61,30 @@ class ProductController extends Controller
         }
     }
 
+    public function addDiscountPrice(Request $request): JsonResponse
+    {
+        $request->validate([
+            'discount_price' => 'required|integer|min:0|max:100',
+        ]);
+
+        try {
+            $discountPrice = $request->get('discount_price');
+            $this->productService->addDiscountPrice($discountPrice);
+
+            return response()->json([
+                'message' => 'Thêm giá khuyến mãi thành công',
+                'code' => 200
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error add discount price: '. $e->getMessage());
+
+            return response()->json([
+                'message' => 'Có lỗi xảy ra vui lòng thử lại sau',
+                'code' => 500
+            ]);
+        }
+    }
+
     public function getList(Request $request): JsonResponse
     {
         $data = $this->productService->getList($request);
@@ -77,6 +101,10 @@ class ProductController extends Controller
 
     public function update(Product $product, ProductRequest $request): RedirectResponse
     {
+        if ($product->customer_id) {
+            return redirect()->back()->with('warning', 'Sản phẩm đã bán không thể chỉnh sửa');
+        }
+
         DB::beginTransaction();
         try {
             $this->productService->update($request, $product);

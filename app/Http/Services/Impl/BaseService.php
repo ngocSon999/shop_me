@@ -2,11 +2,12 @@
 namespace App\Http\Services\Impl;
 
 use App\Http\Services\BaseServiceInterface;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BaseService implements BaseServiceInterface
 {
-    public function getDataBuilder(Request $request, $model = null): array
+    public function getDataBuilder(Request $request, $model): array
     {
         $sorts = $request->input('order');
         $Columns = $request->input('columns');
@@ -19,6 +20,20 @@ class BaseService implements BaseServiceInterface
         if (isset($request->withRelation)) {
             $withRelation = $request->withRelation;
             $dataQuery->with($withRelation);
+        }
+
+        if ($model == Product::class) {
+            $customerId = $request->input('customer_id');
+            if ($customerId !== null) {
+                switch ($customerId) {
+                    case 0:
+                        $dataQuery->whereNull('customer_id');
+                        break;
+                    case 1:
+                        $dataQuery->whereNotNull('customer_id');
+                        break;
+                }
+            }
         }
 
         //Loại trừ cột khác với giá trị truyền vào

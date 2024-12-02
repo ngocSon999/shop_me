@@ -10,6 +10,8 @@ interface ProductRepoInterface extends BaseRepoInterface
 
     public function getAll();
 
+    public function GetListOfUnsoldProducts();
+
     public function getDataByCategory($categoryId);
 
     public function getDataBySlugCategory($slug);

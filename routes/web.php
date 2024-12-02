@@ -140,6 +140,10 @@ Route::middleware('sentinel.auth')
             ->middleware('checkPermission:products.create')
             ->name('store');
 
+        Route::post('/add-discount-price', [ProductController::class, 'addDiscountPrice'])
+            ->middleware('checkPermission:products.create')
+            ->name('add-discount-price');
+
         Route::get('/index', [ProductController::class, 'index'])
             ->middleware('checkPermission:products.list')
             ->name('index');

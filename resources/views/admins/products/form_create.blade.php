@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <label>Giảm giá<span class="color-red"></span></label>
-                                        <input type="number" min="0" class="form-control" name="discount_price"
+                                        <input type="number" min="0" max="100" class="form-control" name="discount_price"
                                                value="{{ old('discount_price') ?? $product?->discount_price }}">
                                     </div>
                                     <div class="form-group mb-3 col-md-6 col-12">

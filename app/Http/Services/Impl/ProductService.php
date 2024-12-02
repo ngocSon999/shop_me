@@ -143,4 +143,13 @@ class ProductService extends BaseService implements ProductServiceInterface
 
         return $data;
     }
+
+    public function addDiscountPrice(int $discountPrice): void
+    {
+        $products = $this->productRepository->GetListOfUnsoldProducts();
+        foreach ($products as $product) {
+            $product->discount_price = $discountPrice;
+            $product->save();
+        }
+    }
 }
