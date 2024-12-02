@@ -52,7 +52,10 @@ class CustomerController extends Controller
         $transactionHistories = $customer->customerHistory;
         $products = $customer->products;
 
-        return view('frontend.page.customer_history', compact('transactionHistories', 'products'));
+        return view(
+            'frontend.page.customer_history',
+            compact('transactionHistories', 'products')
+        );
     }
 
     public function markAsRead(Request $request)

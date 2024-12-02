@@ -43,7 +43,14 @@ class OrderService implements OrderServiceInterface
                 $id,
                 Product::class
             );
-            $this->customerRepository->exchangeCoin($product->price);
+
+            $priceOrder = $product->price;
+            if ($product->discount_price) {
+                $newPrice = $product->price - ($product->price * $product->discount_price / 100);
+                $priceOrder = (int) round($newPrice);
+            }
+
+            $this->customerRepository->exchangeCoin($priceOrder);
             DB::commit();
 
             return true;

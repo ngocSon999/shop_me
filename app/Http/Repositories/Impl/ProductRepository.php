@@ -25,14 +25,13 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 
     public function getDataByCategory($categoryId)
     {
-        return Product::
-        where('products.active', self::ACTIVE)
-        ->whereHas(
-            'categories', function ($query) use ($categoryId) {
-                $query->where('categories.id', $categoryId);
-            }
-        )
-        ->get();
+        return Product::where('products.active', self::ACTIVE)
+            ->whereHas(
+                'categories', function ($query) use ($categoryId) {
+                    $query->where('categories.id', $categoryId);
+                }
+            )
+            ->get();
     }
 
     public function getDataBySlugCategory($slug)

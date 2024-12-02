@@ -82,7 +82,13 @@
                                                     <h3>{{ $product->name }}</h3>
                                                     <div class="product-description">{!! $product->description !!}</div>
                                                     <div class="d-flex justify-content-between flex-md-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">{{ $product->price }} đ</p>
+                                                        @if($product->new_price)
+                                                            <p class="text-dark fs-5 fw-bold mb-0"
+                                                               style="text-decoration: line-through; font-size: 12px">{{ $product->price }} đ</p>
+                                                            <p class="text-dark fs-5 fw-bold mb-0">{{ $product->new_price }} đ</p>
+                                                        @else
+                                                            <p class="text-dark fs-5 fw-bold mb-0">{{ $product->price }} đ</p>
+                                                        @endif
                                                         <button class="btn border border-secondary rounded-pill px-3 text-primary btn-by-product"
                                                         data-product_id="{{ $product->id }}">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i>Mua

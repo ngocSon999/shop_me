@@ -1,5 +1,5 @@
 @if(Auth::user())
-    <i type="button" class="feedback fa fa-envelope" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+    <i title="feedback" type="button" class="feedback fa fa-envelope" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 @endif
 
 <!-- Modal -->

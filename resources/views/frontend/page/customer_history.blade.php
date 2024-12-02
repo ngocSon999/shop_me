@@ -20,18 +20,20 @@
     <div class="container-fluid vesitable" style="margin-top: 108px">
         <div class="container py-3">
             <p><strong>Danh sách tài khoản game đã mua:</strong><span class="ms-2">{{ count($products) }} tài khoản</span></p>
-            <div class="row mb-2 mt-3">
+            <div class="row mb-2 mt-3 g-1">
                 @foreach($products as $key => $product)
-                <div class="col-12 col-lg-6 mb-2 pb-1 product-history">
-                    <p class="m-0"><strong>{{ $key + 1 }}. Danh mục game:</strong><span class="ms-2">{{ $product->categories[0]->name }}</span></p>
-                    <p class="m-0"><strong>Tài khoản:</strong><span class="ms-2">{{ $product->account }}</span></p>
-                    <p class="m-0"><strong>Mật khẩu:</strong><span class="ms-2">{{ $product->password }}</span></p>
-                    <p class="m-0">
-                        <strong>Ngày giao dịch:</strong>
-                        <span class="ms-2">
+                <div class="col-12 col-lg-6">
+                    <div class=" mb-2 p-2 product-history">
+                        <p class="m-0"><strong>{{ $key + 1 }}. Danh mục game:</strong><span class="ms-2">{{ $product->categories[0]->name }}</span></p>
+                        <p class="m-0"><strong>Tài khoản:</strong><span class="ms-2">{{ $product->account }}</span></p>
+                        <p class="m-0"><strong>Mật khẩu:</strong><span class="ms-2">{{ $product->password }}</span></p>
+                        <p class="m-0">
+                            <strong>Ngày giao dịch:</strong>
+                            <span class="ms-2">
                         {{ $product->updated_at ? (new DateTime($product->updated_at))->format('d/m/Y H:i:s') : '' }}
                     </span>
-                    </p>
+                        </p>
+                    </div>
                 </div>
                 @endforeach
             </div>

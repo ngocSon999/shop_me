@@ -36,7 +36,12 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <p>Tên sản phẩm: {{ $product->name }}</p>
-                    <p>GIá sản phẩm: {{ $product->price }}</p>
+                    <p>Giá sản phẩm: {{ $product->price }} đ</p>
+                    <p>Giảm giá: {{ $product->discount_price ? $product->discount_price .' %' : 0 }}</p>
+                    <p>
+                        Giá thanh toán:
+                        <span  style="color: #0c84ff">{{ $product->new_price ?? $product->price }} đ</span>
+                    </p>
                     <p>Mô tả:</p>
                     <div class="content-description">{!! $product->description !!}</div>
                     <p class="d-flex justify-content-end">
