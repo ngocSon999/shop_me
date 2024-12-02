@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\BankRepoInterface;
 use App\Http\Services\BannerServiceInterface;
 use App\Http\Services\CategoryServiceInterface;
+use App\Http\Services\FeedbackServiceInterface;
 use App\Http\Services\OrderServiceInterface;
 use App\Http\Services\ProductServiceInterface;
 use Illuminate\Contracts\View\Factory;
@@ -26,12 +27,15 @@ class WebController extends Controller
 
     protected BankRepoInterface $bankRepository;
 
+    protected FeedbackServiceInterface $feedbackService;
+
     public function __construct(
         CategoryServiceInterface $categoryService,
         ProductServiceInterface $productService,
         BannerServiceInterface $bannerService,
         OrderServiceInterface $orderService,
         BankRepoInterface $bankRepository,
+        FeedbackServiceInterface $feedbackService
     )
     {
         $this->categoryService = $categoryService;
@@ -39,6 +43,7 @@ class WebController extends Controller
         $this->bannerService = $bannerService;
         $this->orderService = $orderService;
         $this->bankRepository = $bankRepository;
+        $this->feedbackService = $feedbackService;
     }
 
     public function index(): View
@@ -46,8 +51,14 @@ class WebController extends Controller
         $categories = $this->categoryService->getAll();
         $products = $this->productService->getAll();
         $banners = $this->bannerService->getAll();
+        $feedbacks = $this->feedbackService->show();
 
-        return view('frontend.page.home', compact('categories', 'products', 'banners'));
+        return view('frontend.page.home', compact(
+            'categories',
+            'products',
+            'banners',
+            'feedbacks'
+        ));
     }
 
     public function getProductBySlugCategory($slug): View
