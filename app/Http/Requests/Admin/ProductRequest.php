@@ -31,7 +31,7 @@ class ProductRequest extends FormRequest
             'password' => 'required|min:6|max:32',
             'price' => 'required|integer|max:99999999999',
             'image' => [
-                Rule::requiredIf(!$this->id),
+                Rule::requiredIf(!$this->route('product')),
                 'image', 'mimes:jpg,jpeg,png'
             ],
         ];

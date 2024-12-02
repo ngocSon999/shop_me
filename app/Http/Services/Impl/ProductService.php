@@ -132,6 +132,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'discount_price' => $request->discount_price ?? 0,
             'account' => $request->account,
             'password' => $request->password,
         ];

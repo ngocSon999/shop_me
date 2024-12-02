@@ -74,6 +74,7 @@
                                     <th style="max-width: 120px;">Mô tả</th>
                                     <th>Ảnh</th>
                                     <th>Giá</th>
+                                    <th>Giảm giá</th>
                                     <th>Tài khoản</th>
                                     <th>Mật khẩu</th>
                                     <th>Trạng thái</th>
@@ -157,6 +158,15 @@
                     data: 'price',
                     render: function (colValue) {
                         return parseFloat(colValue).toLocaleString('vi-VN');
+                    }
+                },
+                {
+                    data: 'discount_price',
+                    render: function (colValue) {
+                        if (colValue) {
+                            return  `${colValue} %`;
+                        }
+                        return  0;
                     }
                 },
                 {data: 'account'},
