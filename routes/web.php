@@ -289,6 +289,9 @@ Route::middleware('sentinel.auth')
         Route::put('/update/{id}', [SettingController::class, 'update'])
             ->middleware('checkPermission:settings.edit')
             ->name('update');
+        Route::put('/update', [SettingController::class, 'updateAll'])
+            ->middleware('checkPermission:settings.edit')
+            ->name('update_all');
         Route::post('/update-logo/{id}', [SettingController::class, 'updateLogo'])
             ->middleware('checkPermission:settings.edit')
             ->name('update-logo');

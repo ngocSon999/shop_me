@@ -29,9 +29,10 @@ class SettingController extends Controller
 
     public function update($id, Request $request): RedirectResponse
     {
+        $data = $request->all();
         DB::beginTransaction();
         try {
-            $this->settingService->update($request->get('value'), $id);
+            $this->settingService->update($data, $id);
             DB::commit();
 
             return redirect()->back()->with('success', 'Settings updated successfully');
@@ -50,6 +51,32 @@ class SettingController extends Controller
             DB::commit();
 
             return redirect()->back()->with('success', 'Logo updated successfully');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+    }
+
+    public function updateAll(Request $request): RedirectResponse
+    {
+        $data = $request->all();
+        DB::beginTransaction();
+        try {
+            if (!empty($data['id'])) {
+                foreach ($data['id'] as $key => $value) {
+                    $dataUpdate = [
+                        'value' => $data['value'][$key],
+                        'status' => $data['status'][$key],
+                    ];
+                    $this->settingService->update($dataUpdate, $value);
+                }
+                DB::commit();
+
+                return redirect()->back()->with('success', 'Settings updated successfully');
+            }
+
+            return redirect()->back()->with('success', 'No settings to update');
         } catch (\Exception $exception) {
             DB::rollBack();
 

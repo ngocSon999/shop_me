@@ -15,7 +15,7 @@ class Helper
     public static function getListSetting(): array
     {
         if (empty(self::$settings)) {
-            self::$settings = Setting::all()->toArray();
+            self::$settings = Setting::where('status', 1)->get()->toArray();
         }
         return self::$settings;
     }

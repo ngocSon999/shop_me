@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,16 +23,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
-//        app()->bind(CategoryServiceInterface::class, CategoryService::class);
-//        app()->bind(SentinelServiceInterface::class, SentinelService::class);
-//        app()->bind(MovieServiceInterface::class, MovieService::class);
-//        app()->bind(SaveTraceServiceInterface::class, SaveTraceService::class);
-//        app()->bind(BaseServiceInterface::class, BaseService::class);
-//
-//        app()->bind(BaseRepoInterface::class, BaseRepository::class);
-//        app()->bind(CategoryRepoInterface::class, CategoryRepository::class);
-//        app()->bind(UserRepoInterface::class, UserRepository::class);
-//        app()->bind(MovieRepoInterface::class, MovieRepository::class);
-//        app()->bind(CustomerRepoInterface::class, CustomerRepository::class);
+
+        $notifyPage = [];
+        if (getSetting('notify_page_title')) {
+            $notifyPage['title'] = getSetting('notify_page_title');
+        }
+        if (getSetting('notify_page_content')) {
+            $notifyPage['content'] = getSetting('notify_page_content');
+        }
+        View::share('notifyPage', $notifyPage);
     }
 }

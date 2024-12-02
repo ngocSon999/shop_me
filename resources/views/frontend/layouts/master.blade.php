@@ -92,7 +92,8 @@
 <!-- Back to Top -->
 @include('frontend.layouts.star_rating')
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
-
+<!-- NOTIFY -->
+@include('frontend.layouts.notify_page')
 
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

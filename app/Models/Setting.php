@@ -10,5 +10,5 @@ class Setting extends Model
     use HasFactory;
 
     protected $table = 'settings';
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key', 'value', 'status'];
 }

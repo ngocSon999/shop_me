@@ -20,9 +20,16 @@ class SettingService extends BaseService implements SettingServiceInterface
     /**
      * @throws \Exception
      */
-    public function update(string $value, $id): void
+    public function update(array $data, $id): void
     {
-        $this->settingRepository->update(['value' => $value], $id, Setting::class);
+        $this->settingRepository->update(
+            [
+                'value' => $data['value'],
+                'status' => $data['status'],
+            ],
+            $id,
+            Setting::class
+        );
     }
 
     public function getSetting(string $slug): Collection

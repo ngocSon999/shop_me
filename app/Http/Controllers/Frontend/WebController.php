@@ -67,7 +67,7 @@ class WebController extends Controller
             'categories',
             'products',
             'banners',
-            'feedbacks'
+            'feedbacks',
         ));
     }
 

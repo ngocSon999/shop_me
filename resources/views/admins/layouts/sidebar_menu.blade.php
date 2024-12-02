@@ -79,6 +79,13 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting.index', ['slug' => 'notification']) }}" class="nav-link">
+                            <p class="nav-link-item">Notification</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

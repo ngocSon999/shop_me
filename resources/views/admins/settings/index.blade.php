@@ -47,6 +47,9 @@
                                                     <label>
                                                         <input class="form-control" name="value" type="text" value="{{ $setting->value }}">
                                                     </label>
+                                                    <label>
+                                                        <input class="form-control" name="status" type="text" value="{{ $setting->status }}">
+                                                    </label>
                                                     <button class="btn btn-sm btn-primary ml-4" type="submit">Update</button>
                                                 </form>
                                             </td>
@@ -71,6 +74,30 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
+                            @if(isset($slug) && $slug !== 'logo')
+                                <div class="d-flex justify-content-center mt-2">
+                                    <form action="{{ route('admin.setting.update_all') }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        @foreach($settings as $setting)
+                                            <label>
+                                                <input hidden="hidden" class="form-control" name="id[]" type="text" value="{{ $setting->id }}">
+                                            </label>
+                                            <label>
+                                                <input hidden="hidden" class="form-control" name="key[]" type="text" value="{{ $setting->value }}">
+                                            </label>
+                                            <label>
+                                                <input hidden="hidden" class="form-control" name="value[]" type="text" value="{{ $setting->value }}">
+                                            </label>
+                                            <label>
+                                                <input hidden="hidden" class="form-control" name="status[]" type="text" value="{{ $setting->status }}">
+                                            </label>
+                                        @endforeach
+                                        <button class="btn btn-sm btn-primary">Update all</button>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,9 @@ class SettingSeeder extends Seeder
         ['key' => 'logo_footer'],
         ['key' => 'logo_favicon'],
         ['key' => 'logo_page_admin'],
+
+        ['key' => 'notify_page_title'],
+        ['key' => 'notify_page_content'],
     ];
 
     /**

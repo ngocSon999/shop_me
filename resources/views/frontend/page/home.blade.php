@@ -178,5 +178,16 @@
 @parent
 @endsection
 @section('js')
-
+    @if(isset($notifyPage))
+        <script>
+            let notifyPage = @json($notifyPage);
+            $(document).ready(function () {
+                if (notifyPage.title && notifyPage.content) {
+                    $('.modal-notification .modal-title').text(notifyPage.title);
+                    $('.modal-notification .modal-body').html(notifyPage.content);
+                    $('.modal-notification').modal('show');
+                }
+            });
+        </script>
+    @endif
 @endsection

@@ -27,6 +27,11 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
         'logo_page_admin',
     ];
 
+    public const SETTING_NOTIFICATION = [
+        'notify_page_title',
+        'notify_page_content',
+    ];
+
     public function getSetting(string $slug): Collection
     {
         $query = Setting::query();
@@ -37,6 +42,9 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
                 break;
             case 'logo':
                 $query->whereIn('key', self::SETTING_LOGO);
+                break;
+            case 'notification':
+                $query->whereIn('key', self::SETTING_NOTIFICATION);
                 break;
             default:
                 $query->whereIn('key', self::SETTING_CONTACT);
