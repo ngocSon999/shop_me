@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ResetPassword;
+use App\Mail\ResetPasswordCustomer;
 use App\Models\Customer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -92,7 +92,7 @@ class FrontendLoginController extends Controller
         );
         $url = route('web.form_reset_password') . '?token=' . $token;
 
-        Mail::to($customer->email)->send(new ResetPassword($customer,$url));
+        Mail::to($customer->email)->send(new ResetPasswordCustomer($customer,$url));
 
         return redirect()->back()->with('success', 'Link đặt lại mật khẩu đã được gửi vào email của bạn!');
     }

@@ -21,8 +21,8 @@
 {{--                            <a href="#" class="dropdown-item">404 Page</a>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
-                    <a href="#" class="nav-item nav-link">Tin tức</a>
-                    <a href="#" class="nav-item nav-link">Liên hệ</a>
+{{--                    <a href="#" class="nav-item nav-link">Tin tức</a>--}}
+                    <a href="{{ route('web.contact') }}" class="nav-item nav-link">Liên hệ</a>
                     @if(!Auth::check())
                         <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>
                         <a href="{{ route('web.login') }}" class="nav-item nav-link">Đăng nhập</a>

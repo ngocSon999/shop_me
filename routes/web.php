@@ -7,6 +7,7 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CardController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -318,6 +319,17 @@ Route::middleware('sentinel.auth')
 //            ->middleware('checkPermission:feedback.delete')
             ->name('update');
     });
+
+    Route::prefix('/contacts')->name('contacts.')->group(function () {
+        Route::get('/index', [ContactController::class, 'index'])
+            ->name('index');
+        Route::get('/list', [ContactController::class, 'getList'])
+            ->name('list');
+        Route::get('/delete/{contact}', [ContactController::class, 'delete'])
+            ->name('delete');
+        Route::post('/reply-contact/{id}', [ContactController::class, 'replyContact'])
+            ->name('reply');
+    });
 });
 
 /*
@@ -378,3 +390,8 @@ Route::get('/reset-password', [FrontendLoginController::class, 'formResetPasswor
 
 Route::post('/reset-password', [FrontendLoginController::class, 'storeResetPassword'])
     ->name('web.post_reset_password');
+
+Route::get('/contact', [WebController::class, 'getContact'])
+    ->name('web.contact');
+Route::post('/contact', [WebController::class, 'storeContact'])
+    ->name('web.contact.store');

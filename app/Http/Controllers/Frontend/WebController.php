@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\BankRepoInterface;
 use App\Http\Services\BannerServiceInterface;
 use App\Http\Services\CategoryServiceInterface;
+use App\Http\Services\ContactServiceInterface;
 use App\Http\Services\FeedbackServiceInterface;
 use App\Http\Services\OrderServiceInterface;
 use App\Http\Services\ProductServiceInterface;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
@@ -29,13 +29,16 @@ class WebController extends Controller
 
     protected FeedbackServiceInterface $feedbackService;
 
+    protected ContactServiceInterface $contactService;
+
     public function __construct(
         CategoryServiceInterface $categoryService,
         ProductServiceInterface $productService,
         BannerServiceInterface $bannerService,
         OrderServiceInterface $orderService,
         BankRepoInterface $bankRepository,
-        FeedbackServiceInterface $feedbackService
+        FeedbackServiceInterface $feedbackService,
+        ContactServiceInterface $contactService
     )
     {
         $this->categoryService = $categoryService;
@@ -44,6 +47,7 @@ class WebController extends Controller
         $this->orderService = $orderService;
         $this->bankRepository = $bankRepository;
         $this->feedbackService = $feedbackService;
+        $this->contactService = $contactService;
     }
 
     public function index(): View
@@ -132,5 +136,33 @@ class WebController extends Controller
     public function exampleCkeditor()
     {
         return view('frontend.editor');
+    }
+
+    public function getContact(): view
+    {
+        return view('frontend.page.contact');
+    }
+
+    public function storeContact(Request $request): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $validatedData  = $request->validate([
+                'name' => 'required',
+                'email' => 'nullable|email',
+                'subject' => 'required|max:255',
+                'message' => 'required|max:500',
+            ]);
+
+            $this->contactService->store($validatedData);
+            DB::commit();
+
+            return redirect()->route('web.index')->with('success', 'Gửi liên hệ thành công');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error store contact: '.$e->getMessage());
+
+            return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');
+        }
     }
 }
