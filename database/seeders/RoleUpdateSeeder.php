@@ -9,13 +9,26 @@ use Illuminate\Database\Seeder;
 class RoleUpdateSeeder extends Seeder
 {
     private $permissionsToAdd = [
-        'film.list',
-        'film.create',
-        'film.show',
+        'contacts.list',
+        'contacts.create',
+        'contacts.edit',
+        'contacts.delete',
+        'contacts.show',
+        'dashboard.index',
     ];
 
-    private $permissionsToUpdate = [
-        'dashboard.index'
+    private array $permissionsToUpdate = [
+        'dashboard.index',
+        'users.list',
+        'categories.list',
+        'products.list',
+        'banners.list',
+        'customers.list',
+        'banks.list',
+        'cards.list',
+        'roles.list',
+        'settings.list',
+        'contacts.list',
     ];
 
     /**
@@ -23,17 +36,34 @@ class RoleUpdateSeeder extends Seeder
      */
     public function run(): void
     {
+        /** @var RoleInterface $roleAdmin */
+        $roleAdmin = Sentinel::findRoleBySlug('admin');
+
         /** @var RoleInterface $roleSuperAdmin */
         $roleSuperAdmin = Sentinel::findRoleBySlug('super-admin');
 
+        /** @var RoleInterface $roleUser */
+        $roleUser = Sentinel::findRoleBySlug('nhan-vien');
+
+        /*
+         * nếu không có quyền nào thì thêm mới
+         */
         foreach ($this->permissionsToAdd as $permission) {
             $roleSuperAdmin->addPermission($permission);
         }
 
+        /*
+         * The first true ($value) grants the permission.
+         * The second true ($force) ensures the permission is added even if it doesn’t already exist in the role's permissions.
+         * true 1 cấp quyền, true 2 chưa có thì tạo mới
+         */
         foreach ($this->permissionsToUpdate as $permission) {
-            $roleSuperAdmin->updatePermission($permission, true);
+            $roleAdmin->updatePermission($permission, true, true);
+            $roleUser->updatePermission($permission, true, true);
         }
 
+        $roleAdmin->save();
         $roleSuperAdmin->save();
+        $roleUser->save();
     }
 }

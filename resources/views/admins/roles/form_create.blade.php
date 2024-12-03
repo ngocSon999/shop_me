@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @if(!empty($banner))
+                    @if(!empty($role))
                         <h1>Cập nhật vai trò</h1>
                     @else
                         <h1>Thêm mới vai trò</h1>
@@ -36,8 +36,12 @@
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <label>Tên Vài trò<span class="color-red">*</span></label>
                                         @if(!empty($role))
-                                            <input type="text" maxlength="100" class="form-control" name="name"
-                                            value="{{ old('name') ?? $role->name }}">
+                                            <input
+                                                @if(in_array($role->slug, config('permission_roles.role_slug')))
+                                                    disabled
+                                                @endif
+                                                type="text" maxlength="100" class="form-control" name="name"
+                                                value="{{ old('name') ?? $role->name }}">
                                         @else
                                             <input type="text" maxlength="100" class="form-control" name="name"
                                                    value="{{ old('name') }}">

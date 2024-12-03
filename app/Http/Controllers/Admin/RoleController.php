@@ -94,13 +94,21 @@ class RoleController extends Controller
         ];
 
         $request->merge($filter);
-        if (!Sentinel::findRoleBySlug('super-admin')) {
+        if (Sentinel::inRole('admin')) {
             $request->merge([
                 'whereExcept' => [
                     'slug' => 'super-admin',
                 ]
             ]);
         }
+        if (!Sentinel::inRole('super-admin') && !Sentinel::inRole('admin')) {
+            $request->merge([
+                'whereNotIn' => [
+                    'slug' => ['admin', 'super-admin'],
+                ]
+            ]);
+        }
+
         $data = $this->baseService->getDataBuilder($request, Role::class);
 
         return response()->json($data);

@@ -7,14 +7,14 @@ use Closure;
 use Illuminate\Http\Request;
 
 class CheckPermission {
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param Request $request
-	 * @param  \Closure                 $next
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param \Closure $next
+     * @param $permission
+     * @return mixed
+     */
 	public function handle(Request $request, Closure $next, $permission ): mixed
     {
         $userLogin= Sentinel::check();
@@ -29,23 +29,23 @@ class CheckPermission {
         $roleSlug = array_map(function ($role) {
             return $role->slug;
         }, $roles);
-        if (is_array($roleSlug) && in_array('super-admin', $roleSlug)) {
+
+        if (in_array('super-admin', $roleSlug)) {
             return $next($request);
         }
 
-        #Check Access When User Is Not super-admin
+        #get permissions When User Is Not super-admin
         $permissions = [];
-
         if ($roles) {
             foreach ($roles as $role) {
-               foreach ($role->permissions ?? [] as $item) {
-                   foreach ($item as $key => $value) {
-                       $permissions[$key] = $value;
-                   }
+               foreach ($role->permissions ?? [] as $key => $value) {
+                   $permissions[$key] = $value;
                }
             }
         }
-        if (isset($permissions[$permission]) && $permissions[$permission]) {
+
+        # check by permission
+        if ($permissions[$permission]) {
             return $next($request);
         }
 

@@ -1,5 +1,10 @@
 <?php
 return [
+    'role_slug' => [
+        'super-admin',
+        'admin',
+        'nhan-vien',
+    ],
     'permissions' => [
         'dashboard' => [
             'index' => 'Dashboard',
@@ -65,6 +70,12 @@ return [
         'settings' => [
             'list' => 'List',
             'update' => 'Update',
+        ],
+        'contacts' => [
+            'list' => 'List',
+            'edit' => 'Edit',
+            'show' => 'Show',
+            'delete' => 'Delete',
         ],
     ],
 ];

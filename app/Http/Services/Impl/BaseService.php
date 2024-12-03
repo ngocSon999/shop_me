@@ -45,6 +45,14 @@ class BaseService implements BaseServiceInterface
             }
         }
 
+        if (isset($request->whereNotIn)) {
+            foreach ($request->whereNotIn as $k => $v) {
+                if (!empty($v)) {
+                    $dataQuery->whereNotIn($k, $v);
+                }
+            }
+        }
+
         if (!empty($sorts)) {
             foreach ($sorts as $orderSort) {
                 $orderSortColumn = $orderSort['column'];
