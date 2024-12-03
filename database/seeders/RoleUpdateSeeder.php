@@ -14,7 +14,11 @@ class RoleUpdateSeeder extends Seeder
         'contacts.edit',
         'contacts.delete',
         'contacts.show',
-        'dashboard.index',
+        'feedback.list',
+        'feedback.create',
+        'feedback.edit',
+        'feedback.delete',
+        'feedback.show',
     ];
 
     private array $permissionsToUpdate = [
@@ -29,6 +33,11 @@ class RoleUpdateSeeder extends Seeder
         'roles.list',
         'settings.list',
         'contacts.list',
+        'feedback.list',
+        'feedback.create',
+        'feedback.edit',
+        'feedback.delete',
+        'feedback.show',
     ];
 
     /**

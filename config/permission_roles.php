@@ -77,5 +77,11 @@ return [
             'show' => 'Show',
             'delete' => 'Delete',
         ],
+        'feedback' => [
+            'list' => 'List',
+            'edit' => 'Edit',
+            'show' => 'Show',
+            'delete' => 'Delete',
+        ],
     ],
 ];

@@ -307,27 +307,34 @@ Route::middleware('sentinel.auth')
 
     Route::prefix('/feedback')->name('feedback.')->group(function () {
         Route::get('/index', [FeedbackController::class, 'index'])
-//            ->middleware('checkPermission:feedback.list')
+            ->middleware('checkPermission:feedback.list')
             ->name('index');
         Route::get('/list', [FeedbackController::class, 'getList'])
-//            ->middleware('checkPermission:feedback.list')
+            ->middleware('checkPermission:feedback.list')
             ->name('list');
         Route::get('/delete/{id}', [FeedbackController::class, 'delete'])
-//            ->middleware('checkPermission:feedback.delete')
+            ->middleware('checkPermission:feedback.delete')
             ->name('delete');
         Route::post('/update/{feedback}', [FeedbackController::class, 'update'])
-//            ->middleware('checkPermission:feedback.delete')
+            ->middleware('checkPermission:feedback.edit')
             ->name('update');
     });
 
     Route::prefix('/contacts')->name('contacts.')->group(function () {
         Route::get('/index', [ContactController::class, 'index'])
+            ->middleware('checkPermission:contacts.list')
             ->name('index');
+
         Route::get('/list', [ContactController::class, 'getList'])
+            ->middleware('checkPermission:contacts.list')
             ->name('list');
+
         Route::get('/delete/{contact}', [ContactController::class, 'delete'])
+            ->middleware('checkPermission:contacts.delete')
             ->name('delete');
+
         Route::post('/reply-contact/{id}', [ContactController::class, 'replyContact'])
+            ->middleware('checkPermission:contacts.edit')
             ->name('reply');
     });
 });
