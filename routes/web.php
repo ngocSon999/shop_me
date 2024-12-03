@@ -360,6 +360,12 @@ Route::middleware(['auth.customers'])->group(function () {
         Route::get('{id}', [FrontendMovieController::class, 'show'])->name('web.movie.show');
     });
 
+    Route::get('/profile', [FrontendCustomerController::class, 'profile'])
+        ->name('web.customers.profile');
+
+    Route::put('/profile', [FrontendCustomerController::class, 'update'])
+        ->name('web.customers.update');
+
     Route::post('/recharge-card', [CardController::class, 'rechargeCard'])
         ->name('web.recharge_card');
     Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])

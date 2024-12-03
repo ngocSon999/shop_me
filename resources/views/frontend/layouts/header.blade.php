@@ -73,7 +73,7 @@
                                 <span id="total-coin">{{ Auth::user()->coin }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Acount</a>
+                                <a href="{{ route('web.customers.profile') }}" class="dropdown-item"><i class="fas fa-cog"></i>Profile</a>
                                 <a href="{{ route('web.customers.history') }}" class="dropdown-item"><i class="fas fa-history"></i> Lịch sử</a>
                                 <a href="{{ route('web.logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
                             </div>

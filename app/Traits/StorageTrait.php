@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 trait StorageTrait
 {
+    /**
+     * @throws \Exception
+     */
     public function storageTraitUpload($request, $fieldName, $folderName): ?array
     {
         if ($request->hasFile($fieldName)) {

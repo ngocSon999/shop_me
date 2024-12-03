@@ -2,10 +2,8 @@
 namespace App\Http\Services\Impl;
 
 use App\Http\Repositories\BannerRepoInterface;
-use App\Http\Repositories\ProductRepoInterface;
 use App\Http\Services\BannerServiceInterface;
 use App\Models\Banner;
-use App\Models\Product;
 use App\Traits\StorageTrait;
 
 class BannerService extends BaseService implements BannerServiceInterface

@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 
 interface CustomerRepoInterface extends BaseRepoInterface
 {
@@ -13,4 +14,6 @@ interface CustomerRepoInterface extends BaseRepoInterface
     public function register($inputs): mixed;
 
     public function exchangeCoin($coin): bool;
+
+    public function updateProfile($request): ?Authenticatable;
 }
