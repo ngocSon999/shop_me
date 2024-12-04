@@ -55,6 +55,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Khách hàng</th>
                                     <th>Loại thẻ</th>
                                     <th>Mệnh giá</th>
                                     <th>Số seri</th>
@@ -76,7 +77,7 @@
 @section('js')
     <script>
         $.fn.dataTable.ext.errMode = 'throw';
-        let table = $('#table').DataTable({
+        var table = $('#table').DataTable({
             processing: true,
             serverSide: true,
             lengthMenu: [10, 25, 50],
@@ -109,6 +110,17 @@
                     }
                 },
                 {
+                    data: 'id', ordering: true,
+                    render: function (colValue, type, row) {
+                        if (row.customer) {
+                            let url = '{{ route('admin.customers.show', ':id') }}';
+                            url = url.replace(':id', row.customer.id);
+
+                            return `<a href="${url}">${row.customer.name}</a>`;
+                        }
+                    }
+                },
+                {
                     data: 'type',
                     render: function (colValue) {
                         let options = {!! json_encode(config('define.TYPE_CARD')) !!};
@@ -123,8 +135,30 @@
                         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 2}).format(colValue);
                     }
                 },
-                {data: 'serial'},
-                {data: 'number'},
+                {
+                    data: 'serial',
+                    render: function (colValue, type, row) {
+                        if (row.status === 1) {
+                            return colValue;
+                        }
+                        return `<span class="text-content">${colValue}</span>
+                                    <span class="ms-2 btn bnt-copy" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </span>`;
+                    }
+                },
+                {
+                    data: 'number',
+                    render: function (colValue, type, row) {
+                        if (row.status === 1) {
+                            return colValue;
+                        }
+                        return `<span class="text-content">${colValue}</span>
+                                    <span class="ms-2 btn bnt-copy" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </span>`;
+                    }
+                },
                 {
                     data: 'status',
                     render: function (colValue, type, row) {
@@ -160,13 +194,13 @@
         $('#btn-search').on('click', function () {
             table.draw();
         });
-
+        // update status card
         $(document).on('click', '.btn-update-status', function () {
             let id = $(this).data('id');
             let url = '{{ route('admin.cards.update', ':id') }}';
             url = url.replace(':id', id);
 
-            if (confirm('Xác nhận thẻ đã sử dụng?')) {
+            if (confirm('Xác nhận thẻ đã được nạp thành công?')) {
                 $.ajax({
                     url: url,
                     method: 'PUT',
@@ -177,6 +211,7 @@
                     success: function (res) {
                         if (res.code === 200) {
                             alert(res.message);
+                            table.draw();
                         }
                     },
                     error: function (err) {
@@ -186,5 +221,39 @@
             }
 
         });
+
+        //copy serial and number from card
+        $(document).on('click', '.bnt-copy', function() {
+            $(this).attr('title', 'Sao chép');
+            let copyText = $(this).closest('td').find('.text-content').text();
+            const copyContent = async () => {
+                try {
+                    if (window.isSecureContext && navigator.clipboard) {
+                        await navigator.clipboard.writeText(copyText);
+                        $(this).attr('title', 'Đã sao chép');
+                    } else {
+                        unsecuredCopyToClipboard(copyText);
+                        $(this).attr('title', 'Đã sao chép');
+                    }
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+            }
+            copyContent();
+        });
+
+        const unsecuredCopyToClipboard = (text) => {
+            const textArea = document.createElement("textarea");
+            textArea.value=text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try{
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Unable to copy to clipboard', err)
+            }
+            document.body.removeChild(textArea);
+        };
     </script>
 @endsection

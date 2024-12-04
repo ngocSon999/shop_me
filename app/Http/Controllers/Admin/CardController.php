@@ -58,6 +58,9 @@ class CardController extends Controller
         ];
 
         $request->merge($filter);
+        $request->merge([
+            'withRelation' => ['customer']
+        ]);
         $data = $this->baseService->getDataBuilder($request, Card::class);
 
         return response()->json($data);

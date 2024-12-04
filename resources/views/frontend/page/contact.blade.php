@@ -15,11 +15,6 @@
             margin-bottom: 15px;
             border-radius: 5px;
         }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
     </style>
 @endsection
 
