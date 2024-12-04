@@ -68,9 +68,8 @@
                                 @else
                                     <i class="fas fa-user" style="font-size: 28px"></i>
                                 @endif
-                                <span>{{ Auth::user()->name }}</span>
-                                <span> - $</span>
-                                <span id="total-coin">{{ Auth::user()->coin }}</span>
+                                <span class="me-2 ms-1">{{ Auth::user()->name }}</span>
+                                <span id="total-coin">{{ number_format(Auth::user()->coin, 0, ',', '.') }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                 <a href="{{ route('web.customers.profile') }}" class="dropdown-item"><i class="fas fa-cog"></i>Profile</a>
