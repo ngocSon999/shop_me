@@ -52,10 +52,11 @@ class CustomerController extends Controller
         $customer = Auth::user();
         $transactionHistories = $customer->customerHistory;
         $products = $customer->products;
+        $cards = $customer->cards;
 
         return view(
             'frontend.page.customer_history',
-            compact('transactionHistories', 'products')
+            compact('transactionHistories', 'products', 'cards')
         );
     }
 

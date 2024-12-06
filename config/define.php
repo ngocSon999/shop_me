@@ -6,6 +6,11 @@ return [
       2 => 'VinaPhone',
       3 => 'MobiPhone',
     ],
+    'STATUS_CARD' => [
+        0 => 'Đang chờ',
+        1 => 'Thành công',
+        2 => 'Thẻ không hợp lệ',
+    ],
     'CARD_VALUE' => [
         10000 => '10.0000 đ',
         20000 => '20.0000 đ',

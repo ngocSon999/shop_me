@@ -38,4 +38,9 @@ class Customer extends Authenticatable
             ->hasMany(Product::class, 'customer_id', 'id')
             ->orderBy('updated_at', 'desc');
     }
+
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'customer_id', 'id');
+    }
 }

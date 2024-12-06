@@ -37,35 +37,80 @@
                 </div>
                 @endforeach
             </div>
+
             <div class="row mb-2 pb-1 mt-3">
-                <div class="transaction-history">
-                    <i class="fas fa-history"></i>
-                    <a data-bs-toggle="collapse" href="#collapseExample" title="Lịch sử giao dịch xu">
-                        Lịch sử giao dịch xu
-                    </a>
-                </div>
-                <div class="collapse p-0" id="collapseExample">
-                    <div class="card card-body">
-                        @foreach($transactionHistories as $key => $history)
-                            <div class="row mb-2 mt-2">
-                                <div class="col-12 col-lg-3">
-                                    <span class="ml-2"><strong>{{ $key + 1 }}. Số xu giao dịch:</strong>
-                                        {{ $history->coin_spent > 0 ?
-                                        '+'.number_format($history->coin_spent, 0, ',', '.') :
-                                         '-'.number_format($history->coin_spent, 0, ',', '.') }}
-                                    </span>
+                <!-- Tabs navigation -->
+                <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history-tab-pane" type="button" role="tab" aria-controls="history-tab-pane" aria-selected="false">
+                            <i class="fas fa-history"></i> Lịch sử giao dịch xu
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="card-tab" data-bs-toggle="tab" data-bs-target="#card-tab-pane" type="button" role="tab" aria-controls="card-tab-pane" aria-selected="false">
+                            <i class="fas fa-wallet"></i> Lịch sử nạp thẻ cào
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tabs content -->
+                <div class="tab-content mt-3" id="transactionTabContent">
+                    <!-- Tab 1: Lịch sử giao dịch xu -->
+                    <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab">
+                        <div class="card card-body">
+                            @foreach($transactionHistories as $key => $history)
+                                <div class="row mb-2 mt-2">
+                                    <div class="col-12 col-lg-3">
+                            <span class="ml-2"><strong>{{ $key + 1 }}. Số xu giao dịch:</strong>
+                                {{ $history->coin_spent > 0 ? '+' . number_format($history->coin_spent, 0, ',', '.') : '-' . number_format($history->coin_spent, 0, ',', '.') }}
+                            </span>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <span class="ml-2"><strong>Nội dung:</strong> {{ $history->note }}</span>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <span><strong>Tổng xu:</strong> {{ $history->total_coin ? number_format($history->total_coin, 0, ',', '.') : '' }}</span>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <span class="ml-2"><strong>Thời gian:</strong> {{ (new DateTime($history->created_at))->format('d/m/Y H:i:s') }}</span>
+                                    </div>
                                 </div>
-                                <div class="col-12 col-lg-3">
-                                    <span class="ml-2"><strong>Nội dung:</strong> {{ $history->note }}</span>
-                                </div>
-                                <div class="col-12 col-lg-3">
-                                    <span><strong>Tổng xu:</strong> {{ $history->total_coin ? number_format($history->total_coin, 0, ',', '.') : '' }}</span>
-                                </div>
-                                <div class="col-12 col-lg-3">
-                                    <span class="ml-2"><strong>Thời gian:</strong> {{ (new DateTime($history->created_at))->format('d/m/Y H:i:s') }}</span>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Lịch sử nạp thẻ cào -->
+                    <div class="tab-pane fade" id="card-tab-pane" role="tabpanel" aria-labelledby="card-tab">
+                        <div class="card card-body">
+                            @if(!empty($cards))
+                                @foreach($cards as $key => $card)
+                                    <div class="row mb-2 mt-2">
+                                        <div class="col-12 col-lg-2">
+                                            <span class="ml-2"><strong>{{ $key + 1 }}. Loại thẻ: {{ config('define.TYPE_CARD.' . $card->type) }}</strong></span>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            <span class="ml-2"><strong>Mệnh giá:</strong> {{ $card->card_price }}</span>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            <span class="ml-2"><strong>Số seri:</strong> {{ $card->serial }}</span>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            <span><strong>Số thẻ:</strong> {{ $card->number }}</span>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            @php
+                                                $color = $card->status == 1 ? 'text-success' : ($card->status == 2 ? 'text-danger' : '');
+                                            @endphp
+                                            <strong>Trạng thái:</strong>
+                                            <span class="ms-1 {{ $color }}">{{ config('define.STATUS_CARD.' . $card->status) }}</span>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            <span class="ml-2"><strong>Thời gian:</strong> {{ (new DateTime($card->created_at))->format('d/m/Y H:i:s') }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,5 +120,19 @@
 @section('footer')
 @endsection
 @section('js')
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabs = document.querySelectorAll('#transactionTabs .nav-link');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function (event) {
+                    const target = document.querySelector(this.dataset.bsTarget);
+                    if (target.classList.contains('show') && target.classList.contains('active')) {
+                        target.classList.remove('show', 'active');
+                    } else {
+                        target.classList.add('show', 'active');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

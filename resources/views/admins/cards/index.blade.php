@@ -33,8 +33,9 @@
                     <label>Trạng thái</label>
                     <select class="form-control" name="status" id="card-status">
                         <option value="">Tất cả</option>
-                        <option value="1">Đã sử dụng</option>
-                        <option value="0">Chưa sử dụng</option>
+                        @foreach(config('define.STATUS_CARD') as $key => $label)
+                            <option value="{{ $key }}">{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group d-flex col-6 col-md-2 align-items-end">
@@ -138,7 +139,7 @@
                 {
                     data: 'serial',
                     render: function (colValue, type, row) {
-                        if (row.status === 1) {
+                        if (row.status === 1 || row.status === 2) {
                             return colValue;
                         }
                         return `<span class="text-content">${colValue}</span>
@@ -150,7 +151,7 @@
                 {
                     data: 'number',
                     render: function (colValue, type, row) {
-                        if (row.status === 1) {
+                        if (row.status === 1 || row.status === 2) {
                             return colValue;
                         }
                         return `<span class="text-content">${colValue}</span>
@@ -163,16 +164,21 @@
                     data: 'status',
                     render: function (colValue, type, row) {
                         let html = '';
-                        if (colValue == 0) {
+                        if (colValue === 1) {
                             html = `<div class="d-flex align-items-center">
-                                        <span class="mr-2">Chưa sử dụng</span>
-                                        <input type="checkbox" value="${colValue}" data-id="${row.id}" class="btn-update-status">
+                                        <span class="mr-2" style="color: #007bff">Thành công</span>
+                                    </div>`;
+                        } else if (colValue === 2) {
+                            html = `<div class="d-flex align-items-center">
+                                        <span class="mr-2 text-danger">Thẻ không hợp lệ</span>
                                     </div>`;
                         } else {
-                            html = `<div class="d-flex align-items-center">
-                                        <span class="mr-2">Đã sử dụng</span>
-                                        <input disabled checked type="checkbox" value="${colValue}">
-                                    </div>`;
+                            html = `
+                                <select id="" data-id="${row.id}" class="btn-update-status form-control">
+                                    <option value="0" ${colValue === 0 ? 'selected' : ''}>pending</option>
+                                    <option value="1">success</option>
+                                    <option value="2">deciline</option>
+                                </select>`;
                         }
 
                         return html;
@@ -195,19 +201,22 @@
             table.draw();
         });
         // update status card
-        $(document).on('click', '.btn-update-status', function () {
+        $(document).on('change', '.btn-update-status', function () {
             let id = $(this).data('id');
+            let status = $(this).find('option:selected').val();
             let url = '{{ route('admin.cards.update', ':id') }}';
             url = url.replace(':id', id);
 
-            if (confirm('Xác nhận thẻ đã được nạp thành công?')) {
+            if (confirm('Xác nhận trạng thái thẻ cào?')) {
                 $.ajax({
                     url: url,
                     method: 'PUT',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    data: {status:1},
+                    data: {
+                        status: status
+                    },
                     success: function (res) {
                         if (res.code === 200) {
                             alert(res.message);
