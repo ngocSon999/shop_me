@@ -61,14 +61,17 @@ class SettingController extends Controller
     public function updateAll(Request $request): RedirectResponse
     {
         $data = $request->all();
+
         DB::beginTransaction();
         try {
             if (!empty($data['id'])) {
                 foreach ($data['id'] as $key => $value) {
                     $dataUpdate = [
                         'value' => $data['value'][$key],
-                        'status' => $data['status'][$key],
                     ];
+                    if (!empty($data['status'])) {
+                        $dataUpdate['status'] = $data['status'][$key];
+                    }
                     $this->settingService->update($dataUpdate, $value);
                 }
                 DB::commit();

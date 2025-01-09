@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,12 +26,15 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         $notifyPage = [];
-        if (getSetting('notify_page_title')) {
-            $notifyPage['title'] = getSetting('notify_page_title');
+        if (Schema::hasTable('settings')) {
+            if (getSetting('notify_page_title')) {
+                $notifyPage['title'] = getSetting('notify_page_title');
+            }
+            if (getSetting('notify_page_content')) {
+                $notifyPage['content'] = getSetting('notify_page_content');
+            }
         }
-        if (getSetting('notify_page_content')) {
-            $notifyPage['content'] = getSetting('notify_page_content');
-        }
+
         View::share('notifyPage', $notifyPage);
     }
 }
