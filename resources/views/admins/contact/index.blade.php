@@ -46,8 +46,10 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Customer</th>
+                                    <th>Name</th>
+                                    <th>Customer type</th>
                                     <th>Email</th>
+                                    <th>Phone</th>
                                     <th>Subject</th>
                                     <th>Message</th>
                                     <th>IsRead</th>
@@ -135,6 +137,9 @@
                         return meta.row + 1;
                     }
                 },
+
+                {data: 'name'},
+
                 {
                     data: 'customer_id',
                     render: function (colValue, type, row) {
@@ -149,6 +154,7 @@
                     }
                 },
                 {data: 'email'},
+                {data: 'phone'},
                 {data: 'subject'},
                 {data: 'message'},
                 {

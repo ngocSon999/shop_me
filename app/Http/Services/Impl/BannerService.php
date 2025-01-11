@@ -16,6 +16,9 @@ class BannerService extends BaseService implements BannerServiceInterface
         $this->bannerRepository = $bannerRepository;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function store($request)
     {
         $data = $this->formatDataCreateAndUpdateBanner($request);

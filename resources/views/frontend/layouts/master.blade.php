@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
@@ -26,7 +26,13 @@
     <link href="{{ asset('shopAcc/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('shopAcc/css/notification.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset(getSetting('logo_favicon')) }}" type="image/x-icon">
-    <title>Website | @yield('title')</title>
+
+    @if (Route::currentRouteName() === 'web.index')
+        <title>{{ config('app.name') }}</title>
+    @else
+        <title>{{ config('app.name') }} | @yield('title')</title>
+    @endif
+
     <style>
         .feedback {
             position: fixed;
@@ -111,31 +117,31 @@
     // Enable Pusher logging for debugging
     // Pusher.logToConsole = true;
     const app_key = '{{ config('define.PUSHER_APP_KEY') }}';
-    let customerId = {{ auth()->id() }}; // Truyền ID người dùng từ Laravel
+    let customerId = {{ auth()->id() }};
 
-    // Khởi tạo Pusher
+    // create Pusher
     let pusher = new Pusher(app_key, {
         cluster: 'ap1',
         encrypted: true
     });
 
-    // Đăng ký kênh
+    // register channel
     let channel = pusher.subscribe(`customer.${customerId}`);
 
-    // Lắng nghe sự kiện ChangeCoin
+    // ChangeCoin
     channel.bind('App\\Events\\ChangeCoin', function (e) {
         document.getElementById('total-coin').innerText = e.coin;
     });
 
-    // Lắng nghe sự kiện SendNotifyRechargeCard
+    // SendNotifyRechargeCard
     let notify = pusher.subscribe(`Send-Notify-Recharge-Card.${customerId}`);
     notify.bind('App\\Events\\SendNotifyRechargeCard', function(e) {
         let notifications = e.notifications.data;
         const html = `<li class="notification-item">
-                                    <a class="notification-link" href="#">
-                                        ${notifications.message_to_information}
-                                    </a>
-                                </li>`;
+                                <a class="notification-link" href="#">
+                                    ${notifications.message_to_information}
+                                </a>
+                            </li>`;
         $('.header-notification').append(html);
         $('#total-notification').text(e.totalNotifications);
     });

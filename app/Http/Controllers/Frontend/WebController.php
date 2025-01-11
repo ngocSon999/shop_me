@@ -135,7 +135,7 @@ class WebController extends Controller
 
     public function exampleCkeditor()
     {
-        return view('frontend.editor');
+//        return view('frontend.editor');
     }
 
     public function getContact(): view
@@ -149,6 +149,10 @@ class WebController extends Controller
         try {
             $validatedData  = $request->validate([
                 'name' => 'required',
+                'phone' => [
+                    'required',
+                    'regex:/^(0[3|5|7|8|9])[0-9]{8}$/',
+                ],
                 'email' => 'nullable|email',
                 'subject' => 'required|max:255',
                 'message' => 'required|max:500',
@@ -162,7 +166,7 @@ class WebController extends Controller
             DB::rollBack();
             Log::error('Error store contact: '.$e->getMessage());
 
-            return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');
+            return redirect()->back()->with('warning', 'Có lỗi xảy ra vui lòng thử lại');
         }
     }
 }

@@ -9,24 +9,26 @@
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="{{ route('web.index') }}" class="nav-item nav-link active">Trang chủ</a>
-                    <a href="{{ route('web.recharge', ['slug' => 'nap-the-cao']) }}" class="nav-item nav-link">Nạp thẻ cào</a>
-                    <a href="{{ route('web.recharge', ['slug' => 'nap-momo-atm']) }}" class="nav-item nav-link">Nạp Momo/ATM</a>
-{{--                    <div class="nav-item dropdown">--}}
-{{--                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>--}}
-{{--                        <div class="dropdown-menu m-0 bg-secondary rounded-0">--}}
-{{--                            <a href="#" class="dropdown-item">Cart</a>--}}
-{{--                            <a href="#" class="dropdown-item">Chackout</a>--}}
-{{--                            <a href="#" class="dropdown-item">Testimonial</a>--}}
-{{--                            <a href="#" class="dropdown-item">404 Page</a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <a href="#" class="nav-item nav-link">Tin tức</a>--}}
-                    <a href="{{ route('web.contact') }}" class="nav-item nav-link">Liên hệ</a>
-                    @if(!Auth::check())
-                        <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>
-                        <a href="{{ route('web.login') }}" class="nav-item nav-link">Đăng nhập</a>
-                    @endif
+                    <a href="{{ route('web.index') }}" class="nav-item nav-link active">TRANG CHỦ</a>
+                    <a href="{{ route('web.index') }}" class="nav-item nav-link">GIỚI THIỆU</a>
+{{--                    <a href="{{ route('web.recharge', ['slug' => 'nap-the-cao']) }}" class="nav-item nav-link">Nạp thẻ cào</a>--}}
+{{--                    <a href="{{ route('web.recharge', ['slug' => 'nap-momo-atm']) }}" class="nav-item nav-link">Nạp Momo/ATM</a>--}}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">SẢN PHẨM</a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                            @if(!empty($categories))
+                                @foreach($categories as $category)
+                                    <a href="{{ route('web.product_category', ['slug' => $category->slug]) }}" class="dropdown-item">{{ $category->name }}</a>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <a href="{{ route('web.contact') }}" class="nav-item nav-link">TIN TỨC</a>
+                    <a href="{{ route('web.contact') }}" class="nav-item nav-link">LIÊN HỆ</a>
+{{--                    @if(!Auth::check())--}}
+{{--                        <a href="{{ route('web.customers.form') }}" class="nav-item nav-link">Đăng ký</a>--}}
+{{--                        <a href="{{ route('web.login') }}" class="nav-item nav-link">Đăng nhập</a>--}}
+{{--                    @endif--}}
                 </div>
                 <div class="d-flex m-3 me-0 align-items-center">
                     @if(Auth::check())

@@ -32,6 +32,11 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
         'notify_page_content',
     ];
 
+    public const SETTING_DESCRIPTION = [
+        'description_footer',
+        'description_about_us',
+    ];
+
     public function getSetting(string $slug): Collection
     {
         $query = Setting::query();
@@ -46,6 +51,9 @@ class SettingRepository extends BaseRepository implements SettingRepoInterface
             case 'notification':
                 $query->whereIn('key', self::SETTING_NOTIFICATION);
                 break;
+            case 'description':
+                $query->whereIn('key', self::SETTING_DESCRIPTION);
+            break;
             default:
                 $query->whereIn('key', self::SETTING_CONTACT);
         }

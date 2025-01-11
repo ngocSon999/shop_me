@@ -24,6 +24,8 @@ class SettingSeeder extends Seeder
 
         ['key' => 'notify_page_title'],
         ['key' => 'notify_page_content'],
+        ['key' => 'description_footer'],
+        ['key' => 'description_about_us'],
     ];
 
     /**

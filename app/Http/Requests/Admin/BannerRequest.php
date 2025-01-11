@@ -22,15 +22,22 @@ class BannerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|max:255',
-            'description' => 'nullable|max:255',
-            'image' => [
-                Rule::requiredIf(!$this->id),
-                'image', 'mimes:jpg,jpeg,png'
+        return match ($this->method()) {
+            'POST' => [
+                'name' => 'required|max:255',
+                'description' => 'nullable|max:255',
+                'image' => 'required|mimes:jpg,jpeg,png',
+                'link' => 'nullable|max:255',
+                'position' => 'nullable|integer|max:10'
             ],
-            'link' => 'nullable|max:255',
-            'position' => 'nullable|integer|max:10'
-        ];
+            'PUT', 'PATCH' => [
+                'name' => 'required|max:255',
+                'description' => 'nullable|max:255',
+                'image' => 'nullable|mimes:jpg,jpeg,png',
+                'link' => 'nullable|max:255',
+                'position' => 'nullable|integer|max:10'
+            ],
+            default => [],
+        };
     }
 }

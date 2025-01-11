@@ -54,6 +54,7 @@ class ContactService extends BaseService implements ContactServiceInterface
                 'searchColumns' => [
                     'name',
                     'email',
+                    'phone',
                     'subject',
                     'message'
                 ],
@@ -66,50 +67,4 @@ class ContactService extends BaseService implements ContactServiceInterface
 
         return $this->getDataBuilder($request, Contact::class);
     }
-
-//    public function getList($request): array
-//    {
-//        $request->merge([
-//            'filter' => [
-//                'searchColumns' => [
-//                    'name',
-//                    'slug'
-//                ]
-//            ]
-//        ]);
-//        return $this->getDataBuilder($request, Category::class);
-//    }
-//
-//    public function getById($id = null)
-//    {
-//        return $this->categoryRepository->getById($id, Category::class);
-//    }
-//
-//    /**
-//     * @throws \Exception
-//     */
-//    public function update($request, $id): void
-//    {
-//        $data = [
-//            'name' => $request->name,
-//            'slug' => Str::slug($request->name),
-//        ];
-//        if (!empty($request->image)) {
-//            $resultPath = $this->storageTraitUpload($request, 'image','categories');
-//            if ($resultPath) {
-//                $data['image'] =  $resultPath['file_path'];
-//            }
-//        }
-//        $this->categoryRepository->update($data, $id, Category::class);
-//    }
-//
-//    public function delete($id = null): void
-//    {
-//        $this->categoryRepository->delete($id, Category::class);
-//    }
-//
-//    public function getAll(): Collection
-//    {
-//        return $this->categoryRepository->getList();
-//    }
 }

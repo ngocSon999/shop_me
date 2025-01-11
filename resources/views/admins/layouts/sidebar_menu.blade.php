@@ -92,6 +92,13 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting.index', ['slug' => 'description']) }}" class="nav-link">
+                            <p class="nav-link-item">Description</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

@@ -20,6 +20,7 @@ class Contact extends Model
         'subject',
         'message',
         'is_read',
+        'phone'
     ];
 
     public function customer(): BelongsTo
