@@ -101,10 +101,6 @@ class ProductController extends Controller
 
     public function update(Product $product, ProductRequest $request): RedirectResponse
     {
-        if ($product->customer_id) {
-            return redirect()->back()->with('warning', 'Sản phẩm đã bán không thể chỉnh sửa');
-        }
-
         DB::beginTransaction();
         try {
             $this->productService->update($request, $product);

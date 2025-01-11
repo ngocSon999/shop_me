@@ -40,7 +40,7 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
 
     public function getDataBySlugCategory($slug)
     {
-        return Product::where('products.active', self::ACTIVE)->whereHas(
+        return Product::where('status', self::ACTIVE)->whereHas(
             'categories', function ($query) use ($slug) {
                 $query->where('categories.slug', $slug);
             }
@@ -71,5 +71,15 @@ class ProductRepository extends BaseRepository implements ProductRepoInterface
     public function getByIdActive($id)
     {
         return Product::where('active', self::ACTIVE)->where('id', $id)->first();
+    }
+
+    public function getProductRelatedBySlugCategory(string $slugCategory)
+    {
+        return Product::whereHas('categories', function ($query) use ($slugCategory) {
+            $query->where('slug', $slugCategory);
+        })
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
     }
 }

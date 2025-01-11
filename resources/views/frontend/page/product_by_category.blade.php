@@ -16,8 +16,8 @@
     <div class="container-fluid fruite py-2">
         <div class="container py-2">
             <div class="tab-class text-center">
-                <div class="row g-4">
-                    <p>SẢN PHẨM {{ Str::upper($categoryName) }}</p>
+                <div class="row g-4 mb-4">
+                    <strong style="color: #45595b; ">SẢN PHẨM {{ Str::upper($categoryName) }}</strong>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-12">
@@ -26,7 +26,7 @@
                                 <div class="col-md-6 col-lg-3 col-xl-4">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img border-bottom-0">
-                                            <a href="">
+                                            <a href="{{ route('web.product.show', ['id' => $product->id]) }}">
                                                 <img src="{{ asset($product->image) }}" class="img-fluid w-100 rounded-top" alt="">
                                             </a>
                                         </div>

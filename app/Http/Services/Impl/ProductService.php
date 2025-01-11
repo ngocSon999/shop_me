@@ -3,10 +3,9 @@ namespace App\Http\Services\Impl;
 
 use App\Http\Repositories\ProductRepoInterface;
 use App\Http\Services\ProductServiceInterface;
-use App\Models\Category;
 use App\Models\Product;
 use App\Traits\StorageTrait;
-use Illuminate\Support\Str;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
@@ -24,6 +23,10 @@ class ProductService extends BaseService implements ProductServiceInterface
     public function store($request)
     {
         $data = $this->formatDataCreateAndUpdateProduct($request);
+
+        $currentUser = Sentinel::check();
+        $data['created_by'] = $currentUser->email;
+
         $product = $this->productRepository->store($data, Product::class);
 
         $product->categories()->attach($request->category_id);
@@ -41,7 +44,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                 ],
                 'inputFields' => [
                     'name' => $request->name,
-                    'active' => $request->status,
+                    'status' => $request->status,
                 ],
                 'start_date' => [
                     'created_at' => $request->start_date,
@@ -85,6 +88,9 @@ class ProductService extends BaseService implements ProductServiceInterface
                 $oldImage = public_path($product->image);
             }
         }
+
+        $currentUser = Sentinel::check();
+        $data['updated_by'] = $currentUser->email;
 
         $product = $this->productRepository->update($data, $product->id, Product::class);
 
@@ -130,11 +136,11 @@ class ProductService extends BaseService implements ProductServiceInterface
         }
         $data = [
             'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'discount_price' => $request->discount_price ?? 0,
-            'account' => $request->account,
-            'password' => $request->password,
+            'title' => $request->title ?? '',
+            'description' => $request->description ?? '',
+            'price' => $request->price ?? 0,
+            'quantity' => $request->quantity ?? 0,
+            'status' => $request->status ?? 1,
         ];
 
         if (!empty($resultPath)) {
@@ -151,5 +157,9 @@ class ProductService extends BaseService implements ProductServiceInterface
             $product->discount_price = $discountPrice;
             $product->save();
         }
+    }
+
+    public function getProductRelated(string $slugCategory) {
+        return $this->productRepository->getProductRelatedBySlugCategory($slugCategory);
     }
 }

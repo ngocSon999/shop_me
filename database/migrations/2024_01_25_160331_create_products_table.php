@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('name', 255);
-            $table->text('description');
+            $table->text('title')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image', 255);
-            $table->bigInteger('price')->unsigned();
-            $table->integer('quantity')->unsigned()->nullable()->default(0);
-            $table->boolean('active')->nullable()->default(1);
+            $table->bigInteger('price')->nullable();
+            $table->integer('quantity')->nullable()->default(0);
+            $table->boolean('status')->nullable()->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

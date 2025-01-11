@@ -14,7 +14,7 @@
     <!-- Hero Banner -->
 
     <!-- Fruits Shop Start-->
-    <div class="container">
+    <div class="container mt-2">
         <div class="row">
             <div class="col-lg-7 col-12">
                 <h1>Về chúng tôi</h1>

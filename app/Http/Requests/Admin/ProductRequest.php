@@ -25,12 +25,11 @@ class ProductRequest extends FormRequest
         return [
             'category_id' => 'required|integer',
             'name' => 'required|max:255',
+            'title' => 'nullable',
             'description' => 'nullable',
-            'account' => 'required|max:50',
-            'active' => 'nullable|integer|max:1',
-            'password' => 'required|min:6|max:32',
-            'price' => 'required|integer|max:99999999999',
-            'discount_price' => 'nullable|integer|min:0|max:100',
+            'status' => 'nullable|integer|in:0,1',
+            'price' => 'nullable|integer|max:99999999999',
+            'quantity' => 'nullable|integer|max:99999999999',
             'image' => [
                 Rule::requiredIf(!$this->route('product')),
                 'image', 'mimes:jpg,jpeg,png'

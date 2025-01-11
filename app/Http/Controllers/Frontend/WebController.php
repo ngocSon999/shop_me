@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
@@ -52,17 +51,6 @@ class WebController extends Controller
 
     public function index(): View
     {
-//        $products = $this->productService->getAll();
-//        $products->getCollection()->transform(function ($product) {
-//            if ($product->discount_price) {
-//                $newPrice = $product->price - ($product->price * $product->discount_price / 100);
-//                $product->new_price = number_format((int) round($newPrice), 0, ',', '.');
-//            }
-//            $product->price = number_format($product->price, 0, ',', '.');
-//
-//            return $product;
-//        });
-//
         $banners = $this->bannerService->getAll();
 
         return view('frontend.page.home', compact('banners'));
@@ -85,13 +73,12 @@ class WebController extends Controller
     public function showProduct($id): View
     {
         $product = $this->productService->getById($id);
-        if ($product->discount_price) {
-            $newPrice = $product->price - ($product->price * $product->discount_price / 100);
-            $product->new_price = number_format((int) round($newPrice), 0, ',', '.');
-        }
         $product->price = number_format($product->price, 0, ',', '.');
 
-        return view('frontend.page.product_detail', compact('product'));
+        $category = $product->categories->random();
+        $products = $this->productService->getProductRelated($category->slug);
+
+        return view('frontend.page.product_detail', compact('product', 'products'));
     }
 
     public function purchaseProduct(Request $request): RedirectResponse

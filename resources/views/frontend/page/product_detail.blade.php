@@ -29,29 +29,42 @@
 @section('content')
     <div class="container-fluid vesitable" style="margin-top: 108px">
         <div class="container py-3">
-            <h1 class="mb-0">Chi tiết sản phẩm</h1>
-            <div class="row product-detail">
-                <div class="col-12 col-md-6">
-                    <img src="{{ asset($product->image) }}" style="width: 100%; max-height: 500px" alt="">
+            <div class="row">
+                <div class="col-xl-9 col-12">
+                    <h1 class="mb-0 text-center">CHI TIẾT SẢN PHẨM</h1>
+                    <hr>
+                    <div class="row product-detail">
+                        <div class="col-12 col-md-6">
+                            <img src="{{ asset($product->image) }}" style="width: 100%; max-height: 500px" alt="">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="text-primary">{{ Str::upper($product->name) }}</p>
+                            <p>{!! $product->title !!}</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 border p-2 mt-4">
+                        <strong class="text-primary">Mô tả:</strong>
+                        <div>{!! $product->description !!}</div>
+                        <hr>
+                        <div class="mt-2">
+                            <span style="color: #0c84ff">LIÊN HỆ CHO CHÚNG TÔI qua Hotline</span>
+                            <span class="text-danger">{{ getSetting('phone') ?? '' }}</span>
+                            <span>hoặc Email: </span>
+                            <span class="text-danger">{{ getSetting('email') ?? '' }}.</span>
+                            Chúng tôi hân hạnh phục vụ bạn.
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <p>Tên sản phẩm: {{ $product->name }}</p>
-                    <p>Giá sản phẩm: {{ $product->price }} đ</p>
-                    <p>Giảm giá: {{ $product->discount_price ? $product->discount_price .' %' : 0 }}</p>
-                    <p>
-                        Giá thanh toán:
-                        <span  style="color: #0c84ff">{{ $product->new_price ?? $product->price }} đ</span>
-                    </p>
-                    <p>Mô tả:</p>
-                    <div class="content-description">{!! $product->description !!}</div>
-                    <p class="d-flex justify-content-end">
-                        <span class="show-detail-description" type="button">Chi tiết</span>
-                    </p>
-                    <form action="{{ route('web.purchase_product') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">Xác nhận</button>
-                    </form>
+                <div class="col-xl-3 d-xl-block d-none">
+                    <strong style="color: #45595b" class="d-block text-center">SẢN PHẨM LIÊN QUAN</strong>
+                    @foreach($products as $productItem)
+                        <div class="border p-2 mt-2">
+                            <a href="{{ route('web.product.show', $productItem->id) }}">
+                                <img src="{{ asset($productItem->image) }}" style="width: 100%" alt="">
+                                <p class="text-primary">{{ Str::upper($productItem->name) }}</p>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -60,7 +73,7 @@
     <!-- Vesitable Shop Start-->
     <div class="container-fluid vesitable py-3">
         <div class="container py-3">
-            <h1 class="mb-0">Fresh Organic Vegetables</h1>
+            <h1 class="mb-0 text-center">Fresh Organic Vegetables</h1>
             <div class="owl-carousel vegetable-carousel justify-content-center">
                 <div class="border border-primary rounded position-relative vesitable-item">
                     <div class="vesitable-img">

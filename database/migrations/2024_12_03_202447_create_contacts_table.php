@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('name');
             $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->string('subject');
             $table->text('message');
             $table->tinyInteger('is_read')->nullable()->default(0);

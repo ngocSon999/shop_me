@@ -68,38 +68,41 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="form-group mb-3 col-md-6 col-12">
+                                        <label>Số lượng<span class="color-red"></span></label>
+                                        <input type="number" maxlength="100" class="form-control" name="quantity"
+                                               value="{{ old('quantity') ?? $product?->quantity }}">
+                                    </div>
+                                    <div class="form-group mb-3 col-md-6 col-12">
+                                        <label>Đơn giá<span class="color-red"></span></label>
+                                        <input type="number" maxlength="100" class="form-control" name="price"
+                                               value="{{ old('price') ?? $product?->price }}">
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="form-group mb-3 col-12">
-                                        <label>Mô tả<span class="color-red"></span></label>
+                                        <label for="title">Mô tả ngắn<span class="color-red"></span></label>
+                                        <textarea class="form-control" name="title" id="product-title">
+                                            {{ old('title') ?? $product?->title }}
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12">
+                                        <label>Mô tả chi tiết<span class="color-red"></span></label>
                                         <textarea class="form-control" name="description" id="editor">
                                             {{ old('description') ?? $product?->description }}
                                         </textarea>
                                         <div id="references"></div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="form-group mb-3 col-md-6 col-12">
-                                        <label>Tài khoản<span class="color-red">*</span></label>
-                                        <input type="text" maxlength="100" class="form-control" name="account"
-                                               value="{{ old('account') ?? $product?->account }}">
-                                    </div>
-                                    <div class="form-group mb-3 col-md-6 col-12">
-                                        <label>Mật khẩu<span class="color-red">*</span></label>
-                                        <input type="text" maxlength="15" class="form-control" name="password"
-                                               value="{{ old('password') ?? $product?->password }}">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group mb-3 col-md-6 col-12">
-                                        <label>Giá<span class="color-red">*</span></label>
-                                        <input type="number" maxlength="100" class="form-control" name="price"
-                                               value="{{ old('price') ?? $product?->price }}">
-                                    </div>
-                                    <div class="form-group mb-3 col-md-6 col-12">
-                                        <label>Giảm giá<span class="color-red"></span></label>
-                                        <input type="number" min="0" max="100" class="form-control" name="discount_price"
-                                               value="{{ old('discount_price') ?? $product?->discount_price }}">
+                                        <label>Trạng thái sản phẩm<span class="color-red"></span></label>
+                                        <select name="status" class="form-control">
+                                            <option value="1" {{ !empty($product) && $product->status == 1 ? 'selected' : '' }}>Hiển thị</option>
+                                            <option value="0" {{ !empty($product) && $product->status == 0 ? 'selected' : '' }}>Không hiển thị</option>
+                                        </select>
                                     </div>
                                     <div class="form-group mb-3 col-md-6 col-12">
                                         <div class="form-group mb-3 col-12">
@@ -119,11 +122,13 @@
                                     </div>
                                 </div>
 
-                                @if(!empty($product))
-                                    <button type="submit" id="submit-edit" class="btn btn-success mt-1">Save</button>
-                                @else
-                                    <button type="submit" id="submit-add" class="btn btn-success mt-1">Save</button>
-                                @endif
+                                <div class="row d-flex justify-content-center">
+                                    @if(!empty($product))
+                                        <button type="submit" id="submit-edit" class="btn btn-success mt-1">Save</button>
+                                    @else
+                                        <button type="submit" id="submit-add" class="btn btn-success mt-1">Save</button>
+                                    @endif
+                                </div>
                             </form>
                     @endsection
             </div>
