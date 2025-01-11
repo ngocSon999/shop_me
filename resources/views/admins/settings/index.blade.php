@@ -37,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($settings as $setting)
-                                    @if(isset($slug) && $slug !== 'logo')
+                                    @if(isset($slug) && $slug !== 'logo' && $slug !== 'description')
                                         <tr>
                                             <td>{{ str_replace('_', ' ', $setting->key) }}</td>
                                             <td>
@@ -46,6 +46,23 @@
                                                     @method('PUT')
                                                     <label>
                                                         <input class="form-control" name="value" type="text" value="{{ $setting->value }}">
+                                                    </label>
+                                                    <label>
+                                                        <input class="form-control" name="status" type="text" value="{{ $setting->status }}">
+                                                    </label>
+                                                    <button class="btn btn-sm btn-primary ml-4" type="submit">Update</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @elseif(isset($slug) && $slug == 'description')
+                                        <tr>
+                                            <td>{{ str_replace('_', ' ', $setting->key) }}</td>
+                                            <td>
+                                                <form action="{{ route('admin.setting.update', $setting->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <label>
+                                                        <textarea name="value" id="" cols="50" rows="5">{{ $setting->value }}</textarea>
                                                     </label>
                                                     <label>
                                                         <input class="form-control" name="status" type="text" value="{{ $setting->status }}">

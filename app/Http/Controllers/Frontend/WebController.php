@@ -52,43 +52,33 @@ class WebController extends Controller
 
     public function index(): View
     {
-        $categories = $this->categoryService->getAll();
-        $products = $this->productService->getAll();
-        $products->getCollection()->transform(function ($product) {
-            if ($product->discount_price) {
-                $newPrice = $product->price - ($product->price * $product->discount_price / 100);
-                $product->new_price = number_format((int) round($newPrice), 0, ',', '.');
-            }
-            $product->price = number_format($product->price, 0, ',', '.');
-
-            return $product;
-        });
-
+//        $products = $this->productService->getAll();
+//        $products->getCollection()->transform(function ($product) {
+//            if ($product->discount_price) {
+//                $newPrice = $product->price - ($product->price * $product->discount_price / 100);
+//                $product->new_price = number_format((int) round($newPrice), 0, ',', '.');
+//            }
+//            $product->price = number_format($product->price, 0, ',', '.');
+//
+//            return $product;
+//        });
+//
         $banners = $this->bannerService->getAll();
-        $feedbacks = $this->feedbackService->show();
 
-        return view('frontend.page.home', compact(
-            'categories',
-            'products',
-            'banners',
-            'feedbacks',
-        ));
+        return view('frontend.page.home', compact('banners'));
     }
 
     public function getProductBySlugCategory($slug): View
     {
-        $categories = $this->categoryService->getAll();
         $products = $this->productService->getProductBySlugCategory($slug);
         $banners = $this->bannerService->getAll();
-        $feedbacks = $this->feedbackService->show();
+        $categoryName = $this->categoryService->getBySlug($slug)->name;
 
         return view('frontend.page.product_by_category', compact(
-            'categories',
             'products',
             'slug',
+            'categoryName',
             'banners',
-            'feedbacks'
-
         ));
     }
 

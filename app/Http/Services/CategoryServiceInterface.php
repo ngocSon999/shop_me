@@ -18,4 +18,6 @@ interface CategoryServiceInterface extends BaseServiceInterface
     public function delete(int $id);
 
     public function getAll(): Collection;
+
+    public function getBySlug(string $slug);
 }

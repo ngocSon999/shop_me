@@ -368,8 +368,7 @@ Route::middleware(['auth.customers'])->group(function () {
 
     Route::post('/recharge-card', [CardController::class, 'rechargeCard'])
         ->name('web.recharge_card');
-    Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])
-        ->name('web.getDataAjax');
+
     Route::get('/product-detail/{id}', [WebController::class, 'showProduct'])
         ->name('web.product.show');
     Route::post('/product-purchase', [WebController::class, 'purchaseProduct'])
@@ -387,8 +386,14 @@ Route::middleware(['auth.customers'])->group(function () {
     Route::post('/feedback', [FrontendFeedbackController::class, 'feedback'])
         ->name('web.feedback');
 });
-Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])
-    ->name('web.product_category');
+
+Route::prefix('product')->group(function () {
+    Route::get('/product/{slug}', [WebController::class, 'getProductBySlugCategory'])
+        ->name('web.product_category');
+    Route::get('/product-by-category', [WebController::class, 'getProductByCategory'])
+        ->name('web.getDataAjax');
+});
+
 Route::get('/editor', [WebController::class, 'exampleCkeditor'])
     ->name('web.editor');
 

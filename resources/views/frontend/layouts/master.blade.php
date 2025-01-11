@@ -69,7 +69,9 @@
 <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
-@include('frontend.layouts.header')
+
+<x-header-web></x-header-web>
+
 @include('frontend.layouts.message')
 <!-- Modal Search Start -->
 <div style="height: unset" class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Setting;
+use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         $notifyPage = [];
+        $categories = [];
+
         if (Schema::hasTable('settings')) {
             if (getSetting('notify_page_title')) {
                 $notifyPage['title'] = getSetting('notify_page_title');
@@ -34,7 +36,11 @@ class AppServiceProvider extends ServiceProvider
                 $notifyPage['content'] = getSetting('notify_page_content');
             }
         }
+        if (Schema::hasTable('categories')) {
+            $categories = Category::all();
+        }
 
         View::share('notifyPage', $notifyPage);
+        View::share('categories', $categories);
     }
 }

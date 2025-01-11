@@ -82,4 +82,9 @@ class CategoryService extends BaseService implements CategoryServiceInterface
     {
         return $this->categoryRepository->getList();
     }
+
+    public function getBySlug(string $slug): Category
+    {
+        return $this->categoryRepository->getBySlug($slug);
+    }
 }

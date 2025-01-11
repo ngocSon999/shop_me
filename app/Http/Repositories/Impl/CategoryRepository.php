@@ -11,4 +11,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepoInterface
     {
         return Category::all();
     }
+
+    public function getBySlug(string $slug): Category
+    {
+        return Category::where('slug', $slug)->first();
+    }
 }
